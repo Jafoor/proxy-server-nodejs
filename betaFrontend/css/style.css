@@ -384,18 +384,41 @@ h3 {
 .owl-carousel .owl-nav div.owl-next {
   left: auto;
   right: 140px;
+  background: #3CC78F;
 }
 
+.owl-carousel .owl-nav div.owl-prev {
+  left: 140px;
+  right: auto;
+  background: #3CC78F;
+}
+
+@media (max-width: 767px) {
+
+  .owl-carousel .owl-nav div.owl-next {
+    left: auto;
+    right: 40px;
+  }
+
+  .owl-carousel .owl-nav div.owl-prev {
+    left: 40px;
+    right: auto;
+  }
+}
 /* line 257, ../../Arafath/CL/january 2020/242. charity/HTML/scss/_theme-default.scss */
 .owl-carousel .owl-nav div.owl-next i {
   position: relative;
   right: 0;
+  font-size: 18px;
+  font-weight: bold;
 }
 
 /* line 264, ../../Arafath/CL/january 2020/242. charity/HTML/scss/_theme-default.scss */
 .owl-carousel .owl-nav div.owl-prev i {
   position: relative;
   top: 0px;
+  font-size: 18px;
+  font-weight: bold;
 }
 
 /* line 274, ../../Arafath/CL/january 2020/242. charity/HTML/scss/_theme-default.scss */
@@ -407,7 +430,7 @@ h3 {
 /* line 277, ../../Arafath/CL/january 2020/242. charity/HTML/scss/_theme-default.scss */
 .owl-carousel:hover .owl-nav div:hover {
   color: #fff;
-  background: #009DFF;
+  background: #3CC78F;
   border: 1px solid transparent;
 }
 

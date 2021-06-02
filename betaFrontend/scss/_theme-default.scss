@@ -7,7 +7,7 @@ body {
 	font-family: $font1;
 	font-weight: normal;
     font-style: normal;
-    
+
 }
 
 .img {
@@ -238,8 +238,8 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#5db2ff', end
 		transition: all 0.3s ease 0s;
 		// visibility: hidden;
 		width: 50px;
-		color: #fff;
-		background-color: transparent;
+		color: red;
+		background-color: red;
 		@include border-radius(5px);
 		left: 50px;
 		font-size: 15px;

@@ -37,7 +37,7 @@ items:1,
 autoplay:true,
 navText:['<i class="ti-angle-left"></i>','<i class="ti-angle-right"></i>'],
   nav:true,
-dots:false,
+dots:true,
 autoplayHoverPause: true,
 autoplaySpeed: 800,
   responsive:{
@@ -88,14 +88,14 @@ autoplaySpeed: 800,
     $(this).addClass('active');
     event.preventDefault();
 	});
-  
+
   // wow js
   new WOW().init();
 
-  // counter 
+  // counter
   $('.counter').counterUp({
     delay: 10,
-    time: 10000
+    time: 1000
   });
 
 /* magnificPopup img view */
@@ -215,28 +215,32 @@ if (document.getElementById('default-select')) {
 $('.causes_active').owlCarousel({
   loop:true,
   margin:30,
-// autoplay:true,
+ autoplay:true,
   navText:['<i class="ti-angle-left"></i>','<i class="ti-angle-right"></i>'],
-  nav:false,
-  dots:false,
-// autoplayHoverPause: true,
-// autoplaySpeed: 800,
+  nav:true,
+  dots:true,
+ //autoplayHoverPause: true,
+ autoplaySpeed: 800,
   responsive:{
       0:{
           items:1,
-          nav:false
+          nav:true,
+					autoplay: true,
+    navigation: true,
+    navigationText: ["<i class='fa fa-angle-left'></i>", "<i class='fa fa-angle-right'></i>"]
 
       },
       767:{
           items:2,
-          nav:false
+          nav:true
       },
       992:{
           items:3,
-          nav:false
+          nav:true
       },
       1200:{
           items:3,
+					nav: true
       }
   }
 });
@@ -295,7 +299,7 @@ $(document).ready(function() {
 
 
 
-//------- Mailchimp js --------//  
+//------- Mailchimp js --------//
 function mailChimp() {
   $('#mc_embed_signup').find('form').ajaxChimp();
 }
@@ -319,4 +323,4 @@ mailChimp();
             $("#search_input").focus();
         });
 
-})(jQuery);	
+})(jQuery);
