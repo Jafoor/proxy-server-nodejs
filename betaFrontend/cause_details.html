@@ -13,6 +13,7 @@
     <!-- Place favicon.ico in the root directory -->
 
     <!-- CSS here -->
+
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/owl.carousel.min.css">
     <link rel="stylesheet" href="css/magnific-popup.css">
@@ -142,7 +143,114 @@
 
                           <div class="row">
                             <div class="col-lg-6 col-md-12">
+                              <div class="row justify-content-center">
+                                  <div class="col-lg-12">
+                                      <div class="section_title text-center mb-55">
+                                          <h3><span>Please Contribute</span></h3>
+                                      </div>
+                                  </div>
+                              </div>
 
+                              <div class="col-lg-12">
+                                  <form class="form-contact contact_form" action="contact_process.php" method="post" id="contactForm" novalidate="novalidate">
+                                      <div class="row">
+                                          <div class="col-sm-6">
+                                              <div class="form-group">
+                                                  <input class="form-control valid" name="name" id="name" type="text" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter your name'" placeholder="Enter your name">
+                                              </div>
+                                          </div>
+                                          <div class="col-sm-6">
+                                              <div class="form-group">
+                                                  <input class="form-control valid" name="emailormobilenumber" id="emailormobilenumber" type="text" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter email address'" placeholder="Email or Mobile Number">
+                                              </div>
+                                          </div>
+
+                                        <div class="col-md-6">
+                                            <div class="single_amount">
+                                                <div class="input_field">
+                                                    <div class="input-group">
+                                                        <div class="input-group-prepend">
+                                                          <span class="input-group-text" id="basic-addon1">৳</span>
+                                                        </div>
+                                                        <input type="number" class="form-control" placeholder="40,200" aria-label="Username" aria-describedby="basic-addon1">
+                                                      </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                          <div class="form-check form-switch form-group">
+                                            <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
+                                            <label class="form-check-label" for="flexSwitchCheckDefault">Hide Your Identity</label>
+                                          </div>
+                                        </div>
+
+                                      </div>
+                                      <div class="form-group mt-3">
+                                          <button type="submit" class="button button-contactForm boxed-btn">Continue</button>
+                                      </div>
+                                  </form>
+
+                                  <div class="donation_signin_alert">
+                                  <span><a href="#">Sign In</a> to save transection history your account.</span>
+                                  </div>
+                              </div>
+
+                              <div class="col-lg-12">
+
+                                <div class="row justify-content-center">
+                                    <div class="col-lg-12">
+                                        <div class="section_title text-center mb-55">
+                                            <h3><span>Contrib
+                                              utors</span></h3>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <ol class="list-group list-group-numbered">
+                                  <li class="list-group-item d-flex justify-content-between align-items-start">
+                                    <div class="ms-2 me-auto">
+                                      <div class="fw-bold">Subheading</div>
+
+                                    </div>
+                                    <span class="badge bg-success rounded-pill">20014</span>
+                                  </li>
+                                  <li class="list-group-item d-flex justify-content-between align-items-start">
+                                    <div class="ms-2 me-auto">
+                                      <div class="fw-bold">Subheading</div>
+
+                                    </div>
+                                    <span class="badge bg-success rounded-pill">1050</span>
+                                  </li>
+                                  <li class="list-group-item d-flex justify-content-between align-items-start">
+                                    <div class="ms-2 me-auto">
+                                      <div class="fw-bold">Subheading</div>
+
+                                    </div>
+                                    <span class="badge bg-success rounded-pill">1050</span>
+                                  </li>
+                                  <li class="list-group-item d-flex justify-content-between align-items-start">
+                                    <div class="ms-2 me-auto">
+                                      <div class="fw-bold">Subheading</div>
+
+                                    </div>
+                                    <span class="badge bg-success rounded-pill">1050</span>
+                                  </li>
+                                  <li class="list-group-item d-flex justify-content-between align-items-start">
+                                    <div class="ms-2 me-auto">
+                                      <div class="fw-bold">Subheading</div>
+
+                                    </div>
+                                    <span class="badge bg-success rounded-pill">1050</span>
+                                  </li>
+                                  <li class="list-group-item d-flex justify-content-between align-items-start">
+                                    <div class="ms-2 me-auto">
+                                      <div class="fw-bold">Subheading</div>
+
+                                    </div>
+                                    <span class="badge bg-success rounded-pill">1050</span>
+                                  </li>
+                                </ol>
+                              </div>
                             </div>
                             <div class="col-lg-6 col-md-12">
                             <h4>Clothes For Everyone</h4>
@@ -155,12 +263,76 @@
                     </div>
                 </div>
             </div>
+
+
+
+
+<!-- Modal -->
         </div>
     </div>
     <!-- popular_causes_area_end  -->
 
+    <!-- Button trigger modal -->
+    <div class="row justify-content-center text-center mb-55">
+      <div class="col-lg-12">
+        <button type="button" class="boxed-btn4" data-toggle="modal" data-target="#exampleModalLong">
+          Report This Event
+        </button>
+      </div>
+    </div>
 
 
+    <!-- Modal -->
+<div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true" data-backdrop="false">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title w-100 text-center" id="exampleModalLongTitle">Report this Event</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form class="form-contact contact_form"  method="post" id="contactForm" novalidate="novalidate">
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <input class="form-control valid" name="name" id="name" type="text" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter your name'" placeholder="Enter your name">
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <input class="form-control valid" name="emailormobilenumber" id="emailormobilenumber" type="text" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter email address'" placeholder="Email or Mobile Number">
+                    </div>
+                </div>
+
+                <div class="col-sm-12">
+                    <div class="form-group">
+                        <input class="form-control valid" name="address" id="address" type="text" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter address'" placeholder="Your current address">
+                    </div>
+                </div>
+
+                <div class="col-12">
+                    <div class="form-group">
+                        <textarea class="form-control w-100" name="message" id="message" cols="30" rows="9" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter Complain'" placeholder="Your Complaint"></textarea>
+                    </div>
+                </div>
+
+
+
+            </div>
+            <div class="form-group mt-3">
+                <button type="submit" class="button button-contactForm boxed-btn">Submit</button>
+            </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="boxed-btn5" data-dismiss="modal">Close</button>
+
+      </div>
+    </div>
+  </div>
+</div>
 
     <!-- footer_start  -->
     <footer class="footer">
@@ -292,6 +464,10 @@
     <!-- link that opens popup -->
 
     <!-- JS here -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
     <script src="js/vendor/modernizr-3.5.0.min.js"></script>
     <script src="js/vendor/jquery-1.12.4.min.js"></script>
     <script src="js/popper.min.js"></script>
@@ -318,6 +494,14 @@
     <script src="js/mail-script.js"></script>
 
     <script src="js/main.js"></script>
+
+    <script>
+  $(document).ready(function() {
+    $('#exampleModalLong').click(function () {
+          $('#exampleModalLong').modal('show');
+      })
+  })
+</script>
 </body>
 
 </html>
