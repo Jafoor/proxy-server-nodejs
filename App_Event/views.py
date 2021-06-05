@@ -9,3 +9,11 @@ def Home(request):
 def Contactus(request):
 
     return render(request, 'App_Event/contactus.html')
+
+def Eventdetails(request):
+
+    return render(request, 'App_Event/eventDetails.html')
+
+def Applyevent(request):
+
+    return render(request, 'App_Event/applyevent.html')
