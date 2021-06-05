@@ -1,18 +1,18 @@
 from django.db import models
 from django.db.models.base import Model
-from django.db.models.fields import BooleanField, CharField, DateTimeCheckMixin, DateTimeField, IntegerField, TextField
+from django.db.models.fields import BooleanField, CharField, DateTimeField, IntegerField, TextField
 from django.db.models.fields.files import ImageField
 
 # Create your models here.
 
 
 class Profile(models.Model):
-    name = models.CharField(null=False)
-    division = models.CharField(null=False)
-    zilla = models.CharField(null=False)
-    upozilla = models.CharField(null=False)
-    village_or_ward = CharField(null=False)
-    home_address = CharField(null=False)
+    name = models.CharField(null=False, max_length=255)
+    division = models.CharField(null=False, max_length=255)
+    zilla = models.CharField(null=False, max_length=255)
+    upozilla = models.CharField(null=False, max_length=255)
+    village_or_ward = CharField(null=False, max_length=255)
+    home_address = CharField(null=False, max_length=255)
     mobile_number = CharField(max_length=15, null=False)
     #limitation on diagram?? details required
     banned = BooleanField(default=False)
@@ -22,8 +22,8 @@ class Profile(models.Model):
 
 
 class Review:
-    event_name = CharField(null=False)
-    user_name = CharField(null=True)  # for annonymous reviews
+    event_name = CharField(null=False, max_length=255)
+    user_name = CharField(null=True, max_length=255)  # for annonymous reviews
     comment = TextField(
         null=False, help_text="Tell us what you think about it.")
     value = (
@@ -40,11 +40,11 @@ class Review:
 
 
 class Transaction:
-    donor_name = CharField(null=False)  # instead of username
+    donor_name = CharField(null=False, max_length=255)  # instead of username
     # organization that receives the payment
-    receiver_name = CharField(null=False)
+    receiver_name = CharField(null=False, max_length=255)
     amount = IntegerField(null=False)
-    date = DateTimeCheckMixin(null=False)
+    date = DateTimeField(null=False)
     hide_from_user = BooleanField(default=False)
     for_event = BooleanField(default=False)
     event_name = CharField(max_length=255)
@@ -54,7 +54,7 @@ class Transaction:
 
 
 class AdminUses:  # this class should be renamed to ledger or something###
-    transaction_id = CharField()
+    transaction_id = CharField( max_length=255)
     amount = IntegerField()
     total = IntegerField()
     date = DateTimeField()
@@ -67,8 +67,8 @@ class AdminUses:  # this class should be renamed to ledger or something###
 
 
 class Event:
-    username_of_event_creator = CharField(null=False)
-    name_of_organiztion = CharField(null=False)
+    username_of_event_creator = CharField(null=False,max_length=255)
+    name_of_organiztion = CharField(null=False,max_length=255)
     collection_target = IntegerField()
     due_date = DateTimeField()
     start_date = DateTimeField()
@@ -79,7 +79,7 @@ class Event:
     organization_detail = TextField()
     is_private = BooleanField(default=False)
     cover_image = ImageField()
-    event_title = CharField(null=False)
+    event_title = CharField(null=False,max_length=255)
     received_donation_in_percentage = IntegerField()
     total_transaction = IntegerField()  # is it the number of transaction?
 
@@ -88,7 +88,7 @@ class Event:
 
 
 class Report:
-    username = CharField(null=False)
+    username = CharField(null=False,max_length=255)
     eventID = IntegerField(null=False)
     description = TextField()
     date = DateTimeField()
@@ -98,7 +98,7 @@ class Report:
 
 
 class Withdraw:
-    username = CharField(null=False)
+    username = CharField(null=False,max_length=255)
     eventID = IntegerField()
     is_blocked = BooleanField(default=False)
     amount = IntegerField()
