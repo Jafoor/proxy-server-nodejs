@@ -6,7 +6,6 @@ from django.db.models.fields.files import ImageField
 # Create your models here.
 
 
-<<<<<<< HEAD
 class Profile(models.Model):
     name = models.CharField(null=False, max_length=255)
     division = models.CharField(null=False, max_length=255)
