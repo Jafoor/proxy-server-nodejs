@@ -1,0 +1,34 @@
+<h1></h1>
+
+{% load static %}
+<!DOCTYPE html>
+<!-- Created By CodingNepal -->
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<!-- Somehow I got an error, so I comment the title, just uncomment to show -->
+<title>Email Varification | Shunnoek</title>
+<link rel="stylesheet" href="{% static 'css/forgottenpassword.css' %}">
+<script src="https://kit.fontawesome.com/a076d05399.js"></script>
+</head>
+<body>
+<div class="login-form">
+    <div class="text">
+        Varify Your Email To activate your account.
+    </div>
+
+    <div class="text1">
+        An email has been send to your email address. If you don't find it in inbox, check it in spam folder.
+    </div>
+
+    <div class="link">
+        <p>back to    <a href="{% url 'home' %}">home</a>
+        </p>  
+    </div>
+    
+</div>
+
+</body>
+</html>
