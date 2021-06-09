@@ -1,63 +1,88 @@
-{% load static %}
-<!DOCTYPE html>
-<!-- Created By CodingNepal -->
-<html lang="en" dir="ltr">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <!-- Somehow I got an error, so I comment the title, just uncomment to show -->
-     <title> Register | SuonnoEk </title> 
-    <link rel="stylesheet" href="{% static 'css/login.css' %}">
-    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
-  </head>
-  <body>
-    <div class="login-form">
-      <div class="text">
-REGISTRATION</div>
+{% extends 'master.html' %}
 
-  <form method="POST" enctype="multipart/form-data">
-    {% csrf_token %}
-    <div class="field">
-      <div class="fas fa-envelope"></div>
-    {{ form.email }}
-    </div>
+{% block title_block %}
+Donation Collection | Home
+{% endblock %}
+
+{% block extra_css %}
+
+{% endblock %}
+
+{% block body_block %}
+<div class="col-lg-4 col-md-6 m-auto d-flex justify-content-around pt-120">
+  <form method="POST" enctype="multipart/form-data" class="form-contact contact_form">
+  {% csrf_token %}
+    <div class="row w-100 ">
+
+
+    <div class="col-lg-12 col-sm-12">
+      <label for=""> Your Email</label>
+      <div class="form-group">
+        {{ form.email }}
+      </div>
+  </div>
     {% if form.email.errors %}
     {{ form.email.errors }}
     {% endif %}
-   
-    <div class="field">
-      <div class="fas fa-user"></div>
+
+    <div class="col-lg-12 col-sm-12">
+      <label for=""> Your First Name</label>
+      <div class="form-group">
     {{ form.first_name }}
+      </div>
+    </div>
+
+    <div class="col-lg-12 col-sm-12">
+      <label for=""> Your Last Name</label>
+      <div class="form-group">
+        {{ form.last_name }}
+      </div>
+    </div>
+
+    <div class="col-lg-12 col-sm-12">
+      <label for=""> Your Password</label>
+      <div class="form-group">
+        {{form.password1}}
+      </div>
     </div>
 
 
 
-    <div class="field">
-      <div class="fas fa-user-tie"></div>
-    {{ form.last_name }}
-    </div>
-
-    <div class="field">
-      <div class="fas fa-lock"></div>
-    {{form.password1}}
-    </div>
-
-    <div class="field">
-      <div class="fas fa-lock"></div>
-    {{ form.password2 }}
+    <div class="col-lg-12 col-sm-12">
+      <label for=""> Repeat Password</label>
+      <div class="form-group">
+        {{ form.password2 }}
+      </div>
     </div>
 
     {% if form.password2.errors %}
     {{ form.password2.errors }}
     {% endif %}
-
-    <button type="submit"> submit </button>
-    <div class="link">
-      Already a member?
-      <a href="{% url 'login' %}">Login</a>
+    <div class="col-lg-12 col-sm-12">
+    <button type="submit" class="button button-contactForm boxed-btn"> submit </button>
     </div>
+  </div>
   </form>
 </div>
-</body>
-</html>
+
+
+<div class="col-lg-4 col-md-6 m-auto p-2">
+  <div class="d-flex flex-column bd-highlight mb-3">
+    <div class="p-2">
+      <p>Already a member?</p>
+      <a href="{% url 'login' %}">Login</a>
+  </div>
+
+  <div class="p-2">
+
+  <a href="{% url 'password_reset' %}">Forgotten Password?</a>
+  </div>
+
+  </div>
+
+</div>
+  {% block extra_js %}
+
+  {% endblock %}
+
+  {% endblock %}

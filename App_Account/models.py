@@ -1,86 +1,59 @@
-from datetime import datetime
-import hashlib
 from django.db import models
-from django.utils.translation import gettext as _
-from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
+from django.utils import timezone
+from django.utils.translation import gettext_lazy as _
+from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseUserManager
+from datetime import datetime
 from django.db.models.signals import post_save
 from django.dispatch import receiver
-# Create your models here.
+import hashlib
 
-class CustomUserManager(BaseUserManager):
+class CustomAccountManager(BaseUserManager):
 
-    def create_user(self, email, first_name, last_name, password=None):
+    def create_superuser(self, email, first_name, last_name, password, **other_fields):
+
+        other_fields.setdefault('is_staff', True)
+        other_fields.setdefault('is_superuser', True)
+        other_fields.setdefault('is_active', True)
+
+        if other_fields.get('is_staff') is not True:
+            raise ValueError(
+                'Superuser must be assigned to is_staff=True.')
+        if other_fields.get('is_superuser') is not True:
+            raise ValueError(
+                'Superuser must be assigned to is_superuser=True.')
+
+        return self.create_user(email, first_name, last_name, password, **other_fields)
+
+    def create_user(self, email, first_name, last_name, password, **other_fields):
+
         if not email:
-            raise ValueError('You must have an email')
+            raise ValueError(_('You must provide an email address'))
 
-        email = email.lower()
-        first_name = first_name.title()
-        last_name = last_name.title()
-
-        user = self.model(
-            email = self.normalize_email(email),
-            first_name = first_name,
-            last_name = last_name
-        )
-
-        #user.password = password
+        email = self.normalize_email(email)
+        user = self.model(email=email,first_name=first_name, last_name=last_name, **other_fields)
         user.set_password(password)
-        user.save(using=self._db)
-
+        user.save()
         return user
 
 
-    def create_superuser(self, email, first_name, last_name, password=None):
-        user = self.create_user(
-            email = email,
-            first_name = first_name,
-            last_name = last_name,
-            password = password
-        )
-        user.is_admin = True
-        user.is_staff = True
-        user.save(using=self._db)
+class CustomUser(AbstractBaseUser, PermissionsMixin):
 
-        return user
-
-
-
-class CustomUser(AbstractBaseUser):
-    RELIGION_CHOICE = (
-        ('ISLAM', 'ISLAM'),
-        ('HINDU', 'HINDU'),
-        ('CHRISTIANITY', 'CHRISTIANITY'),
-        ('OTHER', 'OTHER'),
-
-
-    )
-
-    email = models.EmailField(max_length=60, unique=True, verbose_name='Email')
-    first_name = models.CharField(max_length=30, verbose_name='First Name')
-    last_name = models.CharField(max_length=30, verbose_name='Last Name')
-    is_active = models.BooleanField(default=True)
-    is_admin = models.BooleanField(default=False)
+    email = models.EmailField(_('email address'), unique=True)
+    first_name = models.CharField(max_length=50)
+    last_name = models.CharField(max_length=150)
+    start_date = models.DateTimeField(default=timezone.now)
+    about = models.TextField(_(
+        'about'), max_length=500, blank=True)
     is_staff = models.BooleanField(default=False)
+    is_active = models.BooleanField(default=False)
+
+    objects = CustomAccountManager()
 
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ('first_name', 'last_name')
-
-    objects = CustomUserManager()
+    REQUIRED_FIELDS = ['first_name', 'last_name']
 
     def __str__(self):
         return self.email
-
-    def get_short_name(self):
-        return self.first_name
-
-    def has_perm(self, perm, obj=None):
-        return self.is_admin
-
-    def has_module_perms(self, app_label):
-        return self.is_admin
-
-    class Meta:
-        verbose_name_plural = "Users"
 
 class EmailConfirmation(models.Model):
     user = models.OneToOneField(CustomUser, on_delete=models.CASCADE)

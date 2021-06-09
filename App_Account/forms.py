@@ -3,6 +3,7 @@ from django.contrib.auth.forms import ReadOnlyPasswordHashField
 from django.contrib.auth import get_user_model
 from django.conf import settings
 from django.db.models import Q
+from django.contrib.auth.forms import PasswordResetForm
 
 User = get_user_model()
 
@@ -40,9 +41,15 @@ class UserRegistrationForm(UserCreationForm):
         required = True,
         widget = forms.TextInput(
             attrs={
-                'class': 'form-control',
+                'class': 'form-control valid',
+                'name': 'email',
+                'id': 'email',
+                'onfocus': 'this.placeholder = ''',
+                'onblur': "this.placeholder = 'Email Address'",
+                # 'id': 'email',
                 'type':'email',
-                'placeholder': 'Email Address'
+                'placeholder': 'ex: xyz@yourdomain.com',
+                'required' : True
             }
         )
     )
@@ -51,8 +58,15 @@ class UserRegistrationForm(UserCreationForm):
         required = True,
         widget = forms.TextInput(
             attrs={
-                'class': 'form-control',
-                'placeholder': 'First name'
+                'class': 'form-control valid',
+                'name': 'first_name',
+                'id': 'first_name',
+                'onfocus': 'this.placeholder = ''',
+                'onblur': "this.placeholder = 'Enter First Name'",
+                # 'id': 'email',
+                'type':'text',
+                'placeholder': 'Ex: Abu Jafor',
+                'required' : True
             }
         )
     )
@@ -61,8 +75,15 @@ class UserRegistrationForm(UserCreationForm):
         required = True,
         widget = forms.TextInput(
             attrs={
-                'class': 'form-control',
-                'placeholder': 'Last name'
+                'class': 'form-control valid',
+                'name': 'last_name',
+                'id': 'last_name',
+                'onfocus': 'this.placeholder = ''',
+                'onblur': "this.placeholder = 'Enter First Name'",
+                # 'id': 'email',
+                'type':'text',
+                'placeholder': 'Ex: Saleh',
+                'required' : True
             }
         )
     )
@@ -71,9 +92,15 @@ class UserRegistrationForm(UserCreationForm):
         required = True,
         widget = forms.TextInput(
             attrs={
-                'class': 'form-control',
-                'type': 'Password',
-                'placeholder': 'Create Password'
+                'class': 'form-control valid',
+                'name': 'password1',
+                'id': 'password1',
+                'onfocus': 'this.placeholder = ''',
+                'onblur': "this.placeholder = 'Enter Password'",
+                # 'id': 'email',
+                'type':'password',
+                'placeholder': '******',
+                'required' : True
             }
         )
     )
@@ -82,9 +109,15 @@ class UserRegistrationForm(UserCreationForm):
         required = True,
         widget = forms.TextInput(
             attrs={
-                'class': 'form-control',
-                'type': 'Password',
-                'placeholder': 'Repeat Password'
+                'class': 'form-control valid',
+                'name': 'password2',
+                'id': 'password2',
+                'onfocus': 'this.placeholder = ''',
+                'onblur': "this.placeholder = 'Rewrite Password'",
+                # 'id': 'email',
+                'type':'password',
+                'placeholder': '******',
+                'required' : True
             }
         )
     )
@@ -123,7 +156,11 @@ class UserLoginForm(forms.Form):
         label = 'Email',
         widget = forms.TextInput(
             attrs={
-                # 'class': 'form-control',
+                'class': 'form-control valid',
+                'name': 'email',
+                'id': 'email',
+                'onfocus': 'this.placeholder = ''',
+                'onblur': "this.placeholder = 'Email Address'",
                 # 'id': 'email',
                 'type':'email',
                 'placeholder': 'Email Address',
@@ -136,10 +173,13 @@ class UserLoginForm(forms.Form):
         label='Password',
         widget = forms.TextInput(
             attrs={
-                # 'class': 'form-control',
-                # 'id': 'password',
-                'type': 'Password',
-                'placeholder': 'Enter Password',
+                'class': 'form-control valid',
+                'name': 'password',
+                'id': 'password',
+                'onfocus': 'this.placeholder = ''',
+                'onblur': "this.placeholder = 'Your Password'",
+                'type':'password',
+                'placeholder': 'Your Password',
                 'required' : True
             }
         )
@@ -156,3 +196,17 @@ class UserLoginForm(forms.Form):
             raise forms.ValidationError("Password/Email Incorrect")
         self.cleaned_data["user_obj"] = user_obj
         return super(UserLoginForm, self).clean(*args, **kwargs)
+
+class UserPasswordResetForm(PasswordResetForm):
+    def __init__(self, *args, **kwargs):
+        super(UserPasswordResetForm, self).__init__(*args, **kwargs)
+
+    email = forms.EmailField(label='', widget=forms.EmailInput(attrs={
+        'class': 'form-control valid',
+        'placeholder': 'Enter Your email adress',
+        'onfocus': 'this.placeholder = ''',
+        'onblur': "this.placeholder = 'Your Password'",
+        'type': 'email',
+        'name': 'email',
+        'required' : True
+        }))
