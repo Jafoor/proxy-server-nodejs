@@ -91,20 +91,20 @@ class Profile(models.Model):
                 return False
         return True
 
-class VarifyandBankDetails(models.Model):
+class VerifyPersonBankDetails(models.Model):
     user = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
     nid_card_front = models.ImageField(upload_to="nid_card_front", blank=True)
     nid_card_back = models.ImageField(upload_to="nid_card_back", blank=True)
-    bank_name = models.CharField(max_length=300, blank=True)
-    bank_branch = models.CharField(max_length=300, blank=True)
+    bank_name = models.CharField(max_length=255, blank=True)
+    bank_branch = models.CharField(max_length=255, blank=True)
     account_number = models.CharField(max_length=30, blank=True)
     account_name = models.CharField(max_length=100, blank=True)
     current_balance = models.IntegerField(default=0)
     total_withdraw = models.IntegerField(default=0)
-    is_varified = models.BooleanField(default=False)
+    is_verified = models.BooleanField(default=False)
 
     def __str__(self):
-        return self.user
+        return self.user.first_name
 
 class Organization(models.Model):
     org = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
@@ -112,19 +112,40 @@ class Organization(models.Model):
     org_about = models.TextField(blank=True)
     org_type = models.CharField(blank=True, max_length=100)
     org_active_member = models.IntegerField(default=0)
+    division = models.CharField(max_length=30, blank=True)
+    zilla = models.CharField(max_length=30, blank=True)
+    thana = models.CharField(max_length=30, blank=True)
+    address = models.CharField(max_length=500, blank=True)
+    socila_link1 = models.TextField(blank=True)
+    socila_link2 = models.TextField(blank=True)
     member1_name = models.CharField(max_length=50, blank=True)
     member1_mobilenumber = models.CharField(max_length=15, blank=True)
+    member1_position = models.CharField(max_length=50, blank=True)
     member1_nid = models.ImageField(upload_to="member1_nid", blank=True)
     member2_name = models.CharField(max_length=50, blank=True)
     member2_mobilenumber = models.CharField(max_length=15, blank=True)
+    member2_position = models.CharField(max_length=50, blank=True)
     member2_nid = models.ImageField(upload_to="member2_nid", blank=True)
     org_prove1 = models.ImageField(upload_to="prove_1", blank=True)
     org_prove2 = models.ImageField(upload_to="prove_2", blank=True)
-    is_active = models.BooleanField(default=False)
+    is_verified = models.BooleanField(default=False)
+
+    def __str__(self):
+        return self.org_name
 
 
+class VerifyOrgBankDetails(models.Model):
+    user = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
+    bank_name = models.CharField(max_length=255, blank=True)
+    bank_branch = models.CharField(max_length=255, blank=True)
+    account_number = models.CharField(max_length=30, blank=True)
+    account_name = models.CharField(max_length=100, blank=True)
+    current_balance = models.IntegerField(default=0)
+    total_withdraw = models.IntegerField(default=0)
+    is_verified = models.BooleanField(default=False)
 
-
+    def __str__(self):
+        return self.user.first_name
 
 
 @receiver(post_save, sender=CustomUser)
