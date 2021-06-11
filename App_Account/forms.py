@@ -4,6 +4,7 @@ from django.contrib.auth import get_user_model
 from django.conf import settings
 from django.db.models import Q
 from django.contrib.auth.forms import PasswordResetForm
+from .models import Organization
 
 User = get_user_model()
 
@@ -210,3 +211,23 @@ class UserPasswordResetForm(PasswordResetForm):
         'name': 'email',
         'required' : True
         }))
+
+class Organization_form(forms.Form):
+
+    class Meta:
+        model = Organization
+        fields = ('org_about', 'socila_link1', 'org_active_member', 'member1_name', 'member1_mobilenumber', 'member1_position', 'member1_nid')
+
+    org_about = forms.CharField(
+        label='About Organization',
+        widget = forms.TextInput(
+            attrs={
+                'class': 'form-control valid',
+                'onfocus': 'this.placeholder = ''',
+                'onblur': "this.placeholder = 'Your organization name'",
+                'type':'text',
+                'placeholder': 'Your Password',
+                'required' : True
+            }
+        )
+    )

@@ -12,8 +12,15 @@ User = get_user_model()
 # Create your views here.
 
 def register_organization(request):
-    print("im here")
-    return render(request,'App_Account/registration_organization.html')
+
+    regiform = UserRegistrationForm(request.POST or None)
+    if request.method == 'POST':
+        print("aschi")
+        if regiform.is_valid():
+            print("im here")
+        
+
+    return render(request,'App_Account/registration_organization1.html',{'form1': regiform})
 
 def register(request):
 

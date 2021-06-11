@@ -40,15 +40,15 @@ class CustomAccountManager(BaseUserManager):
 class CustomUser(AbstractBaseUser, PermissionsMixin):
 
     email = models.EmailField(_('email address'), unique=True)
-    first_name = models.CharField(max_length=50)
-    last_name = models.CharField(max_length=150)
+    first_name = models.CharField(max_length=255)
+    last_name = models.CharField(max_length=255)
     start_date = models.DateTimeField(default=timezone.now)
     about = models.TextField(_(
         'about'), max_length=500, blank=True)
     is_staff = models.BooleanField(default=False)
     is_active = models.BooleanField(default=False)
     is_org = models.BooleanField(default=False)
-    is_personorg = models.BooleanField(default=False) 
+    is_personorg = models.BooleanField(default=False)
     objects = CustomAccountManager()
 
     USERNAME_FIELD = 'email'
@@ -109,9 +109,9 @@ class VerifyPersonBankDetails(models.Model):
 
 class Organization(models.Model):
     org = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
-    org_name = models.CharField(max_length=100, blank=True)
+    org_name = models.CharField(max_length=255, blank=True)
     org_about = models.TextField(blank=True)
-    org_type = models.CharField(blank=True, max_length=100)
+    org_type = models.CharField(blank=True, max_length=255)
     org_active_member = models.IntegerField(default=0)
     division = models.CharField(max_length=30, blank=True)
     zilla = models.CharField(max_length=30, blank=True)
@@ -122,11 +122,13 @@ class Organization(models.Model):
     member1_name = models.CharField(max_length=50, blank=True)
     member1_mobilenumber = models.CharField(max_length=15, blank=True)
     member1_position = models.CharField(max_length=50, blank=True)
-    member1_nid = models.ImageField(upload_to="member1_nid", blank=True)
+    member1_nid_front = models.ImageField(upload_to="member1_nid_front", blank=True)
+    member1_nid_back = models.ImageField(upload_to="member1_nid_back", blank=True)
     member2_name = models.CharField(max_length=50, blank=True)
     member2_mobilenumber = models.CharField(max_length=15, blank=True)
     member2_position = models.CharField(max_length=50, blank=True)
-    member2_nid = models.ImageField(upload_to="member2_nid", blank=True)
+    member2_nid_front = models.ImageField(upload_to="member2_nid_front", blank=True)
+    member2_nid_back = models.ImageField(upload_to="member2_nid_back", blank=True)
     org_prove1 = models.ImageField(upload_to="prove_1", blank=True)
     org_prove2 = models.ImageField(upload_to="prove_2", blank=True)
     is_verified = models.BooleanField(default=False)
