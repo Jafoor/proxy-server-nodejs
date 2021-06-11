@@ -11,6 +11,10 @@ User = get_user_model()
 
 # Create your views here.
 
+def register_organization(request):
+    print("im here")
+    return render(request,'App_Account/registration_organization.html')
+
 def register(request):
 
     form = UserRegistrationForm(request.POST or None)
