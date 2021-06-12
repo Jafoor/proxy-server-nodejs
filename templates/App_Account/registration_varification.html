@@ -22,7 +22,7 @@ Donation Collection | Home
 
 
     <div class="col-lg-12 col-sm-12">
-        <p>back to<a href="{% url 'App_Event:home' %}">home</a></p>  
+        <p>back to<a href="{% url 'App_Event:home' %}">home</a></p>
     </div>
 </div>
 {% block extra_js %}
@@ -30,3 +30,56 @@ Donation Collection | Home
 {% endblock %}
 
 {% endblock %}
+
+<fieldset>
+    <div class="form-card">
+        <div class="row">
+            <div class="col-7">
+                <h2 class="fs-title">Personal Information:</h2>
+            </div>
+            <div class="col-5">
+                <h2 class="steps">Step 2 - 4</h2>
+            </div>
+        </div>
+        <label class="fieldlabels">Organization Image: *</label>
+        {{ orgform.org_pic }}
+        <label class="fieldlabels">Active Member: *</label>
+        {{ orgform.org_active_member }}
+        <label class="fieldlabels">Facebook Page Link:</label>
+        {{ orgform.socila_link1 }}
+        <label class="fieldlabels">Website Link:</label>
+        {{ orgform.socila_link2 }}
+
+    </div> <input type="button" name="next" class="next action-button" value="Next" /> <input type="button" name="previous" class="previous action-button-previous" value="Previous" />
+</fieldset>
+<fieldset>
+    <div class="form-card">
+        <div class="row">
+            <div class="col-7">
+                <h2 class="fs-title">Image Upload:</h2>
+            </div>
+            <div class="col-5">
+                <h2 class="steps">Step 3 - 4</h2>
+            </div>
+        </div>
+        <label class="fieldlabels">Documents of Organization: </label>
+        {{ orgform.org_prove1 }}
+        <label class="fieldlabels">Member of Organization: </label>
+        {{ orgform.member1_name }}
+        <label class="fieldlabels">Position of Member: </label>
+        {{ orgform.member1_position }}
+        <label class="fieldlabels">Contact Number of Member: </label>
+        {{ orgform.member1_mobilenumber }}
+        <label class="fieldlabels">NID Card Front Page of Member: </label>
+        {{ orgform.member1_nid_front }}
+        <label class="fieldlabels">NID Card Back Page of Member: </label>
+        {{ orgform.member1_nid_back }}
+
+    </div> <input type="button" name="next" class="next submit action-button" value="Next" />
+     <input type="button" name="previous" class="previous action-button-previous" value="Previous" />
+</fieldset>
+
+<label class="fieldlabels">About Organization: *</label>
+{{ orgform.org_about }}
+<label class="fieldlabels">Contact Number of Organization: *</label>
+ {{ orgform.contact_number }}

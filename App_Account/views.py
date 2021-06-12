@@ -4,8 +4,8 @@ from django.core.mail import send_mail
 from django.contrib.sites.shortcuts import get_current_site
 from django.shortcuts import render, redirect, get_object_or_404
 from django.template.loader import render_to_string
-from .forms import UserRegistrationForm, UserLoginForm
-from .models import EmailConfirmation
+from .forms import UserRegistrationForm, UserLoginForm, OrganizationForm
+from .models import EmailConfirmation, Organization
 
 User = get_user_model()
 
@@ -13,14 +13,50 @@ User = get_user_model()
 
 def register_organization(request):
 
-    regiform = UserRegistrationForm(request.POST or None)
+    form = UserRegistrationForm(request.POST or None)
     if request.method == 'POST':
-        print("aschi")
-        if regiform.is_valid():
-            print("im here")
-        
+        if form.is_valid():
 
-    return render(request,'App_Account/registration_organization1.html',{'form1': regiform})
+            instance = form.save(commit=False)
+            instance.is_active = False
+            instance.is_org = True
+            instance.save()
+
+
+            contact_number = request.POST.get('office_number')
+            org_about = request.POST.get('obout_org')
+            new_org = Organization.objects.get(org=instance)
+            instance.refresh_from_db()
+            new_org.contact_number = contact_number
+            new_org.org_about = org_about
+            new_org.org_name = instance.first_name
+            new_org.save()
+
+            # user = EmailConfirmation.objects.get(user=instance)
+            # site = get_current_site(request)
+            # email = instance.email
+            # first_name = instance.first_name
+            # last_name = instance.last_name
+            # email_body = render_to_string(
+            #     'App_Account/varify_email.html',
+            #     {
+            #         'first_name': first_name,
+            #         'last_name': last_name,
+            #         'email': email,
+            #         'domain': site.domain,
+            #         'activation_key':  user.activation_key
+            #     }
+            # )
+            # send_mail(
+            #     subject = 'Email Confirmation',
+            #     message = email_body,
+            #     from_email = 'shunnoek.bd@gmail.com',
+            #     recipient_list = [email],
+            #     fail_silently = True
+            # )
+            return render(request, 'App_Account/registration_varification.html')
+        return render(request, 'App_Account/registration_organization.html', {'form': form})
+    return render(request,'App_Account/registration_organization.html',{'form': form})
 
 def register(request):
 

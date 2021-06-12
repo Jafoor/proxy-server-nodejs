@@ -73,7 +73,7 @@ class UserRegistrationForm(UserCreationForm):
     )
 
     last_name = forms.CharField(
-        required = True,
+        required = False,
         widget = forms.TextInput(
             attrs={
                 'class': 'form-control valid',
@@ -84,7 +84,7 @@ class UserRegistrationForm(UserCreationForm):
                 # 'id': 'email',
                 'type':'text',
                 'placeholder': 'Ex: Saleh',
-                'required' : True
+                'required' : False
             }
         )
     )
@@ -212,22 +212,184 @@ class UserPasswordResetForm(PasswordResetForm):
         'required' : True
         }))
 
-class Organization_form(forms.Form):
+class OrganizationForm(forms.Form):
 
     class Meta:
         model = Organization
-        fields = ('org_about', 'socila_link1', 'org_active_member', 'member1_name', 'member1_mobilenumber', 'member1_position', 'member1_nid')
+        fields = ('org_about', 'org_pic', 'contact_number', 'socila_link1', 'socila_link2', 'org_active_member', 'org_prove1', 'member1_name', 'member1_mobilenumber', 'member1_position', 'member1_nid_front', 'member1_nid_back')
 
     org_about = forms.CharField(
         label='About Organization',
+        required=False,
+        widget = forms.Textarea(
+            attrs={
+                'class': 'form-control valid',
+                'onfocus': 'this.placeholder = ''',
+                'onblur': "this.placeholder = 'About Your organization'",
+                'type':'text',
+                'placeholder': 'About Your organization',
+                'rows': 5,
+                'cols': 15,
+
+            }
+        )
+    )
+
+    org_pic = forms.CharField(
+        label='Organization image or Logo',
+        widget = forms.TextInput(
+            attrs={
+                'class': '',
+                'onfocus': 'this.placeholder = ''',
+                'onblur': "this.placeholder = 'Organization image or Logo'",
+                'type':'file',
+                'accept':"image/*",
+                'placeholder': 'Organization image or Logo',
+                'required' : False
+            }
+        )
+    )
+
+    org_prove1 = forms.CharField(
+        label='Organization Legal Document',
+        widget = forms.TextInput(
+            attrs={
+                'class': '',
+                'onfocus': 'this.placeholder = ''',
+                'onblur': "this.placeholder = 'Organization Legal Document'",
+                'type':'file',
+                'placeholder': 'Organization Legal Document',
+                'required' : False
+            }
+        )
+    )
+
+    contact_number = forms.CharField(
+        label='Contact Number',
         widget = forms.TextInput(
             attrs={
                 'class': 'form-control valid',
                 'onfocus': 'this.placeholder = ''',
-                'onblur': "this.placeholder = 'Your organization name'",
-                'type':'text',
-                'placeholder': 'Your Password',
+                'onblur': "this.placeholder = 'Organization Contact Number'",
+                'type':'tel',
+                'placeholder': 'Ex: 01846825017',
+                'pattern': "[0-9]{11}",
                 'required' : True
+            }
+        )
+    )
+
+    org_active_member = forms.CharField(
+        label='Total Active Members',
+        widget = forms.TextInput(
+            attrs={
+                'class': 'form-control valid',
+                'onfocus': 'this.placeholder = ''',
+                'onblur': "this.placeholder = 'Total Active Members'",
+                'type':'number',
+                'placeholder': 'Total Active Members',
+                'required' : False
+            }
+        )
+    )
+
+    socila_link1 = forms.CharField(
+        label='Social Media Link',
+        widget = forms.TextInput(
+            attrs={
+                'class': 'form-control valid',
+                'onfocus': 'this.placeholder = ''',
+                'onblur': "this.placeholder = 'Facebook Page Link'",
+                'type':'url',
+                'placeholder': 'Facebook Page Link(if any)',
+                'required' : False
+            }
+        )
+    )
+
+    socila_link2 = forms.CharField(
+        label='Social Media Link',
+        widget = forms.TextInput(
+            attrs={
+                'class': 'form-control valid',
+
+                'onblur': "this.placeholder = 'Website Link'",
+                'type':'url',
+                'placeholder': 'Website Link(if any)',
+                'required' : False
+            }
+        )
+    )
+
+    member1_name = forms.CharField(
+        label='Active Member Name',
+        widget = forms.TextInput(
+            attrs={
+                'class': 'form-control valid',
+
+                'onblur': "this.placeholder = 'Member1 Name'",
+                'type':'text',
+                'placeholder': 'Active Member Name',
+                'required' : False
+            }
+        )
+    )
+
+    member1_mobilenumber = forms.CharField(
+        label='Active Member Name',
+        widget = forms.TextInput(
+            attrs={
+                'class': 'form-control valid',
+
+                'onblur': "this.placeholder = 'Member1 Contact Number'",
+                'type':'tel',
+                'placeholder': 'Ex: 01846825017',
+                'pattern': "[0-9]{11}",
+                'required' : False
+            }
+        )
+    )
+
+    member1_position = forms.CharField(
+        label='Member1 Position',
+        widget = forms.TextInput(
+            attrs={
+                'class': 'form-control valid',
+
+                'onblur': "this.placeholder = 'Member1 Position'",
+                'type':'text',
+                'placeholder': 'Member1 Position',
+                'required' : False
+            }
+        )
+    )
+
+    member1_nid_front = forms.CharField(
+        label='Member1 NID Card Front Page',
+        widget = forms.TextInput(
+            attrs={
+                'class': '',
+
+                'onblur': "this.placeholder = 'Member1 NID Card Front Page'",
+                'type':'file',
+                'accept':"image/*",
+                'placeholder': 'Member1 NID Card Front Page',
+                'required' : False
+            }
+        )
+    )
+
+    member1_nid_back = forms.CharField(
+        label='Member1 NID Card Front Page',
+        widget = forms.TextInput(
+            attrs={
+                'class': '',
+
+                'onblur': "this.placeholder = 'Member1 NID Card Back Page'",
+                'type':'file',
+                'accept':"image/*",
+                'placeholder': 'Member1 NID Card Back Page',
+                'required' : False
             }
         )
     )

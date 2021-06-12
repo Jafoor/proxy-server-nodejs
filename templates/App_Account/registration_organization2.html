@@ -1,0 +1,350 @@
+
+{% extends 'master.html' %}
+{% load static%}
+{% block title_block %}
+Donation Collection | Home
+{% endblock %}
+
+{% block extra_css %}
+
+{% endblock %}
+
+{% block body_block %}
+
+
+
+<div class="col-lg-8 m-auto d-flex justify-content-around pt-120">
+    <form class="form-contact contact_form" action="contact_process.php" method="post" id="contactForm"
+        novalidate="novalidate">
+        <div class="row w-100 ">
+
+
+
+
+
+            <div class="col-lg-12 col-sm-12">
+                <label for="org_name">Name of organization</label>
+                <div class="form-group">
+                    <input class="form-control valid" name="org_name" id="org_name" type="text" onfocus="this.placeholder = ''"
+                        onblur="this.placeholder = 'Name of organization'" placeholder="Name of organization">
+                </div>
+            </div>
+
+            <div class="col-lg-12 col-md-12 mt-4">
+                <label for="">Describe the organization</label>
+                <div class="form-group">
+                    <textarea class="form-control w-100" name="org_description" id="org_description" cols="30" rows="6"
+
+                        placeholder="Org Description"> </textarea>
+                </div>
+            </div>
+
+            <div class="col-lg-12 col-sm-12">
+                <label for="org_name">Type of organization</label>
+                <div class="form-group">
+                    <input class="form-control valid" name="org_type" id="org_type" type="text" onfocus="this.placeholder = ''"
+                        onblur="this.placeholder = 'Type of organization'" placeholder="Type of organization">
+                </div>
+            </div>
+
+            <div class="col-lg-12 col-sm-12">
+                <label for="org_name">Number of active members(Estimation)</label>
+                <div class="form-group">
+                    <input class="form-control valid" name="org_num_active_members" id="org_num_active_members" type="number" onfocus="this.placeholder = ''"
+                        onblur="this.placeholder = 'Number of active members'" placeholder="Number of active members">
+                </div>
+            </div>
+
+
+
+            <div class="col-lg-12 col-sm-12">
+                <div class="form-group">
+                    <label for="divisions">Select your division</label>
+                    <select class="form-control select2" name="divisions" id="divisions" onchange="divisionsList();">
+                        <option disabled selected> Select Division</option>
+                        <option value="Barishal">Barishal</option>
+                        <option value="Chattogram">Chattogram</option>
+                        <option value="Dhaka">Dhaka</option>
+                        <option value="Khulna">Khulna</option>
+                        <option value="Mymensingh">Mymensingh</option>
+                        <option value="Rajshahi">Rajshahi</option>
+                        <option value="Rangpur">Rangpur</option>
+                        <option value="Sylhet">Sylhet</option>
+                    </select>
+                    <br>
+                    <label for="distr">Select your district</label>
+                    <select class="form-control select2" id="distr" onchange="thanaList();"></select>
+                    <br>
+                    <label for="polic_sta">Select your upazilla</label>
+                    <select class="form-control select2" name="" id="polic_sta"></select>
+                </div>
+            </div>
+
+            <div class="col-lg-12 col-sm-12">
+                <label for="org_name">Office Address</label>
+                <div class="form-group">
+                    <input class="form-control valid" name="office_address" id="office_address" type="text" onfocus="this.placeholder = ''"
+                        onblur="this.placeholder = 'Thana, ward/union, road, etc'" placeholder="Thana, ward/union, road, etc">
+                </div>
+            </div>
+
+            <div class="col-lg-12 col-sm-12">
+                <label for="org_name">Social Media Link 1</label>
+                <div class="form-group">
+                    <input class="form-control valid" name="social_media_link_1" id="social_media_link_1" type="text" onfocus="this.placeholder = ''"
+                        onblur="this.placeholder = 'Facebook, LinkedIn, Youtube, etc'" placeholder="Facebook, LinkedIn, Youtube, etc">
+                </div>
+            </div>
+
+            <div class="col-lg-12 col-sm-12">
+                <label for="org_name">Social Media Link 2</label>
+                <div class="form-group">
+                    <input class="form-control valid" name="social_media_link_2" id="social_media_link_2" type="text" onfocus="this.placeholder = ''"
+                        onblur="this.placeholder = 'Facebook, LinkedIn, Youtube, etc'" placeholder="Facebook, LinkedIn, Youtube, etc">
+                </div>
+            </div>
+
+
+            <div class="col-lg-12 col-sm-12">
+                <label for="org_name">Name of a current member</label>
+                <div class="form-group">
+                    <input class="form-control valid" name="member1_name" id="member1_name" type="text" onfocus="this.placeholder = ''"
+                        onblur="this.placeholder = 'Have to be current member'" placeholder="Have to be current member">
+                </div>
+            </div>
+            <div class="col-lg-12 col-sm-12">
+                <label for="org_name">Contact number of this member</label>
+                <div class="form-group">
+                    <input class="form-control valid" name="member1_mobilenumber" id="member1_mobilenumber" type="text" onfocus="this.placeholder = ''"
+                        onblur="this.placeholder = 'Contact number'" placeholder="Contact number">
+                </div>
+            </div>
+
+            <div class="col-lg-12 col-sm-12">
+                <label for="org_name">Position in organization</label>
+                <div class="form-group">
+                    <input class="form-control valid" name="member1_position" id="member1_position" type="text" onfocus="this.placeholder = ''"
+                        onblur="this.placeholder = 'Current position in organization'" placeholder="Current position in organization">
+                </div>
+            </div>
+
+            <div class="col-lg-12 col-sm-12">
+                <label for="">Upload NID photo (Front)</label>
+                <!-- Upload image input-->
+                <div class="input-group image-input-area rounded-pill bg-muted shadow-sm col-lg-6 m-auto">
+                    <input id="upload" type="file" onchange="readURL(this);" class="form-control border-1">
+                    <label id="upload-label" for="upload" class="font-weight-light text-muted">Select NID image (Front)</label>
+                    <div class="input-group-append">
+                        <label for="upload" class="btn btn-light m-0 rounded-pill px-4"> <i
+                                class="fa fa-cloud-upload mr-2 text-muted"></i><small
+                                class="text-uppercase font-weight-bold text-muted">Choose file</small></label>
+                    </div>
+                </div>
+
+                <!-- Uploaded image area-->
+
+                <div class="image-area mt-4 mb-4"><img id="imageResult" src="#" alt=""
+                        class="img-fluid rounded shadow-sm mx-auto d-block"></div>
+            </div>
+
+
+            <div class="col-lg-12 col-sm-12">
+                <label for="">Upload NID photo (Back)</label>
+                <!-- Upload image input-->
+                <div class="input-group image-input-area rounded-pill bg-muted shadow-sm col-lg-6 m-auto">
+                    <input id="upload" type="file" onchange="readURL(this);" class="form-control border-1">
+                    <label id="upload-label" for="upload" class="font-weight-light text-muted">Select NID image (Back)</label>
+                    <div class="input-group-append">
+                        <label for="upload" class="btn btn-light m-0 rounded-pill px-4"> <i
+                                class="fa fa-cloud-upload mr-2 text-muted"></i><small
+                                class="text-uppercase font-weight-bold text-muted">Choose file</small></label>
+                    </div>
+                </div>
+
+                <!-- Uploaded image area-->
+
+                <div class="image-area mt-4 mb-4"><img id="imageResult" src="#" alt=""
+                        class="img-fluid rounded shadow-sm mx-auto d-block"></div>
+            </div>
+
+
+            <div class="col-lg-12 col-sm-12">
+                <label for="org_name">Name of another current member</label>
+                <div class="form-group">
+                    <input class="form-control valid" name="member2_name" id="member2_name" type="text" onfocus="this.placeholder = ''"
+                        onblur="this.placeholder = 'Have to be current member'" placeholder="Have to be current member">
+                </div>
+            </div>
+            <div class="col-lg-12 col-sm-12">
+                <label for="org_name">Contact number of this member</label>
+                <div class="form-group">
+                    <input class="form-control valid" name="member2_mobilenumber" id="member2_mobilenumber" type="text" onfocus="this.placeholder = ''"
+                        onblur="this.placeholder = 'Contact number'" placeholder="Contact number">
+                </div>
+            </div>
+
+            <div class="col-lg-12 col-sm-12">
+                <label for="org_name">Position in organization</label>
+                <div class="form-group">
+                    <input class="form-control valid" name="member2_position" id="member2_position" type="text" onfocus="this.placeholder = ''"
+                        onblur="this.placeholder = 'Current position in organization'" placeholder="Current position in organization">
+                </div>
+            </div>
+
+            <div class="col-lg-12 col-sm-12">
+                <label for="">Upload NID photo (Front)</label>
+                <!-- Upload image input-->
+                <div class="input-group image-input-area rounded-pill bg-muted shadow-sm col-lg-6 m-auto">
+                    <input id="upload" type="file" onchange="readURL(this);" class="form-control border-1">
+                    <label id="upload-label" for="upload" class="font-weight-light text-muted">Select NID image (Front)</label>
+                    <div class="input-group-append">
+                        <label for="upload" class="btn btn-light m-0 rounded-pill px-4"> <i
+                                class="fa fa-cloud-upload mr-2 text-muted"></i><small
+                                class="text-uppercase font-weight-bold text-muted">Choose file</small></label>
+                    </div>
+                </div>
+
+                <!-- Uploaded image area-->
+
+                <div class="image-area mt-4 mb-4"><img id="imageResult" src="#" alt=""
+                        class="img-fluid rounded shadow-sm mx-auto d-block"></div>
+            </div>
+
+
+            <div class="col-lg-12 col-sm-12">
+                <label for="">Upload NID photo (Back)</label>
+                <!-- Upload image input-->
+                <div class="input-group image-input-area rounded-pill bg-muted shadow-sm col-lg-6 m-auto">
+                    <input id="upload" type="file" onchange="readURL(this);" class="form-control border-1">
+                    <label id="upload-label" for="upload" class="font-weight-light text-muted">Select NID image (Back)</label>
+                    <div class="input-group-append">
+                        <label for="upload" class="btn btn-light m-0 rounded-pill px-4"> <i
+                                class="fa fa-cloud-upload mr-2 text-muted"></i><small
+                                class="text-uppercase font-weight-bold text-muted">Choose file</small></label>
+                    </div>
+                </div>
+
+                <!-- Uploaded image area-->
+
+                <div class="image-area mt-4 mb-4"><img id="imageResult" src="#" alt=""
+                        class="img-fluid rounded shadow-sm mx-auto d-block"></div>
+            </div>
+
+
+            <div class="col-lg-12 col-sm-12">
+                <label for="">Official document like certification, linecense, etc as proof of existence (Optional)</label>
+                <!-- Upload image input-->
+                <div class="input-group image-input-area rounded-pill bg-muted shadow-sm col-lg-6 m-auto">
+                    <input id="upload" type="file" id="org_prove1" onchange="readURL(this);" class="form-control border-1">
+                    <label id="upload-label" for="upload" class="font-weight-light text-muted">Select image</label>
+                    <div class="input-group-append">
+                        <label for="upload" class="btn btn-light m-0 rounded-pill px-4"> <i
+                                class="fa fa-cloud-upload mr-2 text-muted"></i><small
+                                class="text-uppercase font-weight-bold text-muted">Choose file</small></label>
+                    </div>
+                </div>
+
+                <!-- Uploaded image area-->
+
+                <div class="image-area mt-4 mb-4"><img id="imageResult" src="#" alt=""
+                        class="img-fluid rounded shadow-sm mx-auto d-block"></div>
+            </div>
+
+            <div class="col-lg-12 col-sm-12">
+                <label for="">Official document like certification, linecense, etc as proof of existence (Optional)</label>
+                <!-- Upload image input-->
+                <div class="input-group image-input-area rounded-pill bg-muted shadow-sm col-lg-6 m-auto">
+                    <input id="upload" type="file" id="org_prove2" onchange="readURL(this);" class="form-control border-1">
+                    <label id="upload-label" for="upload" class="font-weight-light text-muted">Select image</label>
+                    <div class="input-group-append">
+                        <label for="upload" class="btn btn-light m-0 rounded-pill px-4"> <i
+                                class="fa fa-cloud-upload mr-2 text-muted"></i><small
+                                class="text-uppercase font-weight-bold text-muted">Choose file</small></label>
+                    </div>
+                </div>
+
+                <!-- Uploaded image area-->
+
+                <div class="image-area mt-4 mb-4"><img id="imageResult" src="#" alt=""
+                        class="img-fluid rounded shadow-sm mx-auto d-block"></div>
+            </div>
+
+        </div>
+
+
+
+
+      <div class="form-group mt-3">
+          <button type="submit" class="button button-contactForm boxed-btn">Apply</button>
+      </div>
+
+  </form>
+
+
+
+</div>
+
+
+
+{% block extra_js %}
+
+<!--custom script for selecting divsion, zila, upazilla-->
+<script src="{% static 'js/CustomScripts/Division-zila-upazilla-selection.js' %}" ></script>
+
+<script>
+
+    //Image preview
+    /*  ==========================================
+    SHOW UPLOADED IMAGE
+    * ========================================== */
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#imageResult')
+                    .attr('src', e.target.result);
+            };
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+    $(function () {
+        $('#upload').on('change', function () {
+            readURL(input);
+        });
+    });
+
+    /*  ==========================================
+    SHOW UPLOADED IMAGE NAME
+    * ========================================== */
+    var input = document.getElementById('upload');
+    var infoArea = document.getElementById('upload-label');
+
+    input.addEventListener('change', showFileName);
+    function showFileName(event) {
+        var input = event.srcElement;
+        var fileName = input.files[0].name;
+        infoArea.textContent = 'File name: ' + fileName;
+    }
+    $('#datepicker').datepicker({
+        iconsLibrary: 'fontawesome',
+        icons: {
+            rightIcon: '<span class="fa fa-caret-down"></span>'
+        }
+    });
+    $('#datepicker2').datepicker({
+        iconsLibrary: 'fontawesome',
+        icons: {
+            rightIcon: '<span class="fa fa-caret-down"></span>'
+        }
+
+    });
+    // DropDown
+
+    $('.select2').select2();
+
+</script>
+{% endblock %}
+
+{% endblock %}

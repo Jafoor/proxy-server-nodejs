@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from django.forms import TextInput, Textarea
-from .models import CustomUser, EmailConfirmation
+from .models import CustomUser, EmailConfirmation, Organization
 
 
 class UserAdminConfig(UserAdmin):
@@ -40,3 +40,9 @@ class EmailConfirmationAdmin(admin.ModelAdmin):
         return obj.user.last_name
 
 admin.site.register(EmailConfirmation, EmailConfirmationAdmin)
+
+class OrganizationProfile(admin.ModelAdmin):
+
+    list_display = ('org_name', 'is_verified', 'contact_number')
+
+admin.site.register(Organization, OrganizationProfile)

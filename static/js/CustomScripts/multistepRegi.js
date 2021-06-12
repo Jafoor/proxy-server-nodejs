@@ -7,8 +7,27 @@ var steps = $("fieldset").length;
 
 setProgressBar(current);
 
-$(".next").click(function(){
 
+
+console.log("habijabi ");
+$(".next").click(function(){
+  let allAreFilled = true;
+  console.log(allAreFilled);
+  
+
+  document.getElementById("myForm").querySelectorAll("[required]").forEach(function(i) {
+    if (!allAreFilled) return;
+    if (!i.value) allAreFilled = false;
+  });
+  console.log(allAreFilled);
+  if (!allAreFilled) {
+    alert('Fill all the fields');
+  }
+
+  if(!allAreFilled){
+    return;
+  }
+console.log("habijabi 2 ");
 current_fs = $(this).parent();
 next_fs = $(this).parent().next();
 
@@ -33,6 +52,7 @@ duration: 500
 });
 setProgressBar(++current);
 });
+
 
 $(".previous").click(function(){
 
@@ -69,8 +89,5 @@ $(".progress-bar")
 .css("width",percent+"%")
 }
 
-$(".submit").click(function(){
-return false;
-})
 
 });

@@ -52,7 +52,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     objects = CustomAccountManager()
 
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['first_name', 'last_name']
+    REQUIRED_FIELDS = ['first_name']
 
     def __str__(self):
         return self.email
@@ -110,6 +110,8 @@ class VerifyPersonBankDetails(models.Model):
 class Organization(models.Model):
     org = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
     org_name = models.CharField(max_length=255, blank=True)
+    contact_number = models.CharField(max_length=15, blank=True)
+    org_pic = ResizedImageField(size=[294, 313], crop=['middle', 'center'], upload_to='profilePicture', default='default_pic.jpeg', null=True, blank=True)
     org_about = models.TextField(blank=True)
     org_type = models.CharField(blank=True, max_length=255)
     org_active_member = models.IntegerField(default=0)
@@ -149,7 +151,11 @@ class VerifyOrgBankDetails(models.Model):
 
     def __str__(self):
         return self.user.first_name
-
+@receiver(post_save, sender=CustomUser)
+def organization_creation(sender, instance, created, **kwargd):
+    if created and instance.is_org:
+        organization = Organization(org=instance)
+        organization.save()
 
 @receiver(post_save, sender=CustomUser)
 def create_user_email_confirmation(sender, instance, created, **kwargd):
