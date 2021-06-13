@@ -25,6 +25,7 @@ urlpatterns = [
     path('', include('App_Event.urls')),
     path('', include('App_Account.urls')),
     path('', include('App_Organization.urls')),
+    path('', include('App_AdminPanel.urls')),
 ]
 
 urlpatterns += staticfiles_urlpatterns()
