@@ -13,8 +13,8 @@ class UserAdminConfig(UserAdmin):
                     'is_active', 'is_staff')
     fieldsets = (
         (None, {'fields': ('email', 'first_name', 'last_name',)}),
-        ('Permissions', {'fields': ('is_staff', 'is_active')}),
-        ('Personal', {'fields': ('about',)}),
+        ('Permissions', {'fields': ('is_staff', 'is_active', 'is_personorg', 'is_org',)}),
+        ('Personal', {'fields': ('about', 'slug',)}),
     )
     formfield_overrides = {
         CustomUser.about: {'widget': Textarea(attrs={'rows': 10, 'cols': 40})},

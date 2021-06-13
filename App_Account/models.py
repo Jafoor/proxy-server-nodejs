@@ -6,7 +6,10 @@ from datetime import datetime
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 import hashlib
+from django.template import defaultfilters
 from django_resized import ResizedImageField
+from django.utils.text import slugify
+from unidecode import unidecode
 
 class CustomAccountManager(BaseUserManager):
 
@@ -49,6 +52,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     is_active = models.BooleanField(default=False)
     is_org = models.BooleanField(default=False)
     is_personorg = models.BooleanField(default=False)
+    slug = models.SlugField(null=True, blank=True)
     objects = CustomAccountManager()
 
     USERNAME_FIELD = 'email'
@@ -56,6 +60,22 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
 
     def __str__(self):
         return self.email
+
+    def save(self,force_insert=False, force_update=False, *args, **kwargs):
+
+        if self.slug == None:
+            slug = defaultfilters.slugify(unidecode(self.first_name))
+
+            has_slug = CustomUser.objects.filter(slug=slug).exists()
+
+            count = 1
+
+            while has_slug:
+                slug = defaultfilters.slugify(unidecode(self.first_name)) + '-' + str(count)
+                has_slug = CustomUser.objects.filter(slug=slug).exists()
+
+            self.slug = slug
+        super().save(force_insert=False, force_update=False,*args, **kwargs)
 
 class EmailConfirmation(models.Model):
     user = models.OneToOneField(CustomUser, on_delete=models.CASCADE)

@@ -11,17 +11,17 @@ Donation Collection | Home
 {% block body_block %}
 
     <div class="col-lg-4 col-md-6 m-auto d-flex justify-content-around pt-120">
-     
+
 <form method="POST" enctype="multipart/form-data" class="form-contact contact_form">
   <div class="row w-100 ">
   {% csrf_token %}
-  
+
   <div class="col-lg-12 col-sm-12">
     <label for=""> Your Email</label>
     <div class="form-group">
 
       {{ form.email }}
-        
+
     </div>
 </div>
 
@@ -34,25 +34,25 @@ Donation Collection | Home
 
 
 <div class="col-lg-6 col-md-12 w-100">
-    
+
       <button type="submit" class="button button-contactForm boxed-btn ">LOGIN</button>
-    
+
     </div>
-        
+
     </div>
 </form>
 
 </div>
 
-<div class="col-lg-4 col-md-12 m-auto p-2">
+<div class="col-lg-4 col-md-6 m-auto p-2">
   <div class="d-flex flex-column bd-highlight mb-3">
     <div class="p-2">
-      <p>Not a member?</p> 
+      <p>Not a member?</p>
       <a href="{% url 'register' %}">Signup now</a>
   </div>
-  
+
   <div class="p-2">
-  
+
   <a href="{% url 'password_reset' %}">Forgotten Password?</a>
   </div>
 
