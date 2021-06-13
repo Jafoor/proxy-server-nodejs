@@ -32,28 +32,26 @@ def register_organization(request):
             new_org.org_name = instance.first_name
             new_org.save()
 
-            # user = EmailConfirmation.objects.get(user=instance)
-            # site = get_current_site(request)
-            # email = instance.email
-            # first_name = instance.first_name
-            # last_name = instance.last_name
-            # email_body = render_to_string(
-            #     'App_Account/varify_email.html',
-            #     {
-            #         'first_name': first_name,
-            #         'last_name': last_name,
-            #         'email': email,
-            #         'domain': site.domain,
-            #         'activation_key':  user.activation_key
-            #     }
-            # )
-            # send_mail(
-            #     subject = 'Email Confirmation',
-            #     message = email_body,
-            #     from_email = 'shunnoek.bd@gmail.com',
-            #     recipient_list = [email],
-            #     fail_silently = True
-            # )
+            user = EmailConfirmation.objects.get(user=instance)
+            site = get_current_site(request)
+            email = instance.email
+            first_name = instance.first_name
+            email_body = render_to_string(
+                'App_Account/varify_email_org.html',
+                {
+                    'first_name': first_name,
+                    'email': email,
+                    'domain': site.domain,
+                    'activation_key':  user.activation_key
+                }
+            )
+            send_mail(
+                subject = 'Email Confirmation',
+                message = email_body,
+                from_email = 'shunnoek.bd@gmail.com',
+                recipient_list = [email],
+                fail_silently = True
+            )
             return render(request, 'App_Account/registration_varification.html')
         return render(request, 'App_Account/registration_organization.html', {'form': form})
     return render(request,'App_Account/registration_organization.html',{'form': form})
