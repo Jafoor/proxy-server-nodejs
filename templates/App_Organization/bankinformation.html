@@ -1,0 +1,154 @@
+{% extends 'App_Organization/master.html' %}
+
+{% load static %}
+
+{% block title_block %}
+Organization Dashboard
+{% endblock %}
+
+{% block extra_css %}
+
+{% endblock %}
+
+{% block body_block %}
+<!-- page content -->
+<div class="right_col" role="main">
+  <!-- top tiles -->
+  <div class="row"  >
+
+  <div class="tile_count col-lg-12">
+
+    <div class="alert alert-danger alert-dismissible " role="alert">
+      <button type="button" class="close" aria-label="Close"><span aria-hidden="true">×</span>
+      </button>
+      <strong>You did't complete bank Informations</strong>
+    </div>
+
+  </div>
+  <div class="tile_count col-lg-12">
+
+    <div class="alert alert-success alert-dismissible " role="alert">
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
+      </button>
+      <strong>Completed Bank Informations</strong>
+    </div>
+
+
+  </div>
+
+  <div class="col-md-6 col-sm-6  ">
+    <div class="x_panel">
+      <div class="x_title">
+        <h2><i class="fa fa-bank"></i> Your Bank Informations <small></small></h2>
+        <ul class="nav navbar-right panel_toolbox">
+          <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+          </li>
+
+          <li><a class="close-link"><i class="fa fa-close"></i></a>
+          </li>
+        </ul>
+        <div class="clearfix"></div>
+      </div>
+      <div class="x_content">
+
+        <!-- start accordion -->
+        <div class="accordion" id="accordion" aria-multiselectable="true">
+          <div class="panel">
+            <a class="panel-heading"  id="headingOne" aria-expanded="true" aria-controls="collapseOne">
+              <h4 class="panel-title">Bank Name : Islami Bank Limited</h4>
+            </a>
+          </div>
+          <div class="panel">
+            <a class="panel-heading"  id="headingOne" aria-expanded="true" aria-controls="collapseOne">
+              <h4 class="panel-title">Branch Name: Meghna Branch</h4>
+            </a>
+
+          </div>
+          <div class="panel">
+            <a class="panel-heading"  id="headingOne" aria-expanded="true" aria-controls="collapseOne">
+              <h4 class="panel-title">Account Number: 12398809812340987 </h4>
+            </a>
+          </div>
+
+          <div class="panel">
+            <a class="panel-heading"  id="headingOne" aria-expanded="true" aria-controls="collapseOne">
+              <h4 class="panel-title">Account Name: Abu Jafor Mohammad Saleh</h4>
+
+            </a>
+          </div>
+
+          <div class="panel">
+            <a class="panel-heading"  id="headingOne" aria-expanded="true" aria-controls="collapseOne">
+              <h4 class="panel-title">Account Type: Personal</h4>
+            </a>
+          </div>
+
+
+        </div>
+        <!-- end of accordion -->
+
+
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-6 col-sm-6  ">
+                <div class="x_panel">
+                  <div class="x_title">
+                    <h2><i class="fa fa-bank"></i> Supported Banks <small></small></h2>
+                    <ul class="nav navbar-right panel_toolbox">
+                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                      </li>
+
+                      <li><a class="close-link"><i class="fa fa-close"></i></a>
+                      </li>
+                    </ul>
+                    <div class="clearfix"></div>
+                  </div>
+                  <div class="x_content">
+
+                    <!-- start accordion -->
+                    <div class="accordion" id="accordion" aria-multiselectable="true">
+                      <div class="panel">
+                        <a class="panel-heading"  id="headingOne" aria-expanded="true" aria-controls="collapseOne">
+                          <h4 class="panel-title">Brac Bank</h4>
+                        </a>
+                      </div>
+                      <div class="panel">
+                        <a class="panel-heading"  id="headingOne" aria-expanded="true" aria-controls="collapseOne">
+                          <h4 class="panel-title">Islami Bank Limited</h4>
+                        </a>
+
+                      </div>
+                      <div class="panel">
+                        <a class="panel-heading"  id="headingOne" aria-expanded="true" aria-controls="collapseOne">
+                          <h4 class="panel-title">Agrani Bank Limied</h4>
+                        </a>
+                      </div>
+                    </div>
+                    <!-- end of accordion -->
+
+
+                  </div>
+                </div>
+  </div>
+
+<div class="col-md-6 col-sm-6">
+  <div class="x_panel">
+  <div class="row">
+    <div class=" ">
+      <button onclick="location.href='{% url 'App_Event:home' %}'" class="btn btn-success pull-right"><i class="fa fa-edit"></i>Update Information</button>
+    </div>
+  </div>
+  </div>
+  </div>
+
+
+</div>
+</div>
+  <!-- /top tiles -->
+{% endblock %}
+
+{% block extra_js %}
+
+{% endblock %}
