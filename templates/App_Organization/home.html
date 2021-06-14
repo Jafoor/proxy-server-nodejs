@@ -1,0 +1,47 @@
+{% extends 'App_Organization/master.html' %}
+
+{% load static %}
+
+{% block title_block %}
+Organization Dashboard
+{% endblock %}
+
+{% block extra_css %}
+
+{% endblock %}
+
+{% block body_block %}
+<!-- page content -->
+<div class="right_col" role="main">
+  <!-- top tiles -->
+  <div class="row"  >
+
+  <div class="tile_count col-lg-12">
+
+    <div class="col-lg-3 col-md-6 col-sm-12  tile_stats_count">
+      <span class="count_top"><i class="fa fa-clock-o"></i> Account Balance </span>
+      <div class="count green">1234098</div>
+    </div>
+
+    <div class="col-lg-3 col-md-6 col-sm-12  tile_stats_count">
+      <span class="count_top"><i class="fa fa-user"></i> Total Events</span>
+      <div class="count">10</div>
+    </div>
+    <div class="col-lg-3 col-md-6 col-sm-12  tile_stats_count">
+      <span class="count_top"><i class="fa fa-user"></i> Total Withdraw</span>
+      <div class="count">2500</div>
+    </div>
+    <div class="col-lg-3 col-md-6 col-sm-12  tile_stats_count">
+      <span class="count_top"><i class="fa fa-user"></i> Total Member</span>
+      <div class="count">4567</div>
+    </div>
+  </div>
+
+</div>
+</div>
+  <!-- /top tiles -->
+{% endblock %}
+
+{% block extra_js %}
+
+{% endblock %}

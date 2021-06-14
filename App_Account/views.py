@@ -105,7 +105,7 @@ def login_view(request):
             if request.user.is_active:
                 if _next:
                     return redirect(_next)
-                return redirect('home')
+                return redirect('App_Event:home')
             else:
                 return render(request, 'App_Account/registration_varification.html')
         return render(request, 'App_Account/login.html', {'form': form})

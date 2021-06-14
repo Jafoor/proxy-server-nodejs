@@ -167,10 +167,18 @@ class VerifyOrgBankDetails(models.Model):
     account_name = models.CharField(max_length=100, blank=True)
     current_balance = models.IntegerField(default=0)
     total_withdraw = models.IntegerField(default=0)
+    total_collection = models.IntegerField(default=0)
     is_verified = models.BooleanField(default=False)
 
     def __str__(self):
         return self.user.first_name
+
+@receiver(post_save, sender=CustomUser)
+def organization_creation(sender, instance, created, **kwargd):
+    if created and instance.is_org:
+        organization = VerifyOrgBankDetails(user=instance)
+        organization.save()
+
 @receiver(post_save, sender=CustomUser)
 def organization_creation(sender, instance, created, **kwargd):
     if created and instance.is_org:
