@@ -76,7 +76,7 @@ def UpdateOrganizationInformation(request, slug):
         org_type = request.POST.get('org_type')
         org_active_member = request.POST.get('org_active_member')
         division = request.POST.get('division')
-        zilla = request.POST['x']
+        zilla = request.POST['zilla']
         thana = request.POST.get('thana')
         address = request.POST.get('address')
         socila_link1 = request.POST.get('socila_link1')
