@@ -1,0 +1,7 @@
+#leftCol {
+    position: fixed;
+    width: 150px;
+    overflow-y: scroll;
+    top: 0;
+    bottom: 0;
+}
