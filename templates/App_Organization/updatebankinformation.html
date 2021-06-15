@@ -59,21 +59,21 @@ Organization Dashboard
                                        <div class="field item form-group">
                                            <label class="col-form-label col-md-3 col-sm-3  label-align">Branch Name<span class="required">*</span></label>
                                            <div class="col-md-6 col-sm-6">
-                                               <input class="form-control" type="text"   name="bank_branch" placeholder="Ex: Banani Branch" required />
+                                               <input class="form-control" type="text"   name="bank_branch" value="{{bankinfo.bank_branch}}" placeholder="Ex: Banani Branch" required />
                                            </div>
                                        </div>
 
                                        <div class="field item form-group">
                                            <label class="col-form-label col-md-3 col-sm-3  label-align">Account Name<span class="required">*</span></label>
                                            <div class="col-md-6 col-sm-6">
-                                               <input class="form-control" type="text" name="account_name" placeholder="Ex: Mr. Hasan" required />
+                                               <input class="form-control" type="text" name="account_name" value="{{bankinfo.account_name}}" placeholder="Ex: Mr. Hasan" required />
                                            </div>
                                        </div>
 
                                        <div class="field item form-group">
                                            <label class="col-form-label col-md-3 col-sm-3  label-align">Account Number<span class="required">*</span></label>
                                            <div class="col-md-6 col-sm-6">
-                                               <input class="form-control" type="number" class='number' name="account_number" placeholder="101.1234.12344422" required></div>
+                                               <input class="form-control" type="number" class='number' name="account_number" value="{{bankinfo.account_number}}" placeholder="101.1234.12344422" required></div>
                                        </div>
 
                                        <div class="ln_solid">
@@ -96,6 +96,9 @@ Organization Dashboard
 {% endblock %}
 
 {% block extra_js %}
+
+   <script src="{% static 'dashboard/vendors/validator/multifield.js' %}"></script>
+   <script src="{% static 'dashboard/vendors/validator/validator.js' %}"></script>
 
 <script>
     // initialize a validator instance from the "FormValidator" constructor.
@@ -123,5 +126,6 @@ Organization Dashboard
 
 </script>
 
+    <script src="{% static 'dashboard/vendors/validator/validator.js' %}"></script>
 
 {% endblock %}

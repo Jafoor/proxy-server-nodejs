@@ -31,9 +31,9 @@
           </li>
           <li><a><i class="fa fa-edit"></i> Account Details <span class="fa fa-chevron-down"></span></a>
             <ul class="nav child_menu">
-              <li><a href="#">Organization Information</a></li>
+              <li><a href="{% url 'App_Organization:OrganizationInformation' slug=user.slug %}">Organization Information</a></li>
               <li><a href="#">Contact Information</a></li>
-              <li><a href="#">Bank Information</a></li>
+              <li><a href="{% url 'App_Organization:OrganizationBankInformation' slug=user.slug %}">Bank Information</a></li>
             </ul>
           </li>
           <li><a><i class="fa fa-desktop"></i> Events <span class="fa fa-chevron-down"></span></a>
