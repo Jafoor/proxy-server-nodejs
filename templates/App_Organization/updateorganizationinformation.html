@@ -1,0 +1,193 @@
+{% extends 'App_Organization/master.html' %}
+
+{% load static %}
+
+{% block title_block %}
+Organization Dashboard
+{% endblock %}
+
+{% block extra_css %}
+
+	<link href="{% static 'dashboard/vendors/select2/dist/css/select2.min.css' %}" rel="stylesheet">
+
+{% endblock %}
+
+{% block body_block %}
+
+<!-- page content -->
+           <div class="right_col" role="main">
+               <div class="">
+                   <div class="page-title">
+                       <div class="title_left">
+                           <h3>Organization Informations Update</h3>
+                       </div>
+
+
+                   </div>
+                   <div class="clearfix"></div>
+
+                   <div class="row">
+                       <div class="col-md-12 col-sm-12">
+                           <div class="x_panel">
+                               <div class="x_title">
+                                   <h2>Organization Information<small>sub title</small></h2>
+                                   <ul class="nav navbar-right panel_toolbox">
+                                       <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                                       </li>
+                                   </ul>
+                                   <div class="clearfix"></div>
+                               </div>
+                               <div class="x_content">
+                                   <form class="" action="" method="post" novalidate>
+                                     {% csrf_token %}
+
+                                       <span class="section">Organization Address</span>
+                                       <div class="field item form-group">
+                                           <label class="col-form-label col-md-3 col-sm-3  label-align">Division<span class="required">*</span></label>
+                                           <div class="col-md-6 col-sm-6">
+
+                                           <div class="form-group">
+                                               <select class="form-control select2" name="division" id="divisions" onchange="divisionsList();" required>
+                                                   <option value="" disabled selected> Select Division</option>
+                                                   <option value="Barishal">Barishal</option>
+                                                   <option value="Chattogram">Chattogram</option>
+                                                   <option value="Dhaka">Dhaka</option>
+                                                   <option value="Khulna">Khulna</option>
+                                                   <option value="Mymensingh">Mymensingh</option>
+                                                   <option value="Rajshahi">Rajshahi</option>
+                                                   <option value="Rangpur">Rangpur</option>
+                                                   <option value="Sylhet">Sylhet</option>
+                                               </select>
+                                           </div>
+
+                                     </div>
+                                 </div>
+
+                              <div class="field item form-group">
+                              <label class="col-form-label col-md-3 col-sm-3  label-align">Zila<span class="required">*</span></label>
+                               <div class="col-md-6 col-sm-6">
+                               <select class="form-control select2" name="zilla" id="distr"  onchange="thanaList();" required></select>
+                              </div>
+                              </div>
+
+                                 <div class="field item form-group">
+                                 <label class="col-form-label col-md-3 col-sm-3  label-align">Thana<span class="required">*</span></label>
+                                  <div class="col-md-6 col-sm-6">
+                                  <select class="form-control select2" name="thana" id="polic_sta" required></select>
+                                 </div>
+                                 </div>
+
+
+
+                                     <div class="field item form-group">
+                                         <label class="col-form-label col-md-3 col-sm-3  label-align">Details Address<span class="required">*</span></label>
+                                         <div class="col-md-6 col-sm-6">
+                                             <input class="form-control" type="text"  name="address" value="" placeholder="Road, Block, House etc." required />
+                                         </div>
+                                     </div>
+
+
+                                       <div class="field item form-group">
+                                           <label class="col-form-label col-md-3 col-sm-3  label-align">Contact Number<span class="required">*</span></label>
+                                           <div class="col-md-6 col-sm-6">
+                                               <input class="form-control" type="number" class='number' name="contact_number" value="" placeholder="" required></div>
+                                       </div>
+
+                                       <div class="field item form-group">
+                                           <label class="col-form-label col-md-3 col-sm-3  label-align">Type<span class="required">*</span></label>
+                                           <div class="col-md-6 col-sm-6">
+
+                                           <div class="form-group">
+                                               <select class="form-control select2" name="org_type" required>
+                                                   <option value="" disabled selected> Select Type</option>
+                                                   <option value="Barishal">Health</option>
+                                                   <option value="Chattogram">Religious</option>
+                                                   <option value="Dhaka">Help Poor</option>
+
+                                               </select>
+                                           </div>
+
+                                     </div>
+                                 </div>
+
+                                 <div class="field item form-group">
+                                     <label class="col-form-label col-md-3 col-sm-3  label-align">Active Members<span class="required">*</span></label>
+                                     <div class="col-md-6 col-sm-6">
+                                         <input class="form-control" type="number" class='number' name="org_active_member" value="" placeholder="" required></div>
+                                 </div>
+
+                                 <div class="field item form-group">
+                                     <label class="col-form-label col-md-3 col-sm-3  label-align">Facebook Link<span class="required"></span></label>
+                                     <div class="col-md-6 col-sm-6">
+                                         <input class="form-control" type="text"  name="socila_link1" value="" placeholder="https://www.facebook.com/" />
+                                     </div>
+                                 </div>
+
+                                 <div class="field item form-group">
+                                     <label class="col-form-label col-md-3 col-sm-3  label-align">Other Link<span class="required"></span></label>
+                                     <div class="col-md-6 col-sm-6">
+                                         <input class="form-control" type="text"  name="socila_link2" value="" placeholder="if any (www.yourdomainname.org)" />
+                                     </div>
+                                 </div>
+
+                                 <div class="field item form-group">
+                                     <label class="col-form-label col-md-3 col-sm-3  label-align">About Organization<span class="required"></span></label>
+                                     <div class="col-md-6 col-sm-6">
+                                         <textarea class="form-control" type="text"  name="org_about" value="" placeholder="maximum 100 words" cols="15" rows="8" required ></textarea>
+                                     </div>
+                                 </div>
+
+                                       <div class="ln_solid">
+                                           <div class="form-group">
+                                               <div class="col-md-6 offset-md-3">
+                                                   <button type='submit' class="btn btn-primary">Submit</button>
+                                                   <button type='reset' class="btn btn-success">Reset</button>
+                                               </div>
+                                           </div>
+                                       </div>
+                                   </form>
+                               </div>
+                           </div>
+                       </div>
+                   </div>
+               </div>
+           </div>
+           <!-- /page content -->
+
+{% endblock %}
+
+{% block extra_js %}
+
+   <script src="{% static 'dashboard/vendors/validator/multifield.js' %}"></script>
+   <script src="{% static 'dashboard/vendors/validator/validator.js' %}"></script>
+   <script src="{% static 'general/js/CustomScripts/Division-zila-upazilla-selection.js' %}" ></script>
+
+<script>
+    // initialize a validator instance from the "FormValidator" constructor.
+    // A "<form>" element is optionally passed as an argument, but is not a must
+    var validator = new FormValidator({
+        "events": ['blur', 'input', 'change']
+    }, document.forms[0]);
+    // on form "submit" event
+    document.forms[0].onsubmit = function(e) {
+        var submit = true,
+            validatorResult = validator.checkAll(this);
+        console.log(validatorResult);
+        return !!validatorResult.valid;
+    };
+    // on form "reset" event
+    document.forms[0].onreset = function(e) {
+        validator.reset();
+    };
+    // stuff related ONLY for this demo page:
+    $('.toggleValidationTooltips').change(function() {
+        validator.settings.alerts = !this.checked;
+        if (this.checked)
+            $('form .alert').remove();
+    }).prop('checked', false);
+
+</script>
+
+    <script src="{% static 'dashboard/vendors/validator/validator.js' %}"></script>
+
+{% endblock %}

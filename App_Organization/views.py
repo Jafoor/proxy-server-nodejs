@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth import login, logout, get_user_model
 from App_Account.models import Organization, VerifyOrgBankDetails
 # Create your views here.
@@ -24,6 +24,16 @@ def BankInformation(request, slug):
     }
     return render(request, 'App_Organization/bankinformation.html', context )
 
+def Organizationformation(request, slug):
+
+    user = get_object_or_404(User, slug=slug)
+    org = get_object_or_404(Organization, org=user)
+    context = {
+        'user': user,
+        'org': org
+    }
+    return render(request, 'App_Organization/OrganizationInformation.html', context )
+
 def UpdateBankInformation(request, slug):
 
     user = get_object_or_404(User, slug=slug)
@@ -38,7 +48,9 @@ def UpdateBankInformation(request, slug):
         bankinfo.bank_branch = bank_branch
         bankinfo.account_name = account_name
         bankinfo.account_number = account_number
+        bankinfo.is_verified = True
         bankinfo.save()
+    bankinfo = get_object_or_404(VerifyOrgBankDetails, user=user)
     context = {
         'user': user,
         'org': org,
@@ -46,3 +58,43 @@ def UpdateBankInformation(request, slug):
     }
     # if request.user == user:
     return render(request, 'App_Organization/updatebankinformation.html', context )
+
+
+
+def UpdateOrganizationInformation(request, slug):
+
+    user = get_object_or_404(User, slug=slug)
+    org = get_object_or_404(Organization, org=user)
+    context = {
+        'user': user,
+        'org': org,
+    }
+
+    if request.method == 'POST':
+        contact_number = request.POST.get('contact_number')
+        org_about = request.POST.get('org_about')
+        org_type = request.POST.get('org_type')
+        org_active_member = request.POST.get('org_active_member')
+        division = request.POST.get('division')
+        zilla = request.POST['zilla']
+        thana = request.POST.get('thana')
+        address = request.POST.get('address')
+        socila_link1 = request.POST.get('socila_link1')
+        socila_link2 = request.POST.get('socila_link2')
+        print(zilla)
+        print(thana)
+        org.contact_number = contact_number
+        org.org_about = org_about
+        org.org_type= org_type
+        org.org_active_member = org_active_member
+        org.division = division
+        org.zilla = zilla
+        org.thana = thana
+        org.address = address
+        org.socila_link1 = socila_link1
+        org.socila_link2 = socila_link2
+        org.save()
+        return redirect('App_Organization:OrganizationDashboard', slug)
+
+    # if request.user == user:
+    return render(request, 'App_Organization/updateorganizationinformation.html', context )
