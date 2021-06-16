@@ -10,6 +10,23 @@ from django.template import defaultfilters
 from django_resized import ResizedImageField
 from django.utils.text import slugify
 from unidecode import unidecode
+import os
+
+
+def upload_to_org_pic(instance, filename):
+    return 'images/%s/org_pic/%s' % (instance.org.email, filename)
+def upload_to_member1_nid_front(instance, filename):
+    return 'images/%s/member1_nid_front/%s' % (instance.org.email, filename)
+def upload_to_org_member1_nid_back(instance, filename):
+    return 'images/%s/member1_nid_back/%s' % (instance.org.email, filename)
+def upload_to_org_member2_nid_front(instance, filename):
+    return 'images/%s/member2_nid_front/%s' % (instance.org.email, filename)
+def upload_to_org_member2_nid_back(instance, filename):
+    return 'images/%s/member2_nid_back/%s' % (instance.org.email, filename)
+def upload_to_org_org_prove1(instance, filename):
+    return 'images/%s/org_prove1/%s' % (instance.org.email, filename)
+def upload_to_org_org_prove2(instance, filename):
+    return 'images/%s/org_prove2/%s' % (instance.org.email, filename)
 
 class CustomAccountManager(BaseUserManager):
 
@@ -131,7 +148,7 @@ class Organization(models.Model):
     org = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
     org_name = models.CharField(max_length=255, blank=True)
     contact_number = models.CharField(max_length=15, blank=True)
-    org_pic = ResizedImageField(size=[294, 313], crop=['middle', 'center'], upload_to='profilePicture', default='default_pic.jpeg', null=True, blank=True)
+    org_pic = models.ImageField(upload_to=upload_to_org_pic, blank=True)
     org_about = models.TextField(blank=True)
     org_type = models.CharField(blank=True, max_length=255)
     org_active_member = models.IntegerField(default=0)
@@ -141,18 +158,20 @@ class Organization(models.Model):
     address = models.CharField(max_length=500, blank=True)
     socila_link1 = models.TextField(blank=True)
     socila_link2 = models.TextField(blank=True)
+    given_org_details = models.BooleanField(default=False)
     member1_name = models.CharField(max_length=50, blank=True)
     member1_mobilenumber = models.CharField(max_length=15, blank=True)
     member1_position = models.CharField(max_length=50, blank=True)
-    member1_nid_front = models.ImageField(upload_to="member1_nid_front", blank=True)
-    member1_nid_back = models.ImageField(upload_to="member1_nid_back", blank=True)
+    member1_nid_front = models.ImageField(upload_to=upload_to_member1_nid_front, blank=True)
+    member1_nid_back = models.ImageField(upload_to=upload_to_org_member1_nid_back, blank=True)
     member2_name = models.CharField(max_length=50, blank=True)
     member2_mobilenumber = models.CharField(max_length=15, blank=True)
     member2_position = models.CharField(max_length=50, blank=True)
-    member2_nid_front = models.ImageField(upload_to="member2_nid_front", blank=True)
-    member2_nid_back = models.ImageField(upload_to="member2_nid_back", blank=True)
-    org_prove1 = models.ImageField(upload_to="prove_1", blank=True)
-    org_prove2 = models.ImageField(upload_to="prove_2", blank=True)
+    member2_nid_front = models.ImageField(upload_to=upload_to_org_member2_nid_front, blank=True)
+    member2_nid_back = models.ImageField(upload_to=upload_to_org_member2_nid_back, blank=True)
+    org_prove1 = models.ImageField(upload_to=upload_to_org_org_prove1, blank=True)
+    org_prove2 = models.ImageField(upload_to=upload_to_org_org_prove2, blank=True)
+    given_org_documents = models.BooleanField(default=False)
     is_verified = models.BooleanField(default=False)
 
     def __str__(self):
