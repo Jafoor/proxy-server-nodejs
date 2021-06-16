@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth import login, logout, get_user_model
 from App_Account.models import Organization, VerifyOrgBankDetails
+from App_Organization.forms import OrgDocumentsSubmit
 # Create your views here.
 User = get_user_model()
 
@@ -93,8 +94,28 @@ def UpdateOrganizationInformation(request, slug):
         org.address = address
         org.socila_link1 = socila_link1
         org.socila_link2 = socila_link2
+        org.given_org_details = True
         org.save()
         return redirect('App_Organization:OrganizationDashboard', slug)
 
     # if request.user == user:
     return render(request, 'App_Organization/updateorganizationinformation.html', context )
+
+def UpdateOrganizationDocuments(request, slug):
+    user = get_object_or_404(User, slug=slug)
+    org = get_object_or_404(Organization, org=user)
+    if request.method == 'POST':
+        form = OrgDocumentsSubmit(request.POST or None, request.FILES or None,instance=org)
+        print(form)
+        if form.is_valid():
+            form.save()
+            return redirect('App_Organization:OrganizationDashboard', slug)
+    else:
+        form = OrgDocumentsSubmit(instance=org)
+    context = {
+        'user': user,
+        'org': org,
+        'form': form,
+    }
+
+    return render(request, 'App_Organization/updateorganizationdocuments.html', context)
