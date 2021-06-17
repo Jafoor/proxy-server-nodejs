@@ -10,5 +10,10 @@ urlpatterns = [
     # path('', views.Home, name='home'),
     # path('product/<pk>/', views.ProductDetail.as_view(), name='product_detail'),
     path('master',views.master,name='master'),
-    path('adminhome',views.AdminHome,name='adminhome')
+    path('adminhome',views.AdminHome,name='adminhome'),
+    path('organizations',views.organizations,name='organizations'),
+    path('verifiedusers',views.verifiedusers,name='verifiedusers'),
+    path('generalusers',views.generalusers,name='generalusers'),
+    path('eventsbyusers',views.eventsbyusers,name='eventsbyusers'),
+    path('generalusers',views.eventsbyorganizations,name='eventsbyorganizations'),
 ]
