@@ -1,0 +1,262 @@
+{% extends 'App_Organization/master.html' %}
+
+{% load static %}
+
+{% block title_block %}
+Organization Dashboard
+{% endblock %}
+
+{% block extra_css %}
+
+<style media="screen">
+  .center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+}
+</style>
+
+{% endblock %}
+
+{% block body_block %}
+<!-- page content -->
+<div class="right_col" role="main">
+  <!-- top tiles -->
+  <div class="row"  >
+
+  <div class="tile_count col-lg-12">
+
+    <div class="alert alert-danger alert-dismissible " role="alert">
+      <button type="button" class="close" aria-label="Close"><span aria-hidden="true">×</span>
+      </button>
+      <strong>You did't complete Organization Informations</strong>
+    </div>
+
+  </div>
+  <div class="tile_count col-lg-12">
+
+    <div class="alert alert-success alert-dismissible " role="alert">
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
+      </button>
+      <strong>Completed Organization Informations</strong>
+    </div>
+
+
+  </div>
+
+  <div class="col-md-6 col-sm-6  ">
+    <div class="x_panel">
+      <div class="x_title">
+        <h2><i class="fa fa-info"></i> Organization Documents <small></small></h2>
+        <ul class="nav navbar-right panel_toolbox">
+          <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+          </li>
+
+          <li><a class="close-link"><i class="fa fa-close"></i></a>
+          </li>
+        </ul>
+        <div class="clearfix"></div>
+      </div>
+      <div class="x_content">
+
+        <!-- start accordion -->
+        <div class="accordion" id="accordion" aria-multiselectable="true">
+          <div class="panel" style="overflow: hidden;">
+            <a class="panel-heading"  id="headingOne" aria-expanded="true" aria-controls="collapseOne">
+              <h4 class="panel-title">Organization Image </h4>
+              {% if org.org_pic %}
+              <img class="center" src="{{org.org_pic.url}}" alt="Organization image or logo" style="width: 50%; height: auto;" >
+              {% else %}
+              <img class="center" src="{% static 'dashboard/imagenotfound.png' %}" alt="Organization Image or Logo" style="width: 50%; height: auto;" >
+              {% endif %}
+            </a>
+          </div>
+
+          <div class="panel" style="overflow: hidden;">
+            <a class="panel-heading"  id="headingOne" aria-expanded="true" aria-controls="collapseOne">
+              <h4 class="panel-title">Organization Document 1</h4>
+              {% if org.org_prove1 %}
+              <img class="center" src="{{org.org_prove1.url}}" alt="Organization Document" style="width: 50%; height: auto;" >
+              {% else %}
+              <img class="center" src="{% static 'dashboard/imagenotfound.png' %}" alt="Organization Document" style="width: 50%; height: auto;" >
+              {% endif %}
+            </a>
+          </div>
+
+          <div class="panel" style="overflow: hidden;">
+            <a class="panel-heading"  id="headingOne" aria-expanded="true" aria-controls="collapseOne">
+              <h4 class="panel-title">Organization Document 2</h4>
+              {% if org.org_prove2 %}
+              <img class="center" src="{{org.org_prove2.url}}" alt="Organization Document" style="width: 50%; height: auto;" >
+              {% else %}
+              <img class="center" src="{% static 'dashboard/imagenotfound.png' %}" alt="Organization Document" style="width: 50%; height: auto;" >
+              {% endif %}
+            </a>
+          </div>
+        </div>
+        <!-- end of accordion -->
+
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-6 col-sm-6  ">
+    <div class="x_panel">
+      <div class="x_title">
+        <h2><i class="fa fa-info"></i> First Member Information <small></small></h2>
+        <ul class="nav navbar-right panel_toolbox">
+          <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+          </li>
+
+          <li><a class="close-link"><i class="fa fa-close"></i></a>
+          </li>
+        </ul>
+        <div class="clearfix"></div>
+      </div>
+      <div class="x_content">
+
+        <!-- start accordion -->
+        <div class="accordion" id="accordion" aria-multiselectable="true">
+        <div class="panel">
+          <a class="panel-heading"  id="headingOne" aria-expanded="true" aria-controls="collapseOne">
+            <h4 class="panel-title">Name : {{org.member1_name}} </h4>
+          </a>
+        </div>
+
+        <div class="panel">
+          <a class="panel-heading"  id="headingOne" aria-expanded="true" aria-controls="collapseOne">
+            <h4 class="panel-title">Position : {{org.member1_position}} </h4>
+          </a>
+        </div>
+
+        <div class="panel">
+          <a class="panel-heading"  id="headingOne" aria-expanded="true" aria-controls="collapseOne">
+            <h4 class="panel-title">Contact Number : {{org.member1_mobilenumber}} </h4>
+          </a>
+        </div>
+
+        <div class="accordion" id="accordion" aria-multiselectable="true">
+          <div class="panel" style="overflow: hidden;">
+            <a class="panel-heading"  id="headingOne" aria-expanded="true" aria-controls="collapseOne">
+              <h4 class="panel-title"> NID Card Front Page </h4>
+              {% if org.member1_nid_front %}
+              <img class="center" src="{{org.member1_nid_front.url}}" alt="Organization image or logo" style="width: 50%; height: auto;" >
+              {% else %}
+              <img class="center" src="{% static 'dashboard/imagenotfound.png' %}" alt="Organization Image or Logo" style="width: 50%; height: auto;" >
+              {% endif %}
+            </a>
+          </div>
+
+          <div class="accordion" id="accordion" aria-multiselectable="true">
+            <div class="panel" style="overflow: hidden;">
+              <a class="panel-heading"  id="headingOne" aria-expanded="true" aria-controls="collapseOne">
+                <h4 class="panel-title"> NID Card Front Page </h4>
+                {% if org.member1_nid_back %}
+                <img class="center" src="{{org.member1_nid_back.url}}" alt="Organization image or logo" style="width: 50%; height: auto;" >
+                {% else %}
+                <img class="center" src="{% static 'dashboard/imagenotfound.png' %}" alt="Organization Image or Logo" style="width: 50%; height: auto;" >
+                {% endif %}
+              </a>
+            </div>
+        </div>
+        </div>
+        <!-- end of accordion -->
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<div class="col-md-6 col-sm-6  ">
+  <div class="x_panel">
+    <div class="x_title">
+      <h2><i class="fa fa-info"></i> Second Member Information <small></small></h2>
+      <ul class="nav navbar-right panel_toolbox">
+        <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+        </li>
+
+        <li><a class="close-link"><i class="fa fa-close"></i></a>
+        </li>
+      </ul>
+      <div class="clearfix"></div>
+    </div>
+    <div class="x_content">
+
+      <!-- start accordion -->
+      <div class="accordion" id="accordion" aria-multiselectable="true">
+      <div class="panel">
+        <a class="panel-heading"  id="headingOne" aria-expanded="true" aria-controls="collapseOne">
+          <h4 class="panel-title">Name : {{org.member2_name}} </h4>
+        </a>
+      </div>
+
+      <div class="panel">
+        <a class="panel-heading"  id="headingOne" aria-expanded="true" aria-controls="collapseOne">
+          <h4 class="panel-title">Position : {{org.member2_position}} </h4>
+        </a>
+      </div>
+
+      <div class="panel">
+        <a class="panel-heading"  id="headingOne" aria-expanded="true" aria-controls="collapseOne">
+          <h4 class="panel-title">Contact Number : {{org.member2_mobilenumber}} </h4>
+        </a>
+      </div>
+
+      <div class="accordion" id="accordion" aria-multiselectable="true">
+        <div class="panel" style="overflow: hidden;">
+          <a class="panel-heading"  id="headingOne" aria-expanded="true" aria-controls="collapseOne">
+            <h4 class="panel-title"> NID Card Front Page </h4>
+            {% if org.member2_nid_front %}
+            <img class="center" src="{{org.member2_nid_front.url}}" alt="Organization image or logo" style="width: 50%; height: auto;" >
+            {% else %}
+            <img class="center" src="{% static 'dashboard/imagenotfound.png' %}" alt="Organization Image or Logo" style="width: 50%; height: auto;" >
+            {% endif %}
+          </a>
+        </div>
+
+        <div class="accordion" id="accordion" aria-multiselectable="true">
+          <div class="panel" style="overflow: hidden;">
+            <a class="panel-heading"  id="headingOne" aria-expanded="true" aria-controls="collapseOne">
+              <h4 class="panel-title"> NID Card Front Page </h4>
+              {% if org.member2_nid_back %}
+              <img class="center" src="{{org.member2_nid_back.url}}" alt="Organization image or logo" style="width: 50%; height: auto;" >
+              {% else %}
+              <img class="center" src="{% static 'dashboard/imagenotfound.png' %}" alt="Organization Image or Logo" style="width: 50%; height: auto;" >
+              {% endif %}
+            </a>
+          </div>
+      </div>
+      </div>
+      <!-- end of accordion -->
+
+    </div>
+  </div>
+</div>
+</div>
+
+
+<div class=" col-lg-6 col-md-6 col-sm-6 ">
+  <div class="x_panel" class="">
+  <div class="row">
+    <div class="" style="display:block;  margin-left: auto; margin-right: auto; ">
+      <!--
+      <button onclick="location.href='{% url 'App_Event:home' %}'" class="btn btn-success pull-right"><i class="fa fa-edit"></i>Update Information</button>
+      -->
+      <button onclick="location.href='{% url 'App_Organization:UpdateOrganizationDocuments' slug=user.slug %}'" class="btn btn-success pull-right"><i class="fa fa-edit"></i>Update Documents</button>
+    </div>
+  </div>
+  </div>
+  </div>
+
+
+</div>
+</div>
+  <!-- /top tiles -->
+{% endblock %}
+
+{% block extra_js %}
+
+{% endblock %}

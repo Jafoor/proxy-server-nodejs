@@ -38,7 +38,7 @@ Organization Dashboard
                                    <div class="clearfix"></div>
                                </div>
                                <div class="x_content">
-                                   <form class="" action="" method="post" novalidate>
+                                   <form class="" action="" method="post" id="confirmationForm" novalidate>
                                      {% csrf_token %}
 
                                        <span class="section">Organization Address</span>
@@ -82,7 +82,7 @@ Organization Dashboard
                                      <div class="field item form-group">
                                          <label class="col-form-label col-md-3 col-sm-3  label-align">Details Address<span class="required">*</span></label>
                                          <div class="col-md-6 col-sm-6">
-                                             <input class="form-control" type="text"  name="address" value="" placeholder="Road, Block, House etc." required />
+                                             <input class="form-control" type="text"  name="address" value="{{org.address}}" placeholder="Road, Block, House etc." required />
                                          </div>
                                      </div>
 
@@ -90,7 +90,7 @@ Organization Dashboard
                                        <div class="field item form-group">
                                            <label class="col-form-label col-md-3 col-sm-3  label-align">Contact Number<span class="required">*</span></label>
                                            <div class="col-md-6 col-sm-6">
-                                               <input class="form-control" type="number" class='number' name="contact_number" value="" placeholder="" required></div>
+                                               <input class="form-control" type="number" class='number' name="contact_number" value="{{org.contact_number}}" placeholder="" required></div>
                                        </div>
 
                                        <div class="field item form-group">
@@ -100,10 +100,12 @@ Organization Dashboard
                                            <div class="form-group">
                                                <select class="form-control select2" name="org_type" required>
                                                    <option value="" disabled selected> Select Type</option>
-                                                   <option value="Barishal">Health</option>
-                                                   <option value="Chattogram">Religious</option>
-                                                   <option value="Dhaka">Help Poor</option>
-
+                                                   <option value="Health">Health</option>
+                                                   <option value="Religious">Religious</option>
+                                                   <option value="Help Poor">Help Poor</option>
+																									{% if org.org_type %}
+																									 <option selected value="{{org.org_type}}">{{ org.org_type }}</option>
+																									{% endif %}
                                                </select>
                                            </div>
 
@@ -113,27 +115,27 @@ Organization Dashboard
                                  <div class="field item form-group">
                                      <label class="col-form-label col-md-3 col-sm-3  label-align">Active Members<span class="required">*</span></label>
                                      <div class="col-md-6 col-sm-6">
-                                         <input class="form-control" type="number" class='number' name="org_active_member" value="" placeholder="" required></div>
+                                         <input class="form-control" type="number" class='number' name="org_active_member" value="{{org.org_active_member}}" placeholder="" required></div>
                                  </div>
 
                                  <div class="field item form-group">
                                      <label class="col-form-label col-md-3 col-sm-3  label-align">Facebook Link<span class="required"></span></label>
                                      <div class="col-md-6 col-sm-6">
-                                         <input class="form-control" type="text"  name="socila_link1" value="" placeholder="https://www.facebook.com/" />
+                                         <input class="form-control" type="text"  name="socila_link1" value="{{org.socila_link1}}" placeholder="https://www.facebook.com/" />
                                      </div>
                                  </div>
 
                                  <div class="field item form-group">
                                      <label class="col-form-label col-md-3 col-sm-3  label-align">Other Link<span class="required"></span></label>
                                      <div class="col-md-6 col-sm-6">
-                                         <input class="form-control" type="text"  name="socila_link2" value="" placeholder="if any (www.yourdomainname.org)" />
+                                         <input class="form-control" type="text"  name="socila_link2" value="{{org.socila_link2}}" placeholder="if any (www.yourdomainname.org)" />
                                      </div>
                                  </div>
 
                                  <div class="field item form-group">
                                      <label class="col-form-label col-md-3 col-sm-3  label-align">About Organization<span class="required"></span></label>
                                      <div class="col-md-6 col-sm-6">
-                                         <textarea class="form-control" type="text"  name="org_about" value="" placeholder="maximum 100 words" cols="15" rows="8" required ></textarea>
+                                         <textarea form="confirmationForm" class="form-control" type="text"  name="org_about" value="" placeholder="maximum 100 words" cols="15" rows="8" required >{{org.org_about}}</textarea>
                                      </div>
                                  </div>
 
