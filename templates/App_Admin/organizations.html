@@ -1,0 +1,49 @@
+{% extends "App_Admin/master.html" %}
+{% block body_block %}
+{% load static %}
+{% include 'App_Admin/action_modal.html' %}
+
+<div style="text-align: center; font-size: 50px; border: 9px solid lightblue; width:auto; border-radius: 10px;">
+    Organiztion Info and Action Center
+</div>
+
+    <div class="container" style="width: 100%;">
+        <table class="table table-striped" style="border:9px red; width: 100%;">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Type</th>
+                    <th scope="col">Registration Date</th>
+                    <th scope="col">Zilla</th>
+                    <th scope="col">Social Media 1</th>
+                    <th scope="col">Social Media 2</th>
+                    <th scope="col">Active events</th>
+                    <th scope="col">Verified?</th>
+                    <th scope="col">Document</th>
+                    <th scope="col">Take Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th scope="row">1</th>
+                    <td>Org1</td>
+                    <td>Social</td>
+                    <td>23/4/21</td>
+                    <td>Bogura</td>
+                    <td>link</td>
+                    <td>link</td>
+                    <td>3</td>
+                    <td>Yes</td>
+                    <td>link</td>
+                    <td><button id="myBtn">action</button></td>
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
+
+
+
+
+{% endblock %}

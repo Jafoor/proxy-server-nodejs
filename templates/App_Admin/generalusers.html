@@ -1,0 +1,50 @@
+
+{% extends "App_Admin/master.html" %}
+{% block body_block %}
+{% load static %}
+{% include 'App_Admin/action_modal.html' %}
+
+<div style="text-align: center; font-size: 50px; border: 9px solid lightblue; width:auto; border-radius: 10px;">
+    General Users Info and Action Center
+</div>
+
+    <div class="container" style="width: 100%;">
+        <table class="table table-striped" style="border:9px red; width: 100%;">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">UserName</th>
+                    <th scope="col">Picture</th>
+                    <th scope="col">Division</th>
+                    <th scope="col">Zilla</th>
+                    <th scope="col">Thana</th>
+                    <th scope="col">Address</th>
+                    <th scope="col">Mobile Number</th>
+                    <th scope="col">Verified?</th> 
+                    <th scope="col">Take Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th scope="row">1</th>
+                    <td>Mr.J</td>
+                    <td>mrj@gmail.com</td>
+                    <td>picture</td>
+                    <td>Sylhet</td>
+                    <td>SunamGanj</td>
+                    <td>XYZ</td>
+                    <td>abc,efg,klm</td>
+                    <td>017xxxxxxxx</td>
+                    <td>NO</td>
+                    <td><button id="myBtn">action</button></td>
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
+
+
+
+
+{% endblock %}
