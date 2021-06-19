@@ -20,4 +20,4 @@ def eventsbyusers(request):
     return render (request,'App_Admin/eventsbyusers.html')
 
 def eventsbyorganizations(request):
-    return render (request,'App_Admin/eventsbyorganiztions.html')
+    return render (request,'App_Admin/eventsbyorganizations.html')

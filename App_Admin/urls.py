@@ -15,5 +15,5 @@ urlpatterns = [
     path('verifiedusers',views.verifiedusers,name='verifiedusers'),
     path('generalusers',views.generalusers,name='generalusers'),
     path('eventsbyusers',views.eventsbyusers,name='eventsbyusers'),
-    path('generalusers',views.eventsbyorganizations,name='eventsbyorganizations'),
+    path('eventsbyorganizations',views.eventsbyorganizations,name='eventsbyorganizations'),
 ]
