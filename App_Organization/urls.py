@@ -9,6 +9,7 @@ urlpatterns = [
     path('organization/<slug:slug>/updatebankinformation', views.UpdateBankInformation, name="OrganizationUpdateBankInformation"),
     path('organization/<slug:slug>/organizationinformation', views.Organizationformation, name="OrganizationInformation"),
     path('organization/<slug:slug>/updateorganizationinformation', views.UpdateOrganizationInformation, name="UpdateOrganizationInformation"),
+    path('organization/<slug:slug>/organizationdocuments', views.OrganizationDocuments, name="OrganizationDocuments"),
     path('organization/<slug:slug>/updateorganizationdocuments', views.UpdateOrganizationDocuments, name="UpdateOrganizationDocuments"),
     # path('', views.Home, name='home'),
     # path('product/<pk>/', views.ProductDetail.as_view(), name='product_detail'),

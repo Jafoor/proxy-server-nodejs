@@ -82,7 +82,7 @@ def UpdateOrganizationInformation(request, slug):
         address = request.POST.get('address')
         socila_link1 = request.POST.get('socila_link1')
         socila_link2 = request.POST.get('socila_link2')
-        print(zilla)
+        print(org_about)
         print(thana)
         org.contact_number = contact_number
         org.org_about = org_about
@@ -100,6 +100,17 @@ def UpdateOrganizationInformation(request, slug):
 
     # if request.user == user:
     return render(request, 'App_Organization/updateorganizationinformation.html', context )
+
+
+def OrganizationDocuments(request, slug):
+
+    user = get_object_or_404(User, slug=slug)
+    org = get_object_or_404(Organization, org=user)
+    context = {
+        'user': user,
+        'org': org
+    }
+    return render(request, 'App_Organization/OrganizationDocuments.html', context )
 
 def UpdateOrganizationDocuments(request, slug):
     user = get_object_or_404(User, slug=slug)

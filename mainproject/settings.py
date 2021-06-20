@@ -39,10 +39,18 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    # installed
+    'ckeditor',
+    'ckeditor_uploader',
+
+    # startapps
     'App_Event',
     'App_Account',
     'App_Organization',
     'App_Admin',
+
+
 ]
 
 MIDDLEWARE = [
@@ -123,6 +131,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
+STATIC_ROOT = BASE_DIR / "staticfiles"
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     BASE_DIR / "static",
@@ -143,6 +152,8 @@ EMAIL_PORT = '587'
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'shunnoek.bd@gmail.com'
 EMAIL_HOST_PASSWORD = 'nifpdnwiflflfjxb'
+
+CKEDITOR_UPLOAD_PATH = 'uploads/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field

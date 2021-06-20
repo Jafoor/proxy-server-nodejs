@@ -32,7 +32,7 @@
           <li><a><i class="fa fa-edit"></i> Account Details <span class="fa fa-chevron-down"></span></a>
             <ul class="nav child_menu">
               <li><a href="{% url 'App_Organization:OrganizationInformation' slug=user.slug %}">Organization Information</a></li>
-              <li><a href="#">Contact Information</a></li>
+              <li><a href="{% url 'App_Organization:OrganizationDocuments' slug=user.slug %}">Documents</a></li>
               <li><a href="{% url 'App_Organization:OrganizationBankInformation' slug=user.slug %}">Bank Information</a></li>
             </ul>
           </li>

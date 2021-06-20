@@ -8,7 +8,7 @@ class OrgDocumentsSubmit(forms.ModelForm):
 
 
     org_pic = forms.FileField(
-        required = True,
+        required = False,
         widget = forms.FileInput(
             attrs={
                 'class': 'form-control',
@@ -16,7 +16,7 @@ class OrgDocumentsSubmit(forms.ModelForm):
                 'placeholder': '',
                 'accept':"image/*",
                 'value':"{{ org.org_pic.value }}",
-                'required' : True
+                'required' : False
             }
         )
     )
@@ -58,27 +58,27 @@ class OrgDocumentsSubmit(forms.ModelForm):
     )
 
     member1_nid_front = forms.FileField(
-        required = True,
+        required = False,
         widget = forms.FileInput(
             attrs={
                 'class': 'form-control',
                 'type':'file',
                 'placeholder': '',
-                'accept':"image/*,application/pdf",
-                'required' : True
+                'accept':"image/*",
+                'required' : False
             }
         )
     )
 
     member1_nid_back = forms.FileField(
-        required = True,
+        required = False,
         widget = forms.FileInput(
             attrs={
                 'class': 'form-control',
                 'type':'file',
                 'placeholder': '',
-                'accept':"image/*,application/pdf",
-                'required' : True
+                'accept':"image/*",
+                'required' : False
             }
         )
     )
@@ -120,27 +120,27 @@ class OrgDocumentsSubmit(forms.ModelForm):
     )
 
     member2_nid_front = forms.FileField(
-        required = True,
+        required = False,
         widget = forms.FileInput(
             attrs={
                 'class': 'form-control',
                 'type':'file',
                 'placeholder': '',
-                'accept':"image/*, application/pdf",
-                'required' : True
+                'accept':"image/*",
+                'required' : False
             }
         )
     )
 
     member2_nid_back = forms.FileField(
-        required = True,
+        required = False,
         widget = forms.FileInput(
             attrs={
                 'class': 'form-control',
                 'type':'file',
                 'placeholder': '',
-                'accept':"image/*, application/pdf",
-                'required' : True
+                'accept':"image/*",
+                'required' : False
             }
         )
     )
@@ -152,7 +152,7 @@ class OrgDocumentsSubmit(forms.ModelForm):
                 'class': 'form-control',
                 'type':'file',
                 'placeholder': 'if any',
-                'accept':"image/*, application/pdf",
+                'accept':"image/*,",
                 'required' : False
             }
         )
@@ -165,7 +165,7 @@ class OrgDocumentsSubmit(forms.ModelForm):
                 'class': 'form-control',
                 'type':'file',
                 'placeholder': 'if any',
-                'accept':"image/*, application/pdf",
+                'accept':"image/*",
                 'required' : False
             }
         )

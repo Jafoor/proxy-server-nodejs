@@ -148,7 +148,7 @@ class Organization(models.Model):
     org = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
     org_name = models.CharField(max_length=255, blank=True)
     contact_number = models.CharField(max_length=15, blank=True)
-    org_pic = models.ImageField(upload_to=upload_to_org_pic, blank=True)
+    org_pic = ResizedImageField(size=[293, 313], crop=['middle', 'center'], upload_to=upload_to_org_pic, quality=100, default='default_pic.jpeg', null=True, blank=True)
     org_about = models.TextField(blank=True)
     org_type = models.CharField(blank=True, max_length=255)
     org_active_member = models.IntegerField(default=0)
