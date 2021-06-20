@@ -15,8 +15,8 @@ def upload_to_event_extraimage(instance, filename):
 class EventType(models.Model):
     name = models.CharField(max_length=255, unique=True)
 
-    def __unicode__(self):
-        return '%s' % self.name
+    def __str__(self):
+        return (self.name)
 
 def get_deadline():
     return datetime.today() + timedelta(days=15)
@@ -26,7 +26,7 @@ class CreateEvent(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     title = models.CharField(max_length=255, blank=True)
     event_type =  models.ForeignKey(EventType, on_delete=models.SET_NULL, null=True)
-    need_amount = models.IntegerField(default=100000)
+    need_amount = models.IntegerField(default=100)
     collected = models.IntegerField(default=0)
     event_pic = ResizedImageField(size=[1200, 630], crop=['middle', 'center'], upload_to=upload_to_event, quality=100, default='event_image_main.png', null=True, blank=True)
     sort_description = models.CharField(max_length=255, blank=True)
