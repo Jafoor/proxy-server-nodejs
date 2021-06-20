@@ -88,12 +88,34 @@ Organization Dashboard
                                            </div>
                                        </div>
 
+																			 <div class="field item form-group">
+ 																				 <label class="col-form-label col-md-3 col-sm-3  label-align"><span class="required"></span></label>
+
+ 																				 <div class="col-md-6 col-sm-6">
+
+ 																					 {% if org.member1_nid_front %}
+ 																					<img class="center" src="{{org.member1_nid_front.url}}" alt="Organization Document" style="width: 50%; height: auto;" >
+ 																					{% endif %}
+ 																				 </div>
+ 																			</div>
+
                                        <div class="field item form-group">
                                            <label class="col-form-label col-md-3 col-sm-3  label-align">Front Page NID Card<span class="required">*</span></label>
                                            <div class="col-md-6 col-sm-6">
                                                {{ form.member1_nid_front }}
                                            </div>
                                        </div>
+
+																			 <div class="field item form-group">
+ 																				 <label class="col-form-label col-md-3 col-sm-3  label-align"><span class="required"></span></label>
+
+ 																				 <div class="col-md-6 col-sm-6">
+
+ 																					 {% if org.member1_nid_back %}
+ 																					<img class="center" src="{{org.member1_nid_back.url}}" alt="Organization Document" style="width: 50%; height: auto;" >
+ 																					{% endif %}
+ 																				 </div>
+ 																			</div>
 
                                        <div class="field item form-group">
                                            <label class="col-form-label col-md-3 col-sm-3  label-align">Back Page NID Card<span class="required">*</span></label>
@@ -123,12 +145,34 @@ Organization Dashboard
                                            </div>
                                        </div>
 
+																			 <div class="field item form-group">
+ 																				<label class="col-form-label col-md-3 col-sm-3  label-align"><span class="required"></span></label>
+
+ 																				<div class="col-md-6 col-sm-6">
+
+ 																					{% if org.member2_nid_front %}
+ 																				 <img class="center" src="{{org.member2_nid_front.url}}" alt="Organization Document" style="width: 50%; height: auto;" >
+ 																				 {% endif %}
+ 																				</div>
+ 																		 </div>
+
                                        <div class="field item form-group">
                                            <label class="col-form-label col-md-3 col-sm-3  label-align">Front Page NID Card<span class="required">*</span></label>
                                            <div class="col-md-6 col-sm-6">
                                                {{ form.member2_nid_front }}
                                            </div>
                                        </div>
+
+																			 <div class="field item form-group">
+ 																				<label class="col-form-label col-md-3 col-sm-3  label-align"><span class="required"></span></label>
+
+ 																				<div class="col-md-6 col-sm-6">
+
+ 																					{% if org.member2_nid_back %}
+ 																				 <img class="center" src="{{org.member2_nid_back.url}}" alt="Organization Document" style="width: 50%; height: auto;" >
+ 																				 {% endif %}
+ 																				</div>
+ 																		 </div>
 
                                        <div class="field item form-group">
                                            <label class="col-form-label col-md-3 col-sm-3  label-align">Back Page NID Card<span class="required">*</span></label>
@@ -137,12 +181,36 @@ Organization Dashboard
                                            </div>
                                        </div>
 
+																			 <div class="field item form-group">
+ 																				<label class="col-form-label col-md-3 col-sm-3  label-align"><span class="required"></span></label>
+
+ 																				<div class="col-md-6 col-sm-6">
+
+ 																					{% if org.org_prove1 %}
+ 																				 <img class="center" src="{{org.org_prove1.url}}" alt="Organization Document" style="width: 50%; height: auto;" >
+ 																				 {% endif %}
+ 																				</div>
+ 																		 </div>
+
                                        <div class="field item form-group">
                                            <label class="col-form-label col-md-3 col-sm-3  label-align">Organization Document 1<span class="required"></span></label>
                                            <div class="col-md-6 col-sm-6">
                                                {{ form.org_prove1 }}
                                            </div>
                                        </div>
+
+																			 <div class="field item form-group">
+ 																				<label class="col-form-label col-md-3 col-sm-3  label-align"><span class="required"></span></label>
+
+ 																				<div class="col-md-6 col-sm-6">
+
+ 																					{% if org.org_prove2 %}
+ 																				 <img class="center" src="{{org.org_prove2.url}}" alt="Organization Document" style="width: 50%; height: auto;" >
+ 																				 {% endif %}
+ 																				</div>
+ 																		 </div>
+
+
 
 
                                        <div class="field item form-group">
