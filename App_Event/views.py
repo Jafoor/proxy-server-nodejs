@@ -1,5 +1,9 @@
-from django.shortcuts import render
-
+from django.shortcuts import render, get_object_or_404, redirect
+from django.contrib.auth import login, logout, get_user_model
+from App_Event.forms import CreateEventSubmit
+from django.conf import settings
+from App_Account.models import Organization
+User = get_user_model()
 # Create your views here.
 
 def Home(request):
@@ -14,6 +18,24 @@ def Eventdetails(request):
 
     return render(request, 'App_Event/eventDetails.html')
 
-def Applyevent(request):
+def OrgApplyevent(request, slug):
 
-    return render(request, 'App_Event/applyevent.html')
+    user = get_object_or_404(User, slug=slug)
+    org = get_object_or_404(Organization, org=user)
+    if request.method == 'POST':
+        form = CreateEventSubmit(request.POST or None, request.FILES or None)
+        if form.is_valid():
+            event = form.save(commit=False)
+            event.user = user
+            event.save()
+            return redirect('App_Organization:OrganizationDashboard', slug)
+    else:
+        form = CreateEventSubmit()
+    context = {
+        'form': form,
+        'user': user,
+        'org': org
+    }
+
+
+    return render(request, 'App_Event/applyevent.html', context)

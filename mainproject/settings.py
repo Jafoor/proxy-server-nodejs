@@ -137,6 +137,22 @@ STATICFILES_DIRS = [
     BASE_DIR / "static",
 ]
 
+CKEDITOR_CONFIGS = {
+   'default': {
+       'toolbar_Full': [
+            ['Styles', 'Bold', 'Italic', 'Underline', 'Strike', 'SpellChecker'],
+            ['Link', 'Unlink'],
+            ['TextColor'],
+            ['Smiley', 'SpecialChar'],
+            ['JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock'],
+            ['Maximize', 'Iframe', 'PageBreak', 'FontAwesome'],
+        ],
+        'extraPlugins': 'justify,liststyle,indent',
+        'width': 'auto',
+        'height': 'auto'
+   },
+}
+
 
 # Media files
 
