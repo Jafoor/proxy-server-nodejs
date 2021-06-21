@@ -3,6 +3,7 @@ from django.contrib.auth import login, logout, get_user_model
 from App_Event.forms import CreateEventSubmit
 from django.conf import settings
 from App_Account.models import Organization
+from App_Event.models import CreateEvent
 User = get_user_model()
 # Create your views here.
 
@@ -38,4 +39,19 @@ def OrgApplyevent(request, slug):
     }
 
 
-    return render(request, 'App_Event/applyevent.html', context)
+    return render(request, 'App_Organization/applyevent.html', context)
+
+def OrgEventList(request, slug):
+
+    user = get_object_or_404(User, slug=slug)
+    org = get_object_or_404(Organization, org=user)
+    events = CreateEvent.objects.filter(user = org.org)
+    print(events)
+    context = {
+        'user': user,
+        'org': org,
+        'events': events,
+    }
+
+
+    return render(request, 'App_Organization/orgeventlist.html', context)
