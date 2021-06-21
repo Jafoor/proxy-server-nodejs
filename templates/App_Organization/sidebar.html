@@ -38,7 +38,7 @@
           </li>
           <li><a><i class="fa fa-desktop"></i> Events <span class="fa fa-chevron-down"></span></a>
             <ul class="nav child_menu">
-              <li><a href="">Events List</a></li>
+              <li><a href="{% url 'App_Event:organizationeventlist' slug=user.slug %}">Events List</a></li>
               <li><a href="{% url 'App_Event:organizationapplyforevent' slug=user.slug %}">Create Event</a></li>
             </ul>
           </li>

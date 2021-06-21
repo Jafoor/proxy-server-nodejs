@@ -3181,14 +3181,14 @@ h3 {
 .popular_causes_area.cause_details .single_cause .causes_content .custom_progress_bar .progress .progress-bar .progres_count {
   position: absolute;
   right: 0;
-  width: 100px;
-  height: 100px;
+  width: 50px;
+  height: 50px;
   -webkit-border-radius: 50%;
   -moz-border-radius: 50%;
   border-radius: 50%;
-  font-size: 35px;
+  font-size: 20px;
   background: #3CC78F;
-  line-height: 100px;
+  line-height: 50px;
 }
 
 @media (max-width: 767px) {
