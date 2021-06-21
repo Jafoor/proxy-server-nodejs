@@ -1,5 +1,5 @@
 from django import forms
-from App_Event.models import CreateEvent, EventType
+from App_Event.models import Event, EventType
 
 class CreateEventSubmit(forms.ModelForm):
 
@@ -101,5 +101,5 @@ class CreateEventSubmit(forms.ModelForm):
 
     )
     class Meta:
-        model = CreateEvent
+        model = Event
         fields = ('title', 'event_type', 'event_pic', 'sort_description', 'description', 'need_amount', 'endtime', 'terms_and_condition', 'extra_img1', 'extra_img2' )

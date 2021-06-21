@@ -1,4 +1,5 @@
 {% extends 'master.html' %}
+{% load percentage %}
 
 {% block title_block %}
 Donation Collection | Home
@@ -17,21 +18,21 @@ Donation Collection | Home
             <div class="col-lg-12 col-md-12">
                 <div class="single_cause">
                     <div class="thumb">
-                        <img src="img/causes/large_img.png" alt="">
+                        <img src="{{eventdetails.event_pic.url}}" alt="">
                     </div>
                     <div class="causes_content">
                         <div class="custom_progress_bar">
                             <div class="progress">
-                                <div class="progress-bar" role="progressbar" style="width: 30%;" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100">
+                                <div class="progress-bar" role="progressbar" style="width: {{ eventdetails.collected|as_percentage_of:eventdetails.need_amount }}" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
                                     <span class="progres_count">
-                                        30%
+                                        {{ eventdetails.collected|as_percentage_of:eventdetails.need_amount }}
                                     </span>
                                 </div>
                               </div>
                         </div>
                         <div class="balance d-flex justify-content-between align-items-center">
-                            <span>Raised: $5000.00 </span>
-                            <span>Goal: $9000.00 </span>
+                            <span>Raised: ৳{{eventdetails.collected}} </span>
+                            <span>Goal: ৳{{eventdetails.need_amount}} </span>
                         </div>
 
                       <div class="row">
@@ -45,18 +46,22 @@ Donation Collection | Home
                           </div>
 
                           <div class="col-lg-12">
-                              <form class="form-contact contact_form" action="contact_process.php" method="post" id="contactForm" novalidate="novalidate">
+                              <form class="form-contact contact_form"  method="POST"  novalidate="novalidate">
+                                  {% csrf_token %}
                                   <div class="row">
+                                    {% if not user.is_authenticated %}
                                       <div class="col-sm-6">
                                           <div class="form-group">
                                               <input class="form-control valid" name="name" id="name" type="text" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter your name'" placeholder="Enter your name">
                                           </div>
                                       </div>
+
                                       <div class="col-sm-6">
                                           <div class="form-group">
-                                              <input class="form-control valid" name="emailormobilenumber" id="emailormobilenumber" type="text" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter email address'" placeholder="Email or Mobile Number">
+                                              <input class="form-control valid" name="email" id="emailormobilenumber" type="email" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter email address'" placeholder="Email or Mobile Number">
                                           </div>
                                       </div>
+                                      {% endif %}
 
                                     <div class="col-md-6">
                                         <div class="single_amount">
@@ -65,14 +70,15 @@ Donation Collection | Home
                                                     <div class="input-group-prepend">
                                                       <span class="input-group-text" id="basic-addon1">৳</span>
                                                     </div>
-                                                    <input type="number" class="form-control" placeholder="40,200" aria-label="Username" aria-describedby="basic-addon1">
+                                                    <input type="number" name="amount" class="form-control" placeholder="40,200" aria-label="Username" aria-describedby="basic-addon1">
                                                   </div>
                                             </div>
                                         </div>
                                     </div>
+
                                     <div class="col-md-6">
                                       <div class="form-check form-switch form-group">
-                                        <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
+                                        <input class="form-check-input" name="hide_identity" type="checkbox" id="flexSwitchCheckDefault checkbox1" value='True'>
                                         <label class="form-check-label" for="flexSwitchCheckDefault">Hide Your Identity</label>
                                       </div>
                                     </div>
@@ -145,10 +151,10 @@ Donation Collection | Home
                           </div>
                         </div>
                         <div class="col-lg-6 col-md-12">
-                        <h4>Clothes For Everyone</h4>
-                        <p>On the other hand, we denounce with righteous indignation and dislike men who are so beguiled and demoralized by the charms of pleasure of the moment, so blinded by desire, that they cannot foresee the pain and trouble that are bound to ensue and equal blame belongs to those who fail in their duty through weakness of will, which is the same as saying through shrinking from toil and pain</p>
-                        <p>These cases are perfectly simple and easy to distinguish. In a free hour, when our power of choice is untrammelled and when nothing prevents our being able to do what we like best, every pleasure is to be welcomed and every pain avoided. But in certain circumstances and owing to the claims of duty or the obligations of business it will frequently occur that pleasures have to be repudiated and annoyances accepted. The wise man therefore always holds in these matters to this principle of selection: he rejects pleasures to secure other. These cases are perfectly simple and easy to distinguish. In a free hour, when our power of choice is untrammelled and when nothing prevents our being able to do what we like best, every pleasure is to be welcomed and every pain avoided. But in certain circumstances and owing to the claims </p>
-                        <p>These cases are perfectly simple and easy to distinguish. In a free hour, when our power of choice is untrammelled and when nothing prevents our being able to do what we like best, every pleasure is to be welcomed and every pain avoided.</p>
+                        <h4>{{eventdetails.title}}</h4>
+                        <p>
+                          {{eventdetails.description|safe}}
+                        </p>
                       </div>
                       </div>
                     </div>
@@ -237,6 +243,7 @@ $('#exampleModalLong').click(function () {
   })
 })
 </script>
+
 
 {% endblock %}
 
