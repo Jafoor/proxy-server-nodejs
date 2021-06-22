@@ -78,6 +78,9 @@ class Donation(models.Model):
     date = models.DateTimeField(default=timezone.now)
     method = models.CharField(max_length=255, blank=True, null=True)
     hide_identity = models.BooleanField(default=False)
+    paymentId = models.CharField(max_length=264, blank=True, null=True)
+    orderId = models.CharField(max_length=200, blank=True, null=True)
+    ordered = models.BooleanField(default=False)
 
     def __str__(self):
         return str(self.event.title)
