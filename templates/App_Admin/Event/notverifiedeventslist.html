@@ -55,7 +55,7 @@ Admin Dashboard | Organization Lists
 
                              {% for evn in event %}
                              <tr>
-                               <td>{{evn.title}}</td>
+                               <td><a href="{% url 'App_Admin:eventdetails' slug=evn.slug %}">{{evn.title}}</a></td>
                                {% if org.active %}
                                <td>Yes</td>
                                {% else %}

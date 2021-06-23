@@ -47,6 +47,7 @@ class Event(models.Model):
     slug = models.SlugField(null=True, blank=True)
     extra_img1 = ResizedImageField(size=[1200, 630], crop=['middle', 'center'], upload_to=upload_to_event_extraimage, quality=100, default='event_image_main.png', null=True, blank=True)
     extra_img2 = ResizedImageField(size=[1200, 630], crop=['middle', 'center'], upload_to=upload_to_event_extraimage, quality=100, default='event_image_main.png', null=True, blank=True)
+    message = models.TextField(default="", blank=True, null=True)
 
     def __str__(self):
         return self.title

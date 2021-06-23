@@ -23,7 +23,7 @@ Admin Dashboard | Organization Lists
   <div class="col-md-12 col-sm-12 ">
                <div class="x_panel">
                  <div class="x_title">
-                   <h2>All Organization List<small></small></h2>
+                   <h2>Latest Donation List<small></small></h2>
                    <ul class="nav navbar-right panel_toolbox">
                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                      </li>
@@ -36,36 +36,40 @@ Admin Dashboard | Organization Lists
                      <div class="col-sm-12">
                        <div class="card-box table-responsive">
                          <p class="text-muted font-13 m-b-30">
-                           Search with Organization name, email, type, and date
+                           Search with Organization trans_id, name, event.
                          </p>
 
                          <table id="datatable-keytable" class="table table-striped table-bordered" style="width:100%">
                            <thead>
                              <tr>
+                               <th>Number</th>
+                               <th>Date and Time</th>
                                <th>Name</th>
-                               <th>Email</th>
-                               <th>Varified</th>
-                               <th>Type</th>
-                               <th>Start date</th>
-                               <th>Address</th>
+                               <th>Event</th>
+                               <th>Amount</th>
+                               <th>Hide Identity</th>
                              </tr>
                            </thead>
 
 
                            <tbody>
 
-                             {% for org in organizations %}
+                             {% for don in donars.reverse %}
                              <tr>
-                               <td><a href="{% url 'App_Admin:organizationdetails' slug=org.org.slug  %}">{{org.org_name}}</a></td>
-                               <td>{{org.org.email}}</td>
-                               {% if org.is_verified %}
+                               <td>{{forloop.counter}}</td>
+                               <td>{{don.date}}</td>
+                               {% if not don.hide_identity and don.user %}
+                               <td><a href="{% url 'App_Admin:userdetails' pk=don.user.pk %}">{{don.name}}</a></td>
+                               {% else %}
+                               <td>{{don.name}}</td>
+                              {% endif %}
+                               <td>{{don.event.title}}</td>
+                               <td>৳ {{don.amount}}</td>
+                               {% if don.hide_identity %}
                                <td>Yes</td>
                                {% else %}
                                <td>No</td>
                                {% endif %}
-                               <td>{{org.org_type}}</td>
-                               <td>{{org.org.start_date}}</td>
-                               <td>{{org.division}}, {{org.zilla}}, {{org.thana}}{{org.address}}</td>
                              </tr>
                              {% endfor %}
                            </tbody>
@@ -85,6 +89,8 @@ Admin Dashboard | Organization Lists
 
 {% block extra_js %}
 
+
+
 <script src="{% static 'dashboard/vendors/datatables.net/js/jquery.dataTables.min.js' %}"></script>
 <script src="{% static 'dashboard/vendors/datatables.net-bs/js/dataTables.bootstrap.min.js' %}"></script>
 <script src="{% static 'dashboard/vendors/datatables.net-buttons/js/dataTables.buttons.min.js' %}"></script>
@@ -100,5 +106,8 @@ Admin Dashboard | Organization Lists
 <script src="{% static 'dashboard/vendors/jszip/dist/jszip.min.js' %}"></script>
 <script src="{% static 'dashboard/vendors/pdfmake/build/pdfmake.min.js' %}"></script>
 <script src="{% static 'dashboard/vendors/pdfmake/build/vfs_fonts.js' %}"></script>
+
+
+
 
 {% endblock %}

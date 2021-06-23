@@ -1,0 +1,144 @@
+{% extends 'App_Admin/master.html' %}
+
+{% load static %}
+
+{% block title_block %}
+Admin Dashboard | UserDetails
+{% endblock %}
+
+{% block extra_css %}
+
+{% endblock %}
+
+{% block body_block %}
+<!-- page content -->
+<div class="right_col" role="main">
+  <!-- top tiles -->
+  <div class="row"  >
+
+  <div class="col-md-6 col-sm-6  ">
+                <div class="x_panel">
+                  <div class="x_title">
+                    <h2><i class="fa fa-info"></i> Personal Information <small></small></h2>
+                    <ul class="nav navbar-right panel_toolbox">
+                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                      </li>
+
+                      <li><a class="close-link"><i class="fa fa-close"></i></a>
+                      </li>
+                    </ul>
+                    <div class="clearfix"></div>
+                  </div>
+                  <div class="x_content">
+
+                    <!-- start accordion -->
+                    <div class="accordion" id="accordion" aria-multiselectable="true">
+                      <div class="panel">
+                        <a class="panel-heading"  id="headingOne" aria-expanded="true" aria-controls="collapseOne">
+                          <h4 class="panel-title">Email: {{user.email}}</h4>
+                        </a>
+                      </div>
+                      <div class="panel">
+                        <a class="panel-heading"  id="headingOne" aria-expanded="true" aria-controls="collapseOne">
+                          <h4 class="panel-title">First Name: {{user.first_name}} </h4>
+                        </a>
+
+                      </div>
+
+                      <div class="panel">
+                        <a class="panel-heading"  id="headingOne" aria-expanded="true" aria-controls="collapseOne">
+                          <h4 class="panel-title">First Name: {{user.last_name}} </h4>
+                        </a>
+
+                      </div>
+
+                      <div class="panel">
+                        <a class="panel-heading"  id="headingOne" aria-expanded="true" aria-controls="collapseOne">
+                          <h4 class="panel-title">First Name: {{user.about}} </h4>
+                        </a>
+                      </div>
+
+                      <div class="panel">
+                        <a class="panel-heading"  id="headingOne" aria-expanded="true" aria-controls="collapseOne">
+                          <h4 class="panel-title">Created At: {{user.start_date}} </h4>
+                        </a>
+                      </div>
+
+                    </div>
+                    <!-- end of accordion -->
+
+
+                  </div>
+                </div>
+  </div>
+
+  <div class="col-md-6 col-sm-6  ">
+                <div class="x_panel">
+                  <div class="x_title">
+                    <h2><i class="fa fa-info"></i> Other's Information <small></small></h2>
+                    <ul class="nav navbar-right panel_toolbox">
+                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                      </li>
+
+                      <li><a class="close-link"><i class="fa fa-close"></i></a>
+                      </li>
+                    </ul>
+                    <div class="clearfix"></div>
+                  </div>
+                  <div class="x_content">
+
+                    <div class="accordion" id="accordion" aria-multiselectable="true">
+                      <div class="panel">
+                        <a class="panel-heading"  id="headingOne" aria-expanded="true" aria-controls="collapseOne">
+                          <h4 class="panel-title">Active: {{user.is_active}}</h4>
+                        </a>
+                      </div>
+
+                      <div class="panel">
+                        <a class="panel-heading"  id="headingOne" aria-expanded="true" aria-controls="collapseOne">
+                          <h4 class="panel-title">Organization: {{user.is_org}}</h4>
+                        </a>
+                      </div>
+
+                      <div class="panel">
+                        <a class="panel-heading"  id="headingOne" aria-expanded="true" aria-controls="collapseOne">
+                          <h4 class="panel-title">Verified User: {{user.is_personorg}}</h4>
+                        </a>
+                      </div>
+
+                      <div class="panel">
+                        <a class="panel-heading"  id="headingOne" aria-expanded="true" aria-controls="collapseOne">
+                          <h4 class="panel-title">Staff: {{user.is_staff}}</h4>
+                        </a>
+                      </div>
+                    </div>
+
+
+                  </div>
+                </div>
+  </div>
+
+<div class="col-md-6 col-sm-6">
+  <div class="x_panel">
+  <div class="row">
+    <div class=" ">
+      <button type="button" class="btn btn-success pull-right" onClick="javascript:history.go(-1);"> Go Back </button>
+      <!--
+      <button onclick="location.href='{% url 'App_Event:home' %}'" class="btn btn-success pull-right"><i class="fa fa-edit"></i>Update Information</button>
+
+      <button onclick="location.href='{% url 'App_Organization:UpdateOrganizationInformation' slug=user.slug %}'" class="btn btn-success pull-right"><i class="fa fa-edit"></i>Update Information</button>
+      -->
+    </div>
+  </div>
+  </div>
+  </div>
+
+
+</div>
+</div>
+  <!-- /top tiles -->
+{% endblock %}
+
+{% block extra_js %}
+
+{% endblock %}

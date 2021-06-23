@@ -56,7 +56,7 @@ Admin Dashboard | Organization Lists
 
                              {% for usr in user %}
                              <tr>
-                               <td>{{usr.email}}</td>
+                               <td><a href="{% url 'App_Admin:userdetails' pk=usr.pk %}">{{usr.email}}</a></td>
                                <td>{{usr.first_name}}</td>
                                {% if usr.active %}
                                <td>Yes</td>

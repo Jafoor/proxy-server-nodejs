@@ -32,6 +32,7 @@ def Eventdetails(request, slug):
     if request.method == 'POST':
         amount = request.POST.get('amount')
         hide_identity = request.POST.get('hide_identity')
+        print(hide_identity)
         if int(amount) <= 0:
             messages.warning(request, f"You have to give positive value")
             eventdonators = Donation.objects.filter(event=eventdetails, ordered=True)

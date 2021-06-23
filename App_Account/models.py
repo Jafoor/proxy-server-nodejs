@@ -173,6 +173,7 @@ class Organization(models.Model):
     org_prove2 = models.ImageField(upload_to=upload_to_org_org_prove2, blank=True)
     given_org_documents = models.BooleanField(default=False)
     is_verified = models.BooleanField(default=False)
+    message = models.TextField(default="", blank=True, null=True)
 
     def __str__(self):
         return self.org_name
