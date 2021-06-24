@@ -7,7 +7,7 @@ class OrganizationConfirm(forms.ModelForm):
 
     class Meta:
         model = Organization
-        fields = ('message', 'is_verified')
+        fields = ('message', 'is_verified', 'banned')
 
     message = forms.CharField(
         required = False,
@@ -24,3 +24,4 @@ class OrganizationConfirm(forms.ModelForm):
     )
 
     is_verified = forms.BooleanField(required=False)
+    banned = forms.BooleanField(required=False)
