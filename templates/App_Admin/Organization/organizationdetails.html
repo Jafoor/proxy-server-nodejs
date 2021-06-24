@@ -392,7 +392,7 @@ Organization Dashboard
       <form class="" action="" method="POST">
         {% csrf_token %}
         <div class="field item form-group">
-            <label class="col-form-label col-md-3 col-sm-3  label-align">Message<span class="required">*</span></label>
+            <label class="col-form-label col-md-3 col-sm-3  label-align">Message<span class="required"></span></label>
 
             <div class="col-md-6 col-sm-6">
 
@@ -402,11 +402,21 @@ Organization Dashboard
         </div>
 
         <div class="field item form-group">
-            <label class="col-form-label col-md-3 col-sm-3  label-align">Verify<span class="required">*</span></label>
+            <label class="col-form-label col-md-3 col-sm-3  label-align">Verify<span class="required"></span></label>
 
             <div class="col-md-6 col-sm-6">
 
                 {{ form.is_verified }}
+
+            </div>
+        </div>
+
+        <div class="field item form-group">
+            <label class="col-form-label col-md-3 col-sm-3  label-align">Ban<span class="required"></span></label>
+
+            <div class="col-md-6 col-sm-6">
+
+                {{ form.banned }}
 
             </div>
         </div>

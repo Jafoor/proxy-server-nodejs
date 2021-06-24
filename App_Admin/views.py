@@ -22,6 +22,24 @@ def Organizationlist(request):
     }
     return render (request,'App_Admin/Organization/organizationlist.html', context)
 
+def BannedOrganizationlist(request):
+
+    organizations = Organization.objects.filter(banned=True)
+
+    context = {
+        'organizations': organizations
+    }
+    return render (request,'App_Admin/Organization/bannedorganization.html', context)
+
+def UnverifiedOrganizationlist(request):
+
+    organizations = Organization.objects.filter(is_verified=False)
+
+    context = {
+        'organizations': organizations
+    }
+    return render (request,'App_Admin/Organization/newunverifiedorganizations.html', context)
+
 def OrganizationDetails(request, slug):
 
     user = get_object_or_404(User, slug=slug)
