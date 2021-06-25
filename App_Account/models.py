@@ -30,7 +30,7 @@ def upload_to_org_org_prove2(instance, filename):
 
 class CustomAccountManager(BaseUserManager):
 
-    def create_superuser(self, email, first_name, last_name, password, **other_fields):
+    def create_superuser(self, email, first_name, password, **other_fields):
 
         other_fields.setdefault('is_staff', True)
         other_fields.setdefault('is_superuser', True)
@@ -43,15 +43,15 @@ class CustomAccountManager(BaseUserManager):
             raise ValueError(
                 'Superuser must be assigned to is_superuser=True.')
 
-        return self.create_user(email, first_name, last_name, password, **other_fields)
+        return self.create_user(email, first_name, password, **other_fields)
 
-    def create_user(self, email, first_name, last_name, password, **other_fields):
+    def create_user(self, email, first_name, password, **other_fields):
 
         if not email:
             raise ValueError(_('You must provide an email address'))
 
         email = self.normalize_email(email)
-        user = self.model(email=email,first_name=first_name, last_name=last_name, **other_fields)
+        user = self.model(email=email,first_name=first_name, **other_fields)
         user.set_password(password)
         user.save()
         return user
@@ -118,7 +118,7 @@ class Profile(models.Model):
     mobile_number = models.CharField(max_length=15, blank=True)
 
     def __str__(self):
-        return self.user + "'s Profile"
+        return str(self.user) + "'s Profile"
 
     def is_fully_filled(self):
         fields_names = [f.name for f in self._meta.get_fields()]
@@ -128,6 +128,12 @@ class Profile(models.Model):
             if value is None or value=='':
                 return False
         return True
+
+@receiver(post_save, sender=CustomUser)
+def personalprofile_creation(sender, instance, created, **kwargd):
+    if created and not instance.is_org:
+        personalprofile = Profile(user=instance)
+        personalprofile.save()
 
 class VerifyPersonBankDetails(models.Model):
     user = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
@@ -143,6 +149,13 @@ class VerifyPersonBankDetails(models.Model):
 
     def __str__(self):
         return self.user.first_name
+
+@receiver(post_save, sender=CustomUser)
+def personalbank_creation(sender, instance, created, **kwargd):
+    if created and not instance.is_org:
+        personalbank = VerifyPersonBankDetails(user=instance)
+        personalbank.save()
+
 
 class Organization(models.Model):
     org = models.OneToOneField(CustomUser, on_delete=models.CASCADE)

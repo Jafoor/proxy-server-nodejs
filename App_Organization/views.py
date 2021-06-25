@@ -117,7 +117,6 @@ def UpdateOrganizationDocuments(request, slug):
     org = get_object_or_404(Organization, org=user)
     if request.method == 'POST':
         form = OrgDocumentsSubmit(request.POST or None, request.FILES or None,instance=org)
-        print(form)
         if form.is_valid():
             form.save()
             return redirect('App_Organization:OrganizationDashboard', slug)

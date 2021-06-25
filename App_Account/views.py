@@ -6,6 +6,8 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.template.loader import render_to_string
 from .forms import UserRegistrationForm, UserLoginForm, OrganizationForm
 from .models import EmailConfirmation, Organization
+from App_Event.models import Event, Donation, Report
+from App_Account.generaluserform import UserInfo
 
 User = get_user_model()
 
@@ -127,3 +129,45 @@ def email_confirm(request, activation_key):
         instance.save()
 
         return render(request, 'App_Account/registration_complete.html')
+
+def generaluserdashboard(request, slug):
+
+    user = get_object_or_404(User, slug=slug)
+    donations = Donation.objects.filter(user=user)
+    totalamount = 0
+    for i in donations:
+        totalamount += i.amount
+
+    context = {
+        'user' : user,
+        'donations': donations,
+        'totalamount': totalamount
+    }
+
+    return render (request, 'generaluser/dashboard.html', context)
+
+
+def updatepersonalinfo(request, slug):
+
+    user = get_object_or_404(User, slug=slug)
+
+    if request.method == 'POST':
+        form = UserInfo(request.POST or None, request.FILES or None,instance=user)
+        if form.is_valid():
+            profile = form.save(commit=False)
+            division = request.POST.get('division')
+            zilla = request.POST['zilla']
+            thana = request.POST.get('thana')
+            profile.division = division
+            profile.zilla = zilla
+            profile.thana = thana
+            profile.save()
+            return redirect('App_Account:profile', slug)
+
+    form = UserInfo(instance=user)
+
+    context = {
+        'form': form
+    }
+
+    return render (request, 'generaluser/updateinfo.html', context)

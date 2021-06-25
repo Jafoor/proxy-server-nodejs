@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from django.forms import TextInput, Textarea
-from .models import CustomUser, EmailConfirmation, Organization
+from .models import CustomUser, EmailConfirmation, Organization, Profile, VerifyPersonBankDetails
 
 
 class UserAdminConfig(UserAdmin):
@@ -46,3 +46,7 @@ class OrganizationProfile(admin.ModelAdmin):
     list_display = ('org_name', 'is_verified', 'contact_number')
 
 admin.site.register(Organization, OrganizationProfile)
+
+admin.site.register(Profile)
+
+admin.site.register(VerifyPersonBankDetails)

@@ -15,7 +15,6 @@ class OrgDocumentsSubmit(forms.ModelForm):
                 'type':'file',
                 'placeholder': '',
                 'accept':"image/*",
-                'value':"{{ org.org_pic.value }}",
                 'required' : False
             }
         )
