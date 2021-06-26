@@ -1,62 +1,79 @@
 from django import forms
-from App_Account.models import Profile, VerifyPersonBankDetails
+from App_Account.models import VerifyPersonBankDetails
 
 
-class UserInfo(forms.ModelForm):
+class UserBankProfile(forms.ModelForm):
 
     class Meta:
-        model = Profile
-        fields = ('profile_pic', 'bio', 'address', 'mobile_number')
+        model = VerifyPersonBankDetails
+        fields = ('nid_card_front', 'nid_card_back', 'bank_name', 'bank_branch', 'account_number', 'account_name')
 
-    bio = forms.CharField(
-        required = False,
+
+    bank_name = forms.CharField(
+        required = True,
         widget = forms.TextInput(
             attrs={
                 'class': 'form-control valid',
-                'name': 'bio',
-                'id': 'bio',
+                'name': 'bank_name',
+                'id': 'bank_name',
                 'onfocus': 'this.placeholder = ''',
-                'onblur': "this.placeholder = 'Works at ...'",
+                'onblur': "this.placeholder = 'Bank Name'",
                 'type':'text',
-                'placeholder': 'Works at ...',
-                'required' : False
+                'placeholder': 'Bank Name',
+                'required' : True
             }
         )
     )
 
-    address = forms.CharField(
-        required = False,
+    bank_branch = forms.CharField(
+        required = True,
         widget = forms.TextInput(
             attrs={
                 'class': 'form-control valid',
-                'name': 'address',
-                'id': 'address',
+                'name': 'bank_branch',
+                'id': 'bank_branch',
                 'onfocus': 'this.placeholder = ''',
-                'onblur': "this.placeholder = 'Enter Your Adress'",
+                'onblur': "this.placeholder = 'Branch name'",
                 'type':'text',
-                'placeholder': 'Enter your address',
-                'required' : False
+                'placeholder': 'Branch name',
+                'required' : True
             }
         )
     )
 
-    mobile_number = forms.CharField(
-        required = False,
+    account_name = forms.CharField(
+        required = True,
         widget = forms.TextInput(
             attrs={
                 'class': 'form-control valid',
-                'name': 'mobile_number',
-                'id': 'mobile_number',
+                'name': 'account_name',
+                'id': 'account_name',
                 'onfocus': 'this.placeholder = ''',
-                'onblur': "this.placeholder = 'Enter Your mobile number'",
+                'onblur': "this.placeholder = 'Account name'",
+                'type':'text',
+                'placeholder': 'Account name',
+                'required' : True
+            }
+        )
+    )
+
+    account_number = forms.CharField(
+        required = True,
+        widget = forms.TextInput(
+            attrs={
+                'class': 'form-control valid',
+                'name': 'account_number',
+                'id': 'account_number',
+                'onfocus': 'this.placeholder = ''',
+                'onblur': "this.placeholder = 'Enter your account number'",
                 'type':'tel',
-                'placeholder': 'Enter your mobile number',
-                'required' : False
+                'placeholder': 'Enter your account number',
+                'required' : True
             }
         )
     )
 
-    profile_pic = forms.FileField(
+    nid_card_front = forms.FileField(
         required = False,
         widget = forms.FileInput(
             attrs={
@@ -68,3 +85,17 @@ class UserInfo(forms.ModelForm):
             }
         )
     )
+
+    nid_card_back = forms.FileField(
+        required = False,
+        widget = forms.FileInput(
+            attrs={
+                'class': 'form-control valid',
+                'type':'file',
+                'placeholder': '',
+                'accept':"image/*",
+                'required' : False
+            }
+        )
+    )
+    

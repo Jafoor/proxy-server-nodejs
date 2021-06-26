@@ -35,7 +35,7 @@
             short           : 'input is too short',
             long            : 'input is too long',
             checked         : 'must be checked',
-            empty           : "Must be Filled",
+            empty           : 'please put something here',
             select          : 'Please select an option',
             number_min      : 'too low',
             number_max      : 'too high',

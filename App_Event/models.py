@@ -95,3 +95,14 @@ class Report(models.Model):
 
     def __str__(self):
         return str(self.user.first_name)
+
+class Withdraw(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, blank=True, null=True)
+    amount = models.DecimalField(max_digits=20, decimal_places=4, default=10050.00)
+    date = models.DateTimeField(default=timezone.now)
+    status = models.BooleanField(default=False)
+    message = models.CharField(blank=True, null=True, max_length=255)
+    updated_at = models.DateTimeField(auto_now=True)
+    
+    def __str__(self):
+        return str(user.first_name)

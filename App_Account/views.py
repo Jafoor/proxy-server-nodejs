@@ -4,10 +4,11 @@ from django.core.mail import send_mail
 from django.contrib.sites.shortcuts import get_current_site
 from django.shortcuts import render, redirect, get_object_or_404
 from django.template.loader import render_to_string
-from .forms import UserRegistrationForm, UserLoginForm, OrganizationForm
-from .models import EmailConfirmation, Organization
+from App_Account.forms import UserRegistrationForm, UserLoginForm, OrganizationForm, UserInfo
+from App_Account.models import EmailConfirmation, Organization, Profile, VerifyPersonBankDetails
 from App_Event.models import Event, Donation, Report
-from App_Account.generaluserform import UserInfo
+from App_Account.generaluserform import UserBankProfile
+from App_Event.forms import CreateEventSubmit
 
 User = get_user_model()
 
@@ -116,7 +117,7 @@ def login_view(request):
 @login_required
 def logout_view(request):
     logout(request)
-    return redirect('login')
+    return redirect('App_Account:login')
 
 def email_confirm(request, activation_key):
     user = get_object_or_404(EmailConfirmation, activation_key= activation_key)
@@ -134,14 +135,18 @@ def generaluserdashboard(request, slug):
 
     user = get_object_or_404(User, slug=slug)
     donations = Donation.objects.filter(user=user)
+    profile = get_object_or_404(Profile, user=user)
+    bankinfo = get_object_or_404(VerifyPersonBankDetails, user=user)
     totalamount = 0
     for i in donations:
         totalamount += i.amount
 
     context = {
         'user' : user,
+        'profile': profile,
         'donations': donations,
-        'totalamount': totalamount
+        'totalamount': totalamount,
+        'bankinfo': bankinfo
     }
 
     return render (request, 'generaluser/dashboard.html', context)
@@ -149,12 +154,14 @@ def generaluserdashboard(request, slug):
 
 def updatepersonalinfo(request, slug):
 
-    user = get_object_or_404(User, slug=slug)
+    usr = get_object_or_404(User, slug=slug)
+    profile = get_object_or_404(Profile, user=usr)
 
     if request.method == 'POST':
-        form = UserInfo(request.POST or None, request.FILES or None,instance=user)
+        form = UserInfo(request.POST or None, request.FILES or None, instance=profile)
         if form.is_valid():
-            profile = form.save(commit=False)
+            f = form.save(commit=False)
+            f.save()
             division = request.POST.get('division')
             zilla = request.POST['zilla']
             thana = request.POST.get('thana')
@@ -163,11 +170,74 @@ def updatepersonalinfo(request, slug):
             profile.thana = thana
             profile.save()
             return redirect('App_Account:profile', slug)
-
-    form = UserInfo(instance=user)
+    else:
+        form = UserInfo(instance=profile)
 
     context = {
-        'form': form
+        'form': form,
     }
 
     return render (request, 'generaluser/updateinfo.html', context)
+
+def updatepersonalbankinfo(request, slug):
+
+    usr = get_object_or_404(User, slug=slug)
+    bankinfo = get_object_or_404(VerifyPersonBankDetails, user=usr)
+
+    if request.method == 'POST':
+        form = UserBankProfile(request.POST or None, request.FILES or None, instance=bankinfo)
+        if form.is_valid():
+            f = form.save(commit=False)
+            f.save()
+            bankinfo.filled = True
+            bankinfo.save()
+            return redirect('App_Account:profile', slug)
+    else:
+        form = UserBankProfile(instance=bankinfo)
+
+    context = {
+        'form': form,
+    }
+
+    return render (request, 'generaluser/updatebankinfo.html', context)
+
+
+def PersonApplyevent(request, slug):
+
+    user = get_object_or_404(User, slug=slug)
+    if request.method == 'POST':
+        form = CreateEventSubmit(request.POST or None, request.FILES or None)
+        if form.is_valid():
+            event = form.save(commit=False)
+            event.user = user
+            event.save()
+            return redirect('App_Account:profile', slug)
+    else:
+        form = CreateEventSubmit()
+    context = {
+        'form': form,
+    }
+
+
+    return render(request, 'generaluser/createevent.html', context)
+
+
+
+
+# Person Organization
+
+def personorgdashboard(request, slug):
+
+    user = get_object_or_404(User, slug=slug)
+    events = Event.objects.filter(user=user)
+    profile = get_object_or_404(Profile, user=user)
+    bankinfo = get_object_or_404(VerifyPersonBankDetails, user=user)
+
+    context = {
+        'user' : user,
+        'profile': profile,
+        'events': events,
+        'bankinfo': bankinfo
+    }
+
+    return render (request, 'personorg/dashboardpersonorg.html', context)

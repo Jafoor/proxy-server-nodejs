@@ -109,7 +109,7 @@ class EmailConfirmation(models.Model):
 
 class Profile(models.Model):
     user = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
-    profile_pic = ResizedImageField(size=[294, 313], crop=['middle', 'center'], upload_to='profilePicture', null=True, blank=True)
+    profile_pic = ResizedImageField(size=[293, 313], crop=['middle', 'center'], upload_to=upload_to_org_pic, quality=100, default='default_pic.png', null=True, blank=True)
     bio = models.CharField(max_length=100, blank=True)
     division = models.CharField(max_length=30, blank=True)
     zilla = models.CharField(max_length=30, blank=True)
@@ -118,7 +118,10 @@ class Profile(models.Model):
     mobile_number = models.CharField(max_length=15, blank=True)
 
     def __str__(self):
-        return str(self.user) + "'s Profile"
+        return str(self.user.first_name)
+
+    def save(self, *args, **kwargs):
+        super().save()
 
     def is_fully_filled(self):
         fields_names = [f.name for f in self._meta.get_fields()]
@@ -129,11 +132,7 @@ class Profile(models.Model):
                 return False
         return True
 
-@receiver(post_save, sender=CustomUser)
-def personalprofile_creation(sender, instance, created, **kwargd):
-    if created and not instance.is_org:
-        personalprofile = Profile(user=instance)
-        personalprofile.save()
+
 
 class VerifyPersonBankDetails(models.Model):
     user = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
@@ -145,23 +144,20 @@ class VerifyPersonBankDetails(models.Model):
     account_name = models.CharField(max_length=100, blank=True)
     current_balance = models.IntegerField(default=0)
     total_withdraw = models.IntegerField(default=0)
+    filled = models.BooleanField(default=False)
     is_verified = models.BooleanField(default=False)
 
     def __str__(self):
         return self.user.first_name
 
-@receiver(post_save, sender=CustomUser)
-def personalbank_creation(sender, instance, created, **kwargd):
-    if created and not instance.is_org:
-        personalbank = VerifyPersonBankDetails(user=instance)
-        personalbank.save()
+
 
 
 class Organization(models.Model):
     org = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
     org_name = models.CharField(max_length=255, blank=True)
     contact_number = models.CharField(max_length=15, blank=True)
-    org_pic = ResizedImageField(size=[293, 313], crop=['middle', 'center'], upload_to=upload_to_org_pic, quality=100, default='default_pic.jpeg', null=True, blank=True)
+    org_pic = ResizedImageField(size=[293, 313], crop=['middle', 'center'], upload_to=upload_to_org_pic, quality=100, default='default_pic.png', null=True, blank=True)
     org_about = models.TextField(blank=True)
     org_type = models.CharField(blank=True, max_length=255)
     org_active_member = models.IntegerField(default=0)
@@ -182,8 +178,8 @@ class Organization(models.Model):
     member2_position = models.CharField(max_length=50, blank=True)
     member2_nid_front = models.ImageField(upload_to=upload_to_org_member2_nid_front, blank=True)
     member2_nid_back = models.ImageField(upload_to=upload_to_org_member2_nid_back, blank=True)
-    org_prove1 = models.ImageField(upload_to=upload_to_org_org_prove1, blank=True)
-    org_prove2 = models.ImageField(upload_to=upload_to_org_org_prove2, blank=True)
+    org_prove1 = models.ImageField(upload_to=upload_to_org_org_prove1, default='default_pic.png', blank=True, null=True)
+    org_prove2 = models.ImageField(upload_to=upload_to_org_org_prove2, default='default_pic.png', blank=True, null=True)
     given_org_documents = models.BooleanField(default=False)
     is_verified = models.BooleanField(default=False)
     banned = models.BooleanField(default=False)
@@ -206,6 +202,18 @@ class VerifyOrgBankDetails(models.Model):
 
     def __str__(self):
         return self.user.first_name
+
+
+@receiver(post_save, sender=CustomUser)
+def personalprofile_creation(sender, instance, created, **kwargd):
+    if created and not instance.is_org:
+        personalprofile = Profile(user=instance)
+        personalprofile.save()
+@receiver(post_save, sender=CustomUser)
+def personalbank_creation(sender, instance, created, **kwargd):
+    if created and not instance.is_org:
+        personalbank = VerifyPersonBankDetails(user=instance)
+        personalbank.save()
 
 @receiver(post_save, sender=CustomUser)
 def organization_creation(sender, instance, created, **kwargd):

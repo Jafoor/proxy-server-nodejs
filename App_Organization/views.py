@@ -82,8 +82,6 @@ def UpdateOrganizationInformation(request, slug):
         address = request.POST.get('address')
         socila_link1 = request.POST.get('socila_link1')
         socila_link2 = request.POST.get('socila_link2')
-        print(org_about)
-        print(thana)
         org.contact_number = contact_number
         org.org_about = org_about
         org.org_type= org_type
