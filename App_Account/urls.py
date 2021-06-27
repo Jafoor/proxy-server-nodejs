@@ -26,4 +26,6 @@ urlpatterns = [
     path('user/profile/<slug:slug>/createevent', views.PersonApplyevent, name="personapplyevent"),
 
     path('user/verifiesperson/<slug:slug>', views.personorgdashboard, name="verifiesperson"),
+    path('user/verifiesperson/<slug:slug>/eventsummery', views.eventsummery, name="eventsummery"),
+    path('user/verifiesperson/<slug:slug>/withdrawbalance', views.withdrawbalance, name="withdrawbalance"),
     ]

@@ -3,12 +3,14 @@ from django.contrib.auth.decorators import login_required
 from django.core.mail import send_mail
 from django.contrib.sites.shortcuts import get_current_site
 from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib import messages
 from django.template.loader import render_to_string
 from App_Account.forms import UserRegistrationForm, UserLoginForm, OrganizationForm, UserInfo
 from App_Account.models import EmailConfirmation, Organization, Profile, VerifyPersonBankDetails
 from App_Event.models import Event, Donation, Report
-from App_Account.generaluserform import UserBankProfile
+from App_Account.generaluserform import UserBankProfile, Withdraw
 from App_Event.forms import CreateEventSubmit
+from decimal import Decimal
 
 User = get_user_model()
 
@@ -241,3 +243,45 @@ def personorgdashboard(request, slug):
     }
 
     return render (request, 'personorg/dashboardpersonorg.html', context)
+
+def eventsummery(request, slug):
+    event = get_object_or_404(Event, slug=slug)
+    user = get_object_or_404(User, slug=event.user.slug)
+    donations = Donation.objects.filter(event=event, ordered=True)
+
+    context = {
+        'event': event,
+        'donations': donations,
+        'user': user
+    }
+
+    return render(request, 'personorg/eventsummery.html', context)
+
+def withdrawbalance(request, slug):
+
+    user = get_object_or_404(User, slug=slug)
+    personbank = get_object_or_404(VerifyPersonBankDetails, user=user)
+    if request.method == 'POST':
+        form = Withdraw(request.POST or None)
+        if form.is_valid():
+
+            amount = form.cleaned_data['amount']
+            amount = Decimal(amount)
+            current = Decimal(personbank.current_balance)
+            if current < amount:
+                messages.error(request, "You don't have enough balance to withdraw.")
+                return redirect('App_Account:withdrawbalance', slug)
+
+            form.save(commit=False)
+            form.user = user
+            form.save()
+            return redirect('App_Account:verifiesperson', slug=user.slug )
+    else:
+        form = Withdraw()
+
+    context = {
+        'form': form,
+        'personbank': personbank,
+    }
+
+    return render(request, 'personorg/withdraw.html', context)

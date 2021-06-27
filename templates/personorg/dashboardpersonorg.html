@@ -26,7 +26,7 @@ Donation Collection | Home
                           {% elif bankinfo.is_verified and not user.is_personorg %}
 
                           {% endif %}
-                        
+
                             {% if bankinfo.filled or bankinfo.is_verified %}
                           <button type="button" onclick="location.href='{% url 'App_Account:updatebankinfo' slug=user.slug %}';" class="button button-contactForm boxed-btn ">Update Bank Details</button>
                             {% else %}
@@ -55,7 +55,7 @@ Donation Collection | Home
                   </div>
                 {% endif %}
 
-                {% if not  user.is_personorg %}
+
                 <br>
                 <br>
 
@@ -64,13 +64,13 @@ Donation Collection | Home
                       <div class="d-flex flex-column align-items-center text-center">
                         <div class="">
 
-                          <button type="button" onclick="location.href='{% url 'App_Account:personapplyevent' slug=user.slug %}';" class="button button-contactForm boxed-btn ">Withdraw Balance</button>
+                          <button type="button" onclick="location.href='{% url 'App_Account:withdrawbalance' slug=user.slug %}';" class="button button-contactForm boxed-btn ">Withdraw Balance</button>
 
                         </div>
                       </div>
                     </div>
                   </div>
-                {% endif %}
+
                 </div>
                 <div class="col-lg-9 col-md-8 mb-3">
                   <div class="row justify-content-center">
@@ -133,10 +133,11 @@ Donation Collection | Home
                     {% for evn in events %}
                     <li class="list-group-item d-flex justify-content-between align-items-start">
                       <div class="ms-2 me-auto">
-                        <div class="fw-bold"><a href="{% 'App_Event:eventdetails' slug=don.event.slug}"></a>{{evn.title}}</div>
+                        <div class="fw-bold"><a href="{% url 'App_Event:eventdetails' slug=evn.slug %}">{{evn.title}}</a></div>
                       </div>
-                      <a href="#">
-                      <span class="badge bg-success rounded-pill">View Details</span>
+
+                      <a href="{% url 'App_Account:eventsummery' slug=evn.slug %}">
+                      <span class="badge bg-success rounded-pill" style="padding: 10px;" >View Details</span>
                       </a>
                     </li>
                     {% endfor %}

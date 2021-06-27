@@ -103,6 +103,7 @@ class Withdraw(models.Model):
     status = models.BooleanField(default=False)
     message = models.CharField(blank=True, null=True, max_length=255)
     updated_at = models.DateTimeField(auto_now=True)
-    
+    confirm = models.BooleanField(default=False)
+
     def __str__(self):
         return str(user.first_name)

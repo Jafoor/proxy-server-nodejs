@@ -1,5 +1,6 @@
 from django import forms
 from App_Account.models import VerifyPersonBankDetails
+from App_Event.models import Withdraw
 
 
 class UserBankProfile(forms.ModelForm):
@@ -98,4 +99,26 @@ class UserBankProfile(forms.ModelForm):
             }
         )
     )
-    
+
+
+class Withdraw(forms.ModelForm):
+
+    class Meta:
+        model = Withdraw
+        fields = ('amount', 'confirm')
+
+    amount = forms.CharField(
+        required = True,
+        widget = forms.TextInput(
+            attrs={
+                'class': 'form-control valid',
+                'name': 'amount',
+                'id': 'amount',
+                'onfocus': "this.placeholder = 'Enter amount'",
+                'onblur': "this.placeholder = 'Enter amount'",
+                'type':'number',
+                'placeholder': '10050',
+                'required' : True
+            }
+        )
+    )
