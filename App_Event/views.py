@@ -6,6 +6,7 @@ from django.conf import settings
 from App_Account.models import Organization
 from App_Event.models import Event, Donation
 from django.contrib import messages
+from App_Admin.models import LandingPage, CommonField, Contactus
 User = get_user_model()
 
 
@@ -19,9 +20,34 @@ from django.views.decorators.csrf import csrf_exempt
 
 def Home(request):
 
-    return render(request, 'App_Event/home.html')
+    landingpage = LandingPage.objects.filter().order_by('-id')[0]
 
-def Contactus(request):
+    context = {
+        'landingpage': landingpage
+    }
+
+    return render(request, 'App_Event/home.html', context)
+
+def ContactUs(request):
+
+    if request.method == 'POST':
+        message = request.POST.get('message')
+        subject = request.POST.get('subject')
+        contactus = Contactus.objects.create(message=message, subject=subject)
+
+        if request.user.is_authenticated:
+            contactus.name = request.user.first_name
+            contactus.email = request.user.email
+            contactus.user = request.user
+
+        else:
+            name = request.POST.get('name')
+            email = request.POST.get('email')
+            contactus.name = name
+            contactus.email = email
+        contactus.save()
+        messages.success(request,f"Your message has been sent Successfully")
+
 
     return render(request, 'App_Event/contactus.html')
 

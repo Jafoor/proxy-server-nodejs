@@ -5,7 +5,7 @@ app_name = 'App_Event'
 
 urlpatterns = [
     path('', views.Home, name='home'),
-    path('contactus', views.Contactus, name='contactus'),
+    path('contactus', views.ContactUs, name='contactus'),
     path('eventdetails/<slug:slug>', views.Eventdetails, name='eventdetails'),
     path('status/<int:pk>', views.complete, name="complete"),
     path('purchase/<val_id>/<tran_id>/<int:pk>', views.purchase, name="purchase"),

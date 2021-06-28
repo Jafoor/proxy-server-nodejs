@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils import timezone
 from datetime import datetime, timedelta
+from django.conf import settings
 # Create your models here.
 
 class LandingPage(models.Model):
@@ -11,7 +12,7 @@ class LandingPage(models.Model):
     date = models.DateTimeField(default=timezone.now)
 
     def __str__(self):
-        return (self.date)
+        return str(self.date)
 
 class CommonField(models.Model):
 
@@ -27,4 +28,14 @@ class CommonField(models.Model):
     footernote = models.TextField(blank=True, null=True)
 
     def __str__(self):
-        return (self.email)
+        return str(self.email)
+
+class Contactus(models.Model):
+
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, blank=True, null=True)
+    name = models.CharField(max_length=255, blank=True, null=True)
+    email = models.EmailField(blank=True, null=True)
+    message = models.TextField(blank=True, null=True)
+    subject = models.CharField(max_length=255, null=True, blank=True)
+
+    
