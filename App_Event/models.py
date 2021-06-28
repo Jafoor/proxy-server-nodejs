@@ -32,6 +32,7 @@ class Event(models.Model):
     need_amount = models.IntegerField(default=100)
     collected = models.IntegerField(default=0)
     event_pic = ResizedImageField(size=[1200, 630], crop=['middle', 'center'], upload_to=upload_to_event, quality=100, default='event_image_main.png', null=True, blank=True)
+    event_pic_thumb = ResizedImageField(size=[362, 215], crop=['middle', 'center'], upload_to=upload_to_event, quality=100, default='event_image_main.png', null=True, blank=True)
     sort_description = models.CharField(max_length=255, blank=True)
     created = models.DateTimeField(default=timezone.now)
     description = RichTextField(null=True, blank=True)

@@ -17,6 +17,20 @@ class CreateEventSubmit(forms.ModelForm):
         )
     )
 
+    event_pic_thumb = forms.FileField(
+        required = True,
+        widget = forms.FileInput(
+            attrs={
+                'class': 'form-control',
+                'type':'file',
+                'placeholder': '',
+                'accept':"image/*",
+                'value':"{{ org.event_pic_thumb.value }}",
+                'required' : True
+            }
+        )
+    )
+
     title = forms.CharField(
         required = True,
         widget = forms.TextInput(
@@ -102,4 +116,4 @@ class CreateEventSubmit(forms.ModelForm):
     )
     class Meta:
         model = Event
-        fields = ('title', 'event_type', 'event_pic', 'sort_description', 'description', 'need_amount', 'endtime', 'terms_and_condition', 'extra_img1', 'extra_img2' )
+        fields = ('title', 'event_type', 'event_pic', 'event_pic_thumb', 'sort_description', 'description', 'need_amount', 'endtime', 'terms_and_condition', 'extra_img1', 'extra_img2' )

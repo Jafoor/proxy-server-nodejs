@@ -63,6 +63,27 @@ Organization Dashboard
                                            </div>
                                        </div>
 
+                                       <div class="field item form-group">
+																			 		<label class="col-form-label col-md-3 col-sm-3  label-align"><span class="required"></span></label>
+
+																			 		<div class="col-md-6 col-sm-6">
+
+																						{% if org.event_pic_thumb %}
+																					 <img class="center" src="{{org.event_pic_thumb.url}}" alt="Organization Document" style="width: 50%; height: auto;" >
+																					 {% endif %}
+																			 		</div>
+																			 </div>
+
+																			 <div class="field item form-group">
+                                           <label class="col-form-label col-md-3 col-sm-3  label-align">Event Default Picture<span class="required">*</span></label>
+
+                                           <div class="col-md-6 col-sm-6">
+
+                                               {{ form.event_pic_thumb }}
+                                               You can select same picture of Event Default Picture
+                                           </div>
+                                       </div>
+
 
                                        <div class="field item form-group">
                                            <label class="col-form-label col-md-3 col-sm-3  label-align">Title of Event<span class="required">*</span></label>
