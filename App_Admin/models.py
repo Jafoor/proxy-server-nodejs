@@ -38,4 +38,11 @@ class Contactus(models.Model):
     message = models.TextField(blank=True, null=True)
     subject = models.CharField(max_length=255, null=True, blank=True)
 
-    
+class SupportedBanks(models.Model):
+
+    name = models.CharField(max_length=255, unique=True)
+    active =models.BooleanField(default=False)
+    date = models.DateTimeField(default=timezone.now)
+
+    def __str__(self):
+        return str(self.name)

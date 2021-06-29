@@ -52,7 +52,16 @@ Organization Dashboard
                                        <div class="field item form-group">
                                            <label class="col-form-label col-md-3 col-sm-3  label-align">Bank Name<span class="required">*</span></label>
                                            <div class="col-md-6 col-sm-6">
-                                               <input class="form-control" type="text"  name="bank_name" value="{{bankinfo.bank_name}}" placeholder="Ex: Islami Bank Limited" required />
+                                               <select class="form-control" type="text"  name="bank_name" value="{{bankinfo.bank_name}}" placeholder="Ex: Islami Bank Limited" required >
+                                                {% if bankinfo.bank_name %}
+                                                  <option value="{{bankinfo.bank_name}}">{{bankinfo.bank_name}}</option>
+                                                {% endif %}
+                                                 {% for bank in banks %}
+                                                 {% if bankinfo.bank_name != bank.name %}
+                                                 <option value="{{bank.name}}">{{bank.name}}</option>
+                                                 {% endif %}
+                                                 {% endfor %}
+                                              </select>
                                            </div>
                                        </div>
 
@@ -73,7 +82,7 @@ Organization Dashboard
                                        <div class="field item form-group">
                                            <label class="col-form-label col-md-3 col-sm-3  label-align">Account Number<span class="required">*</span></label>
                                            <div class="col-md-6 col-sm-6">
-                                               <input class="form-control" type="number" class='number' name="account_number" value="{{bankinfo.account_number}}" placeholder="101.1234.12344422" required></div>
+                                               <input class="form-control" type="text" class='number' name="account_number" value="{{bankinfo.account_number}}" placeholder="101.1234.12344422" required></div>
                                        </div>
 
                                        <div class="ln_solid">
@@ -89,6 +98,8 @@ Organization Dashboard
                            </div>
                        </div>
                    </div>
+
+
                </div>
            </div>
            <!-- /page content -->

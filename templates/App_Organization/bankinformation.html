@@ -16,25 +16,17 @@ Organization Dashboard
   <!-- top tiles -->
   <div class="row"  >
 
+  {% if  not bankinfo.is_verified %}
   <div class="tile_count col-lg-12">
 
     <div class="alert alert-danger alert-dismissible " role="alert">
-      <button type="button" class="close" aria-label="Close"><span aria-hidden="true">×</span>
+      <button type="button" class="close" aria-label="Close" onclick="this.parentElement.style.display='none';"><span aria-hidden="true">×</span>
       </button>
       <strong>You did't complete bank Informations</strong>
     </div>
-
   </div>
-  <div class="tile_count col-lg-12">
 
-    <div class="alert alert-success alert-dismissible " role="alert">
-      <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
-      </button>
-      <strong>Completed Bank Informations</strong>
-    </div>
-
-
-  </div>
+  {% else %}
 
   <div class="col-md-6 col-sm-6  ">
     <div class="x_panel">
@@ -55,31 +47,24 @@ Organization Dashboard
         <div class="accordion" id="accordion" aria-multiselectable="true">
           <div class="panel">
             <a class="panel-heading"  id="headingOne" aria-expanded="true" aria-controls="collapseOne">
-              <h4 class="panel-title">Bank Name : Islami Bank Limited</h4>
+              <h4 class="panel-title">Bank Name : {{bankinfo.bank_name}}</h4>
             </a>
           </div>
           <div class="panel">
             <a class="panel-heading"  id="headingOne" aria-expanded="true" aria-controls="collapseOne">
-              <h4 class="panel-title">Branch Name: Meghna Branch</h4>
+              <h4 class="panel-title">Branch Name: {{bankinfo.bank_branch}}</h4>
             </a>
 
           </div>
           <div class="panel">
             <a class="panel-heading"  id="headingOne" aria-expanded="true" aria-controls="collapseOne">
-              <h4 class="panel-title">Account Number: 12398809812340987 </h4>
+              <h4 class="panel-title">Account Number: {{bankinfo.account_number}} </h4>
             </a>
           </div>
 
           <div class="panel">
             <a class="panel-heading"  id="headingOne" aria-expanded="true" aria-controls="collapseOne">
-              <h4 class="panel-title">Account Name: Abu Jafor Mohammad Saleh</h4>
-
-            </a>
-          </div>
-
-          <div class="panel">
-            <a class="panel-heading"  id="headingOne" aria-expanded="true" aria-controls="collapseOne">
-              <h4 class="panel-title">Account Type: Personal</h4>
+              <h4 class="panel-title">Account Name: {{bankinfo.account_name}}</h4>
             </a>
           </div>
 
@@ -91,6 +76,7 @@ Organization Dashboard
       </div>
     </div>
   </div>
+
 
   <div class="col-md-6 col-sm-6  ">
                 <div class="x_panel">
@@ -109,22 +95,14 @@ Organization Dashboard
 
                     <!-- start accordion -->
                     <div class="accordion" id="accordion" aria-multiselectable="true">
-                      <div class="panel">
-                        <a class="panel-heading"  id="headingOne" aria-expanded="true" aria-controls="collapseOne">
-                          <h4 class="panel-title">Brac Bank</h4>
-                        </a>
-                      </div>
-                      <div class="panel">
-                        <a class="panel-heading"  id="headingOne" aria-expanded="true" aria-controls="collapseOne">
-                          <h4 class="panel-title">Islami Bank Limited</h4>
-                        </a>
 
-                      </div>
+                      {% for bank in banks %}
                       <div class="panel">
                         <a class="panel-heading"  id="headingOne" aria-expanded="true" aria-controls="collapseOne">
-                          <h4 class="panel-title">Agrani Bank Limied</h4>
+                          <h4 class="panel-title">{{bank.name}}</h4>
                         </a>
                       </div>
+                      {% endfor %}
                     </div>
                     <!-- end of accordion -->
 
@@ -133,10 +111,12 @@ Organization Dashboard
                 </div>
   </div>
 
-<div class="col-md-6 col-sm-6">
+  {% endif %}
+
+<div class="col-md-6 col-sm-6" style="margin:auto;">
   <div class="x_panel">
   <div class="row">
-    <div class=" ">
+    <div class="" style="margin:auto;">
       <!--
       <button onclick="location.href='{% url 'App_Event:home' %}'" class="btn btn-success pull-right"><i class="fa fa-edit"></i>Update Information</button>
       -->

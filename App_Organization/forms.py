@@ -182,7 +182,10 @@ class OrgWithdraw(forms.ModelForm):
             attrs={
                 'class': 'form-control',
                 'type':'number',
-                'placeholder': 'Amount you want to withdraw',
+                'onfocus': "this.placeholder = 'Enter amount'",
+                'onblur': "this.placeholder = 'Enter amount'",
+                'placeholder': '1000100',
+                "min":"1000",
                 'required' : True
             }
         )

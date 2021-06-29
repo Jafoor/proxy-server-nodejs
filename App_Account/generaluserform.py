@@ -117,6 +117,7 @@ class Withdraw(forms.ModelForm):
                 'onfocus': "this.placeholder = 'Enter amount'",
                 'onblur': "this.placeholder = 'Enter amount'",
                 'type':'number',
+                'min':'100',
                 'placeholder': '10050',
                 'required' : True
             }

@@ -13,6 +13,29 @@ Organization Dashboard
 {% block body_block %}
 <!-- page content -->
 <div class="right_col" role="main">
+
+  {% if not org.is_verified %}
+  <div class="tile_count col-lg-12">
+    <div class="alert alert-danger alert-dismissible " role="alert">
+      <button type="button" class="close" aria-label="Close" onclick="this.parentElement.style.display='none';"><span aria-hidden="true">×</span>
+      </button>
+      <strong>Your Account is Not Verified Yet.</strong>
+    </div>
+  </div>
+  {% endif %}
+
+  {% if not org.given_org_details or not org.given_org_documents or not orgbank.is_verified %}
+  <div class="tile_count col-lg-12">
+    <div class="alert alert-danger alert-dismissible " role="alert">
+      <button type="button" class="close" aria-label="Close" onclick="this.parentElement.style.display='none';"><span aria-hidden="true">×</span>
+      </button>
+      <strong>You didn't fill up all the forms of Account Details</strong>
+    </div>
+  </div>
+  {% endif %}
+
+
+
   <!-- top tiles -->
   <div class="row"  >
 

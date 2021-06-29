@@ -13,6 +13,15 @@ Organization Dashboard
 
 <!-- page content -->
            <div class="right_col" role="main">
+             {% if not org.is_verified %}
+             <div class="tile_count col-lg-12">
+               <div class="alert alert-danger alert-dismissible " role="alert">
+                 <button type="button" class="close" aria-label="Close" onclick="this.parentElement.style.display='none';"><span aria-hidden="true">×</span>
+                 </button>
+                 <strong>You can't Create event until Verified.</strong>
+               </div>
+             </div>
+             {% else %}
                <div class="">
                    <div class="page-title">
                        <div class="title_left">
@@ -186,8 +195,9 @@ Organization Dashboard
                        </div>
                    </div>
                </div>
+               {% endif %}
            </div>
-           <!-- /page content -->
+<!-- /page content -->
 
 {% endblock %}
 

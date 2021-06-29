@@ -14,27 +14,18 @@ Organization Dashboard
 <!-- page content -->
 <div class="right_col" role="main">
   <!-- top tiles -->
-  <div class="row"  >
+  <div class="row" >
 
+
+  {% if not org.given_org_details %}
   <div class="tile_count col-lg-12">
-
     <div class="alert alert-danger alert-dismissible " role="alert">
       <button type="button" class="close" aria-label="Close"><span aria-hidden="true">×</span>
       </button>
       <strong>You did't complete Organization Informations</strong>
     </div>
-
   </div>
-  <div class="tile_count col-lg-12">
-
-    <div class="alert alert-success alert-dismissible " role="alert">
-      <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
-      </button>
-      <strong>Completed Organization Informations</strong>
-    </div>
-
-
-  </div>
+  {% else %}
 
   <div class="col-md-6 col-sm-6  ">
     <div class="x_panel">
@@ -55,24 +46,24 @@ Organization Dashboard
         <div class="accordion" id="accordion" aria-multiselectable="true">
           <div class="panel">
             <a class="panel-heading"  id="headingOne" aria-expanded="true" aria-controls="collapseOne">
-              <h4 class="panel-title">Division : Dhaka </h4>
+              <h4 class="panel-title">Division : {{org.division}} </h4>
             </a>
           </div>
           <div class="panel">
             <a class="panel-heading"  id="headingOne" aria-expanded="true" aria-controls="collapseOne">
-              <h4 class="panel-title">Zilla : Munshigonj </h4>
+              <h4 class="panel-title">Zilla : {{org.zilla}} </h4>
             </a>
 
           </div>
           <div class="panel">
             <a class="panel-heading"  id="headingOne" aria-expanded="true" aria-controls="collapseOne">
-              <h4 class="panel-title">Thana : Gazaria </h4>
+              <h4 class="panel-title">Thana : {{org.thana}} </h4>
             </a>
           </div>
 
           <div class="panel">
             <a class="panel-heading"  id="headingOne" aria-expanded="true" aria-controls="collapseOne">
-              <h4 class="panel-title">Address : Uttar Shahapur, Merar Gaon  </h4>
+              <h4 class="panel-title">Address : {{org.address}} </h4>
 
             </a>
           </div>
@@ -104,36 +95,36 @@ Organization Dashboard
                     <div class="accordion" id="accordion" aria-multiselectable="true">
                       <div class="panel">
                         <a class="panel-heading"  id="headingOne" aria-expanded="true" aria-controls="collapseOne">
-                          <h4 class="panel-title">Contact Number: 01846825017</h4>
+                          <h4 class="panel-title">Contact Number: {{org.contact_number}}</h4>
                         </a>
                       </div>
                       <div class="panel">
                         <a class="panel-heading"  id="headingOne" aria-expanded="true" aria-controls="collapseOne">
-                          <h4 class="panel-title">Organization Type: </h4>
+                          <h4 class="panel-title">Organization Type: {{org.org_type}} </h4>
                         </a>
 
                       </div>
                       <div class="panel">
                         <a class="panel-heading"  id="headingOne" aria-expanded="true" aria-controls="collapseOne">
-                          <h4 class="panel-title">Active Member: 1500 </h4>
+                          <h4 class="panel-title">Active Member: {{org.org_active_member}} </h4>
                         </a>
                       </div>
 
                       <div class="panel" style="overflow:hidden;">
                         <a class="panel-heading"  id="headingOne" aria-expanded="true" aria-controls="collapseOne">
-                          <h4 class="panel-title">Facebook Link : www.facebook.com/blooddonationprogrammebd  </h4>
+                          <h4 class="panel-title">Facebook Link : {{org.socila_link1}} </h4>
                         </a>
                       </div>
 
                       <div class="panel" style="overflow:hidden;">
                         <a class="panel-heading"  id="headingOne" aria-expanded="true" aria-controls="collapseOne">
-                          <h4 class="panel-title">Other Activity Link : </h4>
+                          <h4 class="panel-title">Other Activity Link : {{org.socila_link2}} </h4>
                         </a>
                       </div>
 
                       <div class="panel">
                         <a class="panel-heading"  id="headingOne" aria-expanded="true" aria-controls="collapseOne">
-                          <h4 class="panel-title">About Organization : This is a knowledge sharing platform </h4>
+                          <h4 class="panel-title">About Organization : {{org.org_about}}</h4>
                         </a>
                       </div>
 
@@ -145,10 +136,12 @@ Organization Dashboard
                 </div>
   </div>
 
-<div class="col-md-6 col-sm-6">
+  {% endif %}
+
+<div class="col-md-6 col-sm-6" style="margin:auto;">
   <div class="x_panel">
   <div class="row">
-    <div class=" ">
+    <div class="center" style="margin:auto;">
       <!--
       <button onclick="location.href='{% url 'App_Event:home' %}'" class="btn btn-success pull-right"><i class="fa fa-edit"></i>Update Information</button>
       -->

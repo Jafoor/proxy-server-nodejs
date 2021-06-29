@@ -13,10 +13,21 @@ Organization Dashboard
 
 <!-- page content -->
       <div class="right_col" role="main">
+
+        {% if not org.is_verified %}
+        <div class="tile_count col-lg-12">
+          <div class="alert alert-danger alert-dismissible " role="alert">
+            <button type="button" class="close" aria-label="Close" onclick="this.parentElement.style.display='none';"><span aria-hidden="true">×</span>
+            </button>
+            <strong>You can't see event list until Verified.</strong>
+          </div>
+        </div>
+        {% else %}
+
         <div class="">
           <div class="page-title">
-            <div class="title_left">
-              <h3>Events <small> list created from your organization</small></h3>
+            <div class="title_right">
+              <h3>Events list created from your organization</h3>
             </div>
           </div>
 
@@ -26,7 +37,6 @@ Organization Dashboard
             <div class="col-md-12">
               <div class="x_panel">
                 <div class="x_title">
-                  <h2>Events List <small>Sample user invoice design</small></h2>
                   <ul class="nav navbar-right panel_toolbox">
                     <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                     </li>
@@ -88,6 +98,7 @@ Organization Dashboard
             </div>
           </div>
         </div>
+        {% endif %}
       </div>
       <!-- /page content -->
 

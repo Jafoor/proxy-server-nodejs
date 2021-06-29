@@ -27,25 +27,17 @@ Organization Dashboard
   <!-- top tiles -->
   <div class="row"  >
 
+{% if not org.given_org_documents %}
   <div class="tile_count col-lg-12">
 
     <div class="alert alert-danger alert-dismissible " role="alert">
       <button type="button" class="close" aria-label="Close"><span aria-hidden="true">×</span>
       </button>
-      <strong>You did't complete Organization Informations</strong>
+      <strong>You did't give Organization Documents </strong>
     </div>
 
   </div>
-  <div class="tile_count col-lg-12">
-
-    <div class="alert alert-success alert-dismissible " role="alert">
-      <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
-      </button>
-      <strong>Completed Organization Informations</strong>
-    </div>
-
-
-  </div>
+  {% else %}
 
   <div class="col-md-6 col-sm-6  ">
     <div class="x_panel">
@@ -238,12 +230,13 @@ Organization Dashboard
   </div>
 </div>
 </div>
+{% endif %}
 
 
-<div class=" col-lg-6 col-md-6 col-sm-6 ">
+<div class=" col-lg-6 col-md-6 col-sm-6 " style="margin:auto;">
   <div class="x_panel" class="">
   <div class="row">
-    <div class="" style="display:block;  margin-left: auto; margin-right: auto; ">
+    <div class="" style=" margin: auto; ">
       <!--
       <button onclick="location.href='{% url 'App_Event:home' %}'" class="btn btn-success pull-right"><i class="fa fa-edit"></i>Update Information</button>
       -->

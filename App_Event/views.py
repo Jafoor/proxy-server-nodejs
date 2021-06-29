@@ -1,5 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect, HttpResponseRedirect
 from django.contrib.auth import login, logout, get_user_model
+from django.contrib.auth.decorators import login_required
 from django.urls import reverse
 from App_Event.forms import CreateEventSubmit
 from django.conf import settings
@@ -142,39 +143,47 @@ def purchase(request, val_id, tran_id, pk):
     event.save()
     return HttpResponseRedirect(reverse("App_Event:eventdetails", kwargs={'slug':event.slug}))
 
+@login_required(login_url = '/login/')
 def OrgApplyevent(request, slug):
 
     user = get_object_or_404(User, slug=slug)
-    org = get_object_or_404(Organization, org=user)
-    if request.method == 'POST':
-        form = CreateEventSubmit(request.POST or None, request.FILES or None)
-        if form.is_valid():
-            event = form.save(commit=False)
-            event.user = user
-            event.save()
-            return redirect('App_Organization:OrganizationDashboard', slug)
+    if request.user == user:
+        org = get_object_or_404(Organization, org=user)
+        if request.method == 'POST':
+            form = CreateEventSubmit(request.POST or None, request.FILES or None)
+            if form.is_valid():
+                event = form.save(commit=False)
+                event.user = user
+                event.save()
+                return redirect('App_Organization:OrganizationDashboard', slug)
+        else:
+            form = CreateEventSubmit()
+        context = {
+            'form': form,
+            'user': user,
+            'org': org
+        }
+
+
+        return render(request, 'App_Organization/applyevent.html', context)
     else:
-        form = CreateEventSubmit()
-    context = {
-        'form': form,
-        'user': user,
-        'org': org
-    }
+        return render(request, 'notauthorised.html')
 
-
-    return render(request, 'App_Organization/applyevent.html', context)
-
+@login_required(login_url = '/login/')
 def OrgEventList(request, slug):
 
     user = get_object_or_404(User, slug=slug)
-    org = get_object_or_404(Organization, org=user)
-    events = Event.objects.filter(user = org.org)
-    print(events)
-    context = {
-        'user': user,
-        'org': org,
-        'events': events,
-    }
+    if request.user == user:
+        org = get_object_or_404(Organization, org=user)
+        events = Event.objects.filter(user = org.org)
+        print(events)
+        context = {
+            'user': user,
+            'org': org,
+            'events': events,
+        }
 
 
-    return render(request, 'App_Organization/orgeventlist.html', context)
+        return render(request, 'App_Organization/orgeventlist.html', context)
+    else:
+        return render(request, 'notauthorised.html')
