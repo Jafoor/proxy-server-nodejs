@@ -11,6 +11,10 @@ urlpatterns = [
     path('organization/<slug:slug>/updateorganizationinformation', views.UpdateOrganizationInformation, name="UpdateOrganizationInformation"),
     path('organization/<slug:slug>/organizationdocuments', views.OrganizationDocuments, name="OrganizationDocuments"),
     path('organization/<slug:slug>/updateorganizationdocuments', views.UpdateOrganizationDocuments, name="UpdateOrganizationDocuments"),
+
+    path('organization/<slug:slug>/withdraw', views.WithdrawAmount, name="withdrawamount"),
+    path('organization/<slug:slug>/withdrawlist', views.WithdrawList, name="withdrawlist"),
+
     # path('', views.Home, name='home'),
     # path('product/<pk>/', views.ProductDetail.as_view(), name='product_detail'),
 ]

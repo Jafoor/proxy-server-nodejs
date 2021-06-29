@@ -1,7 +1,13 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth import login, logout, get_user_model
 from App_Account.models import Organization, VerifyOrgBankDetails
-from App_Organization.forms import OrgDocumentsSubmit
+from App_Organization.forms import OrgDocumentsSubmit, OrgWithdraw
+from App_Event.models import Event, Donation, Withdraw
+from datetime import datetime
+from decimal import Decimal
+from django.contrib import messages
+
+
 # Create your views here.
 User = get_user_model()
 
@@ -9,9 +15,17 @@ def OrgDashboard(request, slug):
 
     user = get_object_or_404(User, slug=slug)
     org = get_object_or_404(Organization, org=user)
+    orgbank = get_object_or_404(VerifyOrgBankDetails, user=user)
+    event = Event.objects.filter(user=user).count()
+    current_event = Event.objects.filter(user=user,
+                                         endtime__gt = datetime.now()
+                                          ).count()
     context = {
         'user': user,
-        'org': org
+        'org': org,
+        'orgbank': orgbank,
+        'event' : event,
+        'currentevent': current_event
     }
     return render(request, 'App_Organization/home.html', context )
 
@@ -127,3 +141,48 @@ def UpdateOrganizationDocuments(request, slug):
     }
 
     return render(request, 'App_Organization/updateorganizationdocuments.html', context)
+
+def WithdrawAmount(request, slug):
+
+    user = get_object_or_404(User, slug=slug)
+    org = get_object_or_404(Organization, org=user)
+    orgbank = get_object_or_404(VerifyOrgBankDetails, user=user)
+    if request.method == 'POST':
+        form = OrgWithdraw(request.POST or None)
+        if form.is_valid():
+            amount = form.cleaned_data['amount']
+            amount = Decimal(amount)
+            if amount > Decimal(orgbank.current_balance) or amount <= 0.0:
+                messages.error(request, "You don't have enough balance to withdraw.")
+                return redirect('App_Organization:withdrawamount', slug)
+            form.save(commit=False)
+            form.user=user
+            form.save()
+            return redirect(request, 'App_Organization:withdrawlist', slug)
+
+    form = OrgWithdraw()
+
+    context = {
+        'user': user,
+        'org': org,
+        'form': form,
+        'orgbank': orgbank
+    }
+
+    return render(request, 'App_Organization/withdrawamount.html', context)
+
+
+def WithdrawList(request, slug):
+
+    user = get_object_or_404(User, slug=slug)
+    org = get_object_or_404(Organization, org=user)
+
+    withdraw = Withdraw.objects.filter(user=user)
+
+    context = {
+        'user': user,
+        'org': org,
+        'withdraw': withdraw
+    }
+
+    return render(request, 'App_Organization/withdrawlist.html', context)

@@ -1,5 +1,6 @@
 from django import forms
 from App_Account.models import Organization
+from App_Event.models import Withdraw
 
 class OrgDocumentsSubmit(forms.ModelForm):
     class Meta:
@@ -168,4 +169,25 @@ class OrgDocumentsSubmit(forms.ModelForm):
                 'required' : False
             }
         )
+    )
+
+class OrgWithdraw(forms.ModelForm):
+    class Meta:
+        model = Withdraw
+        fields = ('amount', 'confirm')
+
+    amount = forms.CharField(
+        required = True,
+        widget = forms.TextInput(
+            attrs={
+                'class': 'form-control',
+                'type':'number',
+                'placeholder': 'Amount you want to withdraw',
+                'required' : True
+            }
+        )
+    )
+
+    confirm = forms.BooleanField(
+        required = True
     )

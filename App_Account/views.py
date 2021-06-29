@@ -268,7 +268,7 @@ def withdrawbalance(request, slug):
             amount = form.cleaned_data['amount']
             amount = Decimal(amount)
             current = Decimal(personbank.current_balance)
-            if current < amount:
+            if current < amount or amount <= 0.0:
                 messages.error(request, "You don't have enough balance to withdraw.")
                 return redirect('App_Account:withdrawbalance', slug)
 

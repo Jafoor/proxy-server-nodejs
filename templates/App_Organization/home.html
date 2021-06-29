@@ -20,20 +20,20 @@ Organization Dashboard
 
     <div class="col-lg-3 col-md-6 col-sm-12  tile_stats_count">
       <span class="count_top"><i class="fa fa-clock-o"></i> Account Balance </span>
-      <div class="count green">1234098</div>
+      <div class="count green">{{orgbank.current_balance}}</div>
     </div>
 
     <div class="col-lg-3 col-md-6 col-sm-12  tile_stats_count">
       <span class="count_top"><i class="fa fa-user"></i> Total Events</span>
-      <div class="count">10</div>
+      <div class="count">{{event}}</div>
     </div>
     <div class="col-lg-3 col-md-6 col-sm-12  tile_stats_count">
-      <span class="count_top"><i class="fa fa-user"></i> Total Withdraw</span>
-      <div class="count">2500</div>
+      <span class="count_top"><i class="fa fa-user"></i>Total Withdraw</span>
+      <div class="count">{{orgbank.total_withdraw}}</div>
     </div>
     <div class="col-lg-3 col-md-6 col-sm-12  tile_stats_count">
-      <span class="count_top"><i class="fa fa-user"></i> Total Member</span>
-      <div class="count">4567</div>
+      <span class="count_top"><i class="fa fa-user"></i>Current Events</span>
+      <div class="count">{{currentevent}}</div>
     </div>
   </div>
 
