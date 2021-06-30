@@ -36,24 +36,39 @@
               <li><a href="{% url 'App_Admin:unverifiedrganizationlist' %}">Unverified Organization list</a></li>
             </ul>
           </li>
-          <li><a><i class="fa fa-desktop"></i> Events <span class="fa fa-chevron-down"></span></a>
+          <li><a><i class="fa fa-bullseye"></i> Events <span class="fa fa-chevron-down"></span></a>
             <ul class="nav child_menu">
               <li><a href="{% url 'App_Admin:eventlist' %}">Events List</a></li>
               <li><a href="{% url 'App_Admin:notverifiedeventlist' %}">Not Verified Events List</a></li>
-              <li><a href="">Create Event</a></li>
             </ul>
           </li>
-          <li><a><i class="fa fa-table"></i> Users <span class="fa fa-chevron-down"></span></a>
+
+          <!-- <li><a><i class="fa fa-thumbs-up"></i> Events <span class="fa fa-thumbs-up"></span></a>
+            <ul class="nav child_menu">
+              <li><a href="{% url 'App_Admin:eventlist' %}">Apply </a></li>
+              <li><a href="{% url 'App_Admin:notverifiedeventlist' %}">Not Verified Events List</a></li>
+            </ul>
+          </li> -->
+
+          <li><a><i class="fa fa-users"></i> Users <span class="fa fa-users"></span></a>
             <ul class="nav child_menu">
               <li><a href="{% url 'App_Admin:allusers' %}">All Users</a></li>
-              <li><a href="tables_dynamic.html">Withdraw History</a></li>
+              <li><a href="{% url 'App_Admin:verifiedusers' %}">Verified User</a></li>
+              <li><a href="{% url 'App_Admin:unverifiedusers' %}">Unverified User</a></li>
             </ul>
           </li>
 
           <li><a><i class="fa fa-table"></i> Donars <span class="fa fa-chevron-down"></span></a>
             <ul class="nav child_menu">
               <li><a href="{% url 'App_Admin:donarslist' %}">All Donars</a></li>
-              <li><a href="">Withdraw History</a></li>
+            </ul>
+          </li>
+
+          <li><a><i class="fa fa-table"></i> Withdwar <span class="fa fa-chevron-down"></span></a>
+            <ul class="nav child_menu">
+              <li><a href="{% url 'App_Admin:pendingwithdraw' %}">Pending Withdraw</a></li>
+              <li><a href="{% url 'App_Admin:readytowithdraw' %}">Ready to Withdraw</a></li>
+              <li><a href="{% url 'App_Admin:allwithdrawdone' %}">Withdraw Completed</a></li>
             </ul>
           </li>
 

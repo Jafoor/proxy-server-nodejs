@@ -1,5 +1,5 @@
 from django import forms
-from App_Event.models import Event, EventType
+from App_Event.models import Event, EventType, Withdraw
 
 class CreateEventSubmit(forms.ModelForm):
 
@@ -117,3 +117,9 @@ class CreateEventSubmit(forms.ModelForm):
     class Meta:
         model = Event
         fields = ('title', 'event_type', 'event_pic', 'event_pic_thumb', 'sort_description', 'description', 'need_amount', 'endtime', 'terms_and_condition', 'extra_img1', 'extra_img2' )
+
+
+class WithdrawConfirm(forms.ModelForm):
+    class Meta:
+        model = Withdraw
+        fields = ('status', 'message', 'confirm')

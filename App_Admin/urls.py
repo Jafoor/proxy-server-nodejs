@@ -14,10 +14,16 @@ urlpatterns = [
     path('dashboard/eventdetails/<slug:slug>', views.EventDetails,name='eventdetails'),
     path('dashboard/notverifiedeventlist', views.UnverifiedEventlist,name='notverifiedeventlist'),
     path('dashboard/allusers', views.AllUsers,name='allusers'),
+    path('dashboard/verifiedusers', views.VerifiedUsers,name='verifiedusers'),
+    path('dashboard/unverifiedusersbankdetails/<int:pk>', views.UnVerifiedUsersBankDetails,name='unverifiedusersbankdetails'),
+    path('dashboard/unverifiedusers', views.UnVerifiedUsers,name='unverifiedusers'),
     path('dashboard/userdetails/<int:pk>', views.UserDetails,name='userdetails'),
     path('dashboard/donarslist', views.LatestDonars,name='donarslist'),
-    # path('verifiedusers',views.verifiedusers,name='verifiedusers'),
-    # path('generalusers',views.generalusers,name='generalusers'),
-    # path('eventsbyusers',views.eventsbyusers,name='eventsbyusers'),
-    # path('eventsbyorganizations',views.eventsbyorganizations,name='eventsbyorganizations'),
+
+    path('dashboard/pendingwithdraw', views.PendingWithdraw,name='pendingwithdraw'),
+    path('dashboard/confirmwithdraw/<int:pk>', views.ConfirmWithdraw,name='confirmwithdraw'),
+    path('dashboard/readytowithdraw', views.ReadytoWithdraw,name='readytowithdraw'),
+    path('dashboard/confirmreadytowithdraw/<int:pk>', views.ConfirmReadytoWithdraw,name='confirmreadytowithdraw'),
+    path('dashboard/allwithdrawdone', views.AllWithdrawDone,name='allwithdrawdone'),
+
 ]

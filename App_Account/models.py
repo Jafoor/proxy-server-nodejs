@@ -146,6 +146,7 @@ class VerifyPersonBankDetails(models.Model):
     total_withdraw = models.IntegerField(default=0)
     filled = models.BooleanField(default=False)
     is_verified = models.BooleanField(default=False)
+    message = models.TextField(default="", blank=True, null=True)
 
     def __str__(self):
         return self.user.first_name
