@@ -49,6 +49,13 @@
             </ul>
           </li>
 
+          <li><a><i class="fa fa-table"></i> Issue <span class="fa fa-chevron-down"></span></a>
+            <ul class="nav child_menu">
+              <li><a href="{% url 'App_Organization:createissue' slug=user.slug %}">Create Issue</a></li>
+              <li><a href="{% url 'App_Organization:issuelist' slug=user.slug  %}">Issue List</a></li>
+            </ul>
+          </li>
+
 
         </ul>
       </div>

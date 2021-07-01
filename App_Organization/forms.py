@@ -1,6 +1,7 @@
 from django import forms
 from App_Account.models import Organization
 from App_Event.models import Withdraw
+from App_Admin.models import Issue
 
 class OrgDocumentsSubmit(forms.ModelForm):
     class Meta:
@@ -193,4 +194,35 @@ class OrgWithdraw(forms.ModelForm):
 
     confirm = forms.BooleanField(
         required = True
+    )
+
+class CreateIssue(forms.ModelForm):
+    class Meta:
+        model = Issue
+        fields = ('details', 'subject')
+
+    details = forms.CharField(
+        required = True,
+        widget = forms.Textarea(
+            attrs={
+                'class': 'form-control',
+                'type':'text',
+                'cols': 40,
+                'rows': 4,
+                'placeholder': 'Describe your problem',
+                'required' : True
+            }
+        )
+    )
+
+    subject = forms.CharField(
+        required = True,
+        widget = forms.TextInput(
+            attrs={
+                'class': 'form-control',
+                'type':'text',
+                'placeholder': 'Problem Title',
+                'required' : True
+            }
+        )
     )

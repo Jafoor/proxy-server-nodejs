@@ -4,8 +4,9 @@ from django.contrib.auth.decorators import login_required
 from App_Account.models import Organization, VerifyOrgBankDetails, VerifyPersonBankDetails, Profile
 from datetime import datetime
 from App_Event.models import Event, Donation, Withdraw
+from App_Admin.models import Issue, Contactus, SupportedBanks
 from App_Event.forms import WithdrawConfirm
-from App_Admin.forms import OrganizationConfirm
+from App_Admin.forms import OrganizationConfirm , IssueConfirm, ContactusDetails
 from App_Admin.eventdetailsforms import EventDetailsFromAdmin, VerifyPerson
 from decimal import Decimal
 from django.db.models import Q
@@ -250,88 +251,219 @@ def UserDetails(request, pk):
 @login_required(login_url = '/login/')
 def LatestDonars(request):
 
-    donars = Donation.objects.filter(ordered=True).order_by('date')
+    if request.user.is_staff:
+        donars = Donation.objects.filter(ordered=True).order_by('date')
 
-    context = {
-        'donars': donars,
-    }
+        context = {
+            'donars': donars,
+        }
 
-    return render (request,'App_Admin/Donation/latestdonatios.html', context)
+        return render (request,'App_Admin/Donation/latestdonatios.html', context)
+    else:
+        return render(request, 'notauthorised.html')
 
 @login_required(login_url = '/login/')
 def PendingWithdraw(request):
 
-    withdraw = Withdraw.objects.filter(confirm=False).order_by('date')
+    if request.user.is_staff:
+        withdraw = Withdraw.objects.filter(confirm=False).order_by('date')
 
-    context = {
-        'withdraw': withdraw,
-    }
+        context = {
+            'withdraw': withdraw,
+        }
 
-    return render (request,'App_Admin/Withdwar/pendingwithdraw.html', context)
+        return render (request,'App_Admin/Withdwar/pendingwithdraw.html', context)
+    else:
+        return render(request, 'notauthorised.html')
 
 @login_required(login_url = '/login/')
 def ConfirmWithdraw(request, pk):
 
-    withdraw = get_object_or_404(Withdraw, pk=pk)
+    if request.user.is_staff:
+        withdraw = get_object_or_404(Withdraw, pk=pk)
 
-    if request.method == 'POST':
-        form = WithdrawConfirm(request.POST or None, instance=withdraw)
-        if form.is_valid():
-            form.save(commit=False)
-            form.save()
-            return redirect('App_Admin:pendingwithdraw')
+        if request.method == 'POST':
+            form = WithdrawConfirm(request.POST or None, instance=withdraw)
+            if form.is_valid():
+                form.save(commit=False)
+                form.save()
+                return redirect('App_Admin:pendingwithdraw')
+        else:
+            form = WithdrawConfirm(instance=withdraw)
+
+        context = {
+            'withdraw': withdraw,
+            'form':form
+        }
+
+        return render (request,'App_Admin/Withdwar/pendingwithdraw.html', context)
     else:
-        form = WithdrawConfirm(instance=withdraw)
-
-    context = {
-        'withdraw': withdraw,
-        'form':form
-    }
-
-    return render (request,'App_Admin/Withdwar/pendingwithdraw.html', context)
+        return render(request, 'notauthorised.html')
 
 @login_required(login_url = '/login/')
 def ReadytoWithdraw(request):
 
-    withdraw = Withdraw.objects.filter(status=True, confirm=False).order_by('date')
+    if request.user.is_staff:
 
-    context = {
-        'withdraw': withdraw,
-    }
+        withdraw = Withdraw.objects.filter(status=True, confirm=False).order_by('date')
 
-    return render (request,'App_Admin/Withdwar/readytowithdraw.html', context)
+        context = {
+            'withdraw': withdraw,
+        }
+
+        return render (request,'App_Admin/Withdwar/readytowithdraw.html', context)
+    else:
+        return render(request, 'notauthorised.html')
 
 @login_required(login_url = '/login/')
 def ConfirmReadytoWithdraw(request, pk):
 
-    withdraw = get_object_or_404(Withdraw, pk=pk)
+    if request.user.is_staff:
+        withdraw = get_object_or_404(Withdraw, pk=pk)
 
-    if request.method == 'POST':
-        form = WithdrawConfirm(request.POST or None, instance=withdraw)
-        if form.is_valid():
-            form.save(commit=False)
-            form.save()
-            return redirect('App_Admin:readytowithdraw')
+        if request.method == 'POST':
+            form = WithdrawConfirm(request.POST or None, instance=withdraw)
+            if form.is_valid():
+                form.save(commit=False)
+                form.save()
+                return redirect('App_Admin:readytowithdraw')
+        else:
+            form = WithdrawConfirm(instance=withdraw)
+
+        context = {
+            'withdraw': withdraw,
+            'form':form
+        }
+
+        return render (request,'App_Admin/Withdwar/confirmreadytowithdraw.html', context)
     else:
-        form = WithdrawConfirm(instance=withdraw)
-
-    context = {
-        'withdraw': withdraw,
-        'form':form
-    }
-
-    return render (request,'App_Admin/Withdwar/confirmreadytowithdraw.html', context)
+        return render(request, 'notauthorised.html')
 
 @login_required(login_url = '/login/')
 def AllWithdrawDone(request):
 
-    withdraw = Withdraw.objects.filter(status=True, confirm=True).order_by('date')
+    if request.user.is_staff:
+        withdraw = Withdraw.objects.filter(status=True, confirm=True).order_by('date')
 
-    context = {
-        'withdraw': withdraw,
-    }
+        context = {
+            'withdraw': withdraw,
+        }
 
-    return render (request,'App_Admin/Withdwar/allwithdrawdone.html', context)
+        return render (request,'App_Admin/Withdwar/allwithdrawdone.html', context)
+    else:
+        return render(request, 'notauthorised.html')
+
+@login_required(login_url = '/login/')
+def Issues(request):
+
+    if request.user.is_staff:
+        issue = Issue.objects.filter(solved=True).order_by('date')
+
+        context = {
+            'issue': issue,
+        }
+        return render(request, 'App_Admin/Issue/solvedissue.html', context)
+    else:
+        return render(request, 'notauthorised.html')
+
+@login_required(login_url = '/login/')
+def Issuedetails(request, pk):
+
+    if request.user.is_staff:
+        issue = get_object_or_404(Issue, pk=pk)
+        if request.method == 'POST':
+            form = IssueConfirm(request.POST or None, instance=issue)
+            if form.is_valid():
+                f = form.save(commit=False)
+                f.save()
+                return redirect('App_Admin:solvedissues')
+        else:
+            form = IssueConfirm(instance=issue)
+
+        context = {
+            'issue': issue,
+            'form':form
+        }
+        return render(request, 'App_Admin/Issue/issuedetails.html', context)
+    else:
+        return render(request, 'notauthorised.html')
+
+@login_required(login_url = '/login/')
+def Issuesread(request):
+
+    if request.user.is_staff:
+        issue = Issue.objects.filter(read=True, solved=False).order_by('date')
+
+        context = {
+            'issue': issue,
+        }
+        return render(request, 'App_Admin/Issue/issueread.html', context)
+    else:
+        return render(request, 'notauthorised.html')
+
+@login_required(login_url = '/login/')
+def Issueworkingon(request):
+
+    if request.user.is_staff:
+        issue = Issue.objects.filter(status=True, solved=False).order_by('date')
+
+        context = {
+            'issue': issue,
+        }
+        return render(request, 'App_Admin/Issue/issueworkingon.html', context)
+    else:
+        return render(request, 'notauthorised.html')
+
+@login_required(login_url = '/login/')
+def Issuenew(request):
+
+    if request.user.is_staff:
+        issue = Issue.objects.filter(status=False, solved=False, read=False).order_by('date')
+
+        context = {
+            'issue': issue,
+        }
+        return render(request, 'App_Admin/Issue/newissues.html', context)
+    else:
+        return render(request, 'notauthorised.html')
+
+@login_required(login_url = '/login/')
+def ContactusList(request):
+
+    if request.user.is_staff:
+        contactus = Contactus.objects.all().order_by('-pk')
+
+        context = {
+            'contactus': contactus
+        }
+        return render(request, 'App_Admin/Contactus/contactuslist.html', context)
+    else:
+        return render(request, 'notauthorised.html')
+
+
+@login_required(login_url = '/login/')
+def ContactusDetailsAdmin(request, pk):
+
+    if request.user.is_staff:
+        contactus = get_object_or_404(Contactus, pk=pk)
+
+        if request.method == 'POST':
+            form = ContactusDetails(request.POST or None, instance=contactus)
+            if form.is_valid():
+                form.save()
+                return redirect('App_Admin:contactuslist')
+        else:
+            form = ContactusDetails(instance=contactus)
+
+        context = {
+            'contactus': contactus,
+            'form':form
+        }
+        return render(request, 'App_Admin/Contactus/contactusdetails.html', context)
+    else:
+        return render(request, 'notauthorised.html')
+
+
 
 
 

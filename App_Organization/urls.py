@@ -15,6 +15,11 @@ urlpatterns = [
     path('organization/<slug:slug>/withdraw', views.WithdrawAmount, name="withdrawamount"),
     path('organization/<slug:slug>/withdrawlist', views.WithdrawList, name="withdrawlist"),
 
+    path('organization/<slug:slug>/createissue', views.CreateIssueOrg, name="createissue"),
+    path('organization/<slug:slug>/issuelist', views.issuelist, name="issuelist"),
+
+
+
     # path('', views.Home, name='home'),
     # path('product/<pk>/', views.ProductDetail.as_view(), name='product_detail'),
 ]

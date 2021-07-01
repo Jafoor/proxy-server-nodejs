@@ -26,4 +26,13 @@ urlpatterns = [
     path('dashboard/confirmreadytowithdraw/<int:pk>', views.ConfirmReadytoWithdraw,name='confirmreadytowithdraw'),
     path('dashboard/allwithdrawdone', views.AllWithdrawDone,name='allwithdrawdone'),
 
+    path('dashboard/solvedissues', views.Issues,name='solvedissues'),
+    path('dashboard/newissues', views.Issuenew,name='newissues'),
+    path('dashboard/solvedissues/<int:pk>', views.Issuedetails,name='issuedetails'),
+    path('dashboard/readissues', views.Issuesread,name='readissues'),
+    path('dashboard/issueworkingon', views.Issueworkingon,name='issueworkingon'),
+
+    path('dashboard/contactuslist', views.ContactusList,name='contactuslist'),
+    path('dashboard/contactusdetails/<int:pk>', views.ContactusDetailsAdmin,name='contactusdetails'),
+
 ]

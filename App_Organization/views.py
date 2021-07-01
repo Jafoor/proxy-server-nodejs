@@ -2,9 +2,9 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth import login, logout, get_user_model
 from App_Account.models import Organization, VerifyOrgBankDetails
 from django.contrib.auth.decorators import login_required
-from App_Organization.forms import OrgDocumentsSubmit, OrgWithdraw
+from App_Organization.forms import OrgDocumentsSubmit, OrgWithdraw, CreateIssue
 from App_Event.models import Event, Donation, Withdraw
-from App_Admin.models import SupportedBanks
+from App_Admin.models import SupportedBanks, Issue
 from datetime import datetime
 from decimal import Decimal
 from django.contrib import messages
@@ -196,7 +196,7 @@ def WithdrawAmount(request, slug):
                 form.save(commit=False)
                 form.user=user
                 form.save()
-                return redirect(request, 'App_Organization:withdrawlist', slug)
+                return redirect('App_Organization:withdrawlist', slug)
 
         form = OrgWithdraw()
 
@@ -227,5 +227,51 @@ def WithdrawList(request, slug):
         }
 
         return render(request, 'App_Organization/withdrawlist.html', context)
+    else:
+        return render(request, 'notauthorised.html')
+
+@login_required(login_url = '/login/')
+def CreateIssueOrg(request, slug):
+
+    user = get_object_or_404(User, slug=slug)
+    if request.user == user:
+        org = get_object_or_404(Organization, org=user)
+
+        if request.method == 'POST':
+            form = CreateIssue(request.POST or None)
+            if form.is_valid():
+                f = form.save(commit=False)
+                f.user=user
+                f.save()
+                return redirect('App_Organization:issuelist', slug)
+        else:
+         form = CreateIssue()
+
+        context = {
+            'user': user,
+            'org': org,
+            'form': form
+        }
+
+        return render(request, 'App_Organization/createissue.html', context)
+    else:
+        return render(request, 'notauthorised.html')
+
+@login_required(login_url = '/login/')
+def issuelist(request, slug):
+
+    user = get_object_or_404(User, slug=slug)
+    if request.user == user:
+        org = get_object_or_404(Organization, org=user)
+
+        issue = Issue.objects.filter(user=user)
+
+        context = {
+            'user': user,
+            'org': org,
+            'issue': issue
+        }
+
+        return render(request, 'App_Organization/issuelist.html', context)
     else:
         return render(request, 'notauthorised.html')

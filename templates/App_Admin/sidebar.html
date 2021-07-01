@@ -72,6 +72,21 @@
             </ul>
           </li>
 
+          <li><a><i class="fa fa-table"></i> Issue <span class="fa fa-chevron-down"></span></a>
+            <ul class="nav child_menu">
+              <li><a href="{% url 'App_Admin:newissues' %}"> New Issues </a></li>
+              <li><a href="{% url 'App_Admin:readissues' %}"> Seen Issues Solved</a></li>
+              <li><a href="{% url 'App_Admin:issueworkingon' %}"> Working On </a></li>
+              <li><a href="{% url 'App_Admin:solvedissues' %}"> Solved </a></li>
+            </ul>
+          </li>
+
+          <li><a><i class="fa fa-table"></i> Contact Us <span class="fa fa-chevron-down"></span></a>
+            <ul class="nav child_menu">
+              <li><a href="{% url 'App_Admin:contactuslist' %}"> Contact Us List </a></li>
+            </ul>
+          </li>
+
 
         </ul>
       </div>

@@ -36,7 +36,12 @@ class Contactus(models.Model):
     name = models.CharField(max_length=255, blank=True, null=True)
     email = models.EmailField(blank=True, null=True)
     message = models.TextField(blank=True, null=True)
+    date = models.DateTimeField(default=timezone.now)
     subject = models.CharField(max_length=255, null=True, blank=True)
+    contacted = models.BooleanField(default=False)
+
+    def __str__(self):
+        return str(self.name)
 
 class SupportedBanks(models.Model):
 
@@ -46,3 +51,16 @@ class SupportedBanks(models.Model):
 
     def __str__(self):
         return str(self.name)
+
+class Issue(models.Model):
+
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    details = models.TextField(blank=True, null=True)
+    subject = models.CharField(max_length=255, null=True, blank=True)
+    read = models.BooleanField(default=False)
+    status = models.BooleanField(default=False)
+    solved = models.BooleanField(default=False)
+    date = models.DateTimeField(default=timezone.now)
+
+    def __str__(self):
+        return str(self.user.first_name)
