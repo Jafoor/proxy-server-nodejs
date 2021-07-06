@@ -29,7 +29,7 @@ Donation Collection | Home
                           <a href="mailto:{{user.email}}"><p> <i class="far fa-envelope"></i>{{user.email}}</p></a>
                           <a href="tel:{{profile.mobile_number}}"> <p> <i class="fas fa-phone-volume"></i> {{profile.mobile_number}} </p> </a>
                         </div>
-                          <button type="button" class="button button-contactForm boxed-btn ">Update Profile</button>
+                          <button type="button" onclick="location.href='{% url 'App_Account:updateinfo' slug=user.slug %}';"  class="button button-contactForm boxed-btn ">Update Profile</button>
                       </div>
                     </div>
                   </div>
@@ -61,7 +61,7 @@ Donation Collection | Home
                   </div>
 
 
-                {% if not  user.is_personorg %}
+                {% if  user.is_personorg %}
                 <br>
                 <br>
 

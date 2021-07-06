@@ -15,6 +15,8 @@ import os
 
 def upload_to_org_pic(instance, filename):
     return 'images/%s/org_pic/%s' % (instance.org.email, filename)
+def upload_to_profile_pic(instance, filename):
+    return 'images/%s/profile_pic/%s' % (instance.user.email, filename)
 def upload_to_member1_nid_front(instance, filename):
     return 'images/%s/member1_nid_front/%s' % (instance.org.email, filename)
 def upload_to_org_member1_nid_back(instance, filename):
@@ -109,7 +111,7 @@ class EmailConfirmation(models.Model):
 
 class Profile(models.Model):
     user = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
-    profile_pic = ResizedImageField(size=[293, 313], crop=['middle', 'center'], upload_to=upload_to_org_pic, quality=100, default='default_pic.png', null=True, blank=True)
+    profile_pic = ResizedImageField(size=[293, 313], crop=['middle', 'center'], upload_to=upload_to_profile_pic, quality=100, default='default_pic.png', null=True, blank=True)
     bio = models.CharField(max_length=100, blank=True)
     division = models.CharField(max_length=30, blank=True)
     zilla = models.CharField(max_length=30, blank=True)
@@ -120,17 +122,17 @@ class Profile(models.Model):
     def __str__(self):
         return str(self.user.first_name)
 
-    def save(self, *args, **kwargs):
-        super().save()
-
-    def is_fully_filled(self):
-        fields_names = [f.name for f in self._meta.get_fields()]
-
-        for field_name in fields_names:
-            value = getattr(self, field_name)
-            if value is None or value=='':
-                return False
-        return True
+    # def save(self, *args, **kwargs):
+    #     super().save()
+    #
+    # def is_fully_filled(self):
+    #     fields_names = [f.name for f in self._meta.get_fields()]
+    #
+    #     for field_name in fields_names:
+    #         value = getattr(self, field_name)
+    #         if value is None or value=='':
+    #             return False
+    #     return True
 
 
 
