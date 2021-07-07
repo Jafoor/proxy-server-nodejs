@@ -118,6 +118,7 @@ class Profile(models.Model):
     thana = models.CharField(max_length=30, blank=True)
     address = models.CharField(max_length=500, blank=True)
     mobile_number = models.CharField(max_length=15, blank=True)
+    message = models.TextField(default="", blank=True, null=True)
 
     def __str__(self):
         return str(self.user.first_name)

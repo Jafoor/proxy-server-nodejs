@@ -60,6 +60,8 @@
                                         <ul class="submenu">
                                             {% if request.user.is_org %}
                                             <li><a href="{% url 'App_Organization:OrganizationDashboard' slug=request.user.slug %}">Dashboard</a></li>
+                                            {% elif request.user.is_staff %}
+                                            <li><a href="{% url 'App_Admin:adminhome' %}">Dashboard</a></li>
                                             {% else %}
                                             <li><a href="{% url 'App_Account:profile' slug=request.user.slug %}">Profile</a></li>
                                             {% endif %}

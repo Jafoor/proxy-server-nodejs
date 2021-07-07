@@ -214,19 +214,24 @@ def UnVerifiedUsers(request):
 def UnVerifiedUsersBankDetails(request, pk):
 
     if request.user.is_staff:
-        user = get_object_or_404(VerifyPersonBankDetails, pk=pk)
-        profile = get_object_or_404(Profile, user=user.user)
+        verifypersonbankdetails = get_object_or_404(VerifyPersonBankDetails, pk=pk)
+        profile = get_object_or_404(Profile, user=verifypersonbankdetails.user)
 
         if request.method == 'POST':
-            form = VerifyPerson(request.POST or None, instance=user)
+            form = VerifyPerson(request.POST or None, instance=verifypersonbankdetails)
             if form.is_valid():
                 form.save(commit=False)
                 form.save()
+                if verifypersonbankdetails.is_verified == True:
+                    user = request.user
+                    user.is_personorg = True
+                    user.save()
+
                 return redirect('App_Admin:unverifiedusers')
         else:
-            form = VerifyPerson(instance = user)
+            form = VerifyPerson(instance = verifypersonbankdetails)
         context = {
-            'user': user,
+            'user': verifypersonbankdetails,
             'profile': profile,
             'form': form
         }

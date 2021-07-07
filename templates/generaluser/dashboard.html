@@ -5,6 +5,28 @@ Donation Collection | Home
 {% endblock %}
 
 {% block extra_css %}
+<style>
+.alert {
+  padding: 20px;
+  background-color: #f44336;
+  color: white;
+}
+
+.closebtn {
+  margin-left: 15px;
+  color: white;
+  font-weight: bold;
+  float: right;
+  font-size: 22px;
+  line-height: 20px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.closebtn:hover {
+  color: black;
+}
+</style>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 {% endblock %}
 
@@ -34,9 +56,6 @@ Donation Collection | Home
                     </div>
                   </div>
 
-
-
-
                   <br>
                   <br>
 
@@ -44,9 +63,9 @@ Donation Collection | Home
                     <div class="card-body">
                       <div class="d-flex flex-column align-items-center text-center">
                         <div class="">
-                          {% if not bankinfo.is_verified %}
+                          {% if not bankinfo.filled  %}
                           If you want to create an event fill up your bank details and personal infoformation form. Then your account will be verified by us.
-                          {% elif bankinfo.is_verified and not user.is_personorg %}
+                          {% elif bankinfo.filled and not user.is_personorg %}
                           We will review your account and then confirm you.
                           {% endif %}
                             <br>
@@ -59,6 +78,13 @@ Donation Collection | Home
                       </div>
                     </div>
                   </div>
+
+                  {% if bankinfo.message  %}
+                  <div class="alert">
+                    <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+                    <strong>Hey {{user.first_name}}</strong> {{bankinfo.message}}
+                  </div>
+                  {% endif %}
 
 
                 {% if  user.is_personorg %}
