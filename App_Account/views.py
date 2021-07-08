@@ -191,8 +191,9 @@ def updatepersonalbankinfo(request, slug):
         if form.is_valid():
             f = form.save(commit=False)
             f.save()
-            bankinfo.filled = True
-            bankinfo.save()
+            if f.nid_card_front and f.nid_card_back:
+                bankinfo.filled = True
+                bankinfo.save()
             return redirect('App_Account:profile', slug)
     else:
         form = UserBankProfile(instance=bankinfo)
