@@ -200,7 +200,7 @@ def VerifiedUsers(request):
 def UnVerifiedUsers(request):
 
     if request.user.is_staff:
-        user = VerifyPersonBankDetails.objects.filter(filled=True, is_verified=False)
+        user = VerifyPersonBankDetails.objects.filter(filled=True, is_verified=False).order_by('-updated_at')
         print(user)
         context = {
             'user': user
@@ -223,7 +223,7 @@ def UnVerifiedUsersBankDetails(request, pk):
                 form.save(commit=False)
                 form.save()
                 if verifypersonbankdetails.is_verified == True:
-                    user = request.user
+                    user = get_object_or_404(User, pk=verifypersonbankdetails.user.pk)
                     user.is_personorg = True
                     user.save()
 

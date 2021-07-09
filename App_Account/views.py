@@ -136,93 +136,105 @@ def email_confirm(request, activation_key):
 def generaluserdashboard(request, slug):
 
     user = get_object_or_404(User, slug=slug)
-    donations = Donation.objects.filter(user=user)
-    profile = get_object_or_404(Profile, user=user)
-    bankinfo = get_object_or_404(VerifyPersonBankDetails, user=user)
-    totalamount = 0
-    for i in donations:
-        totalamount += i.amount
+    if request.user == user:
+        donations = Donation.objects.filter(user=user)
+        profile = get_object_or_404(Profile, user=user)
+        bankinfo = get_object_or_404(VerifyPersonBankDetails, user=user)
+        totalamount = 0
+        for i in donations:
+            totalamount += i.amount
 
-    context = {
-        'user' : user,
-        'profile': profile,
-        'donations': donations,
-        'totalamount': totalamount,
-        'bankinfo': bankinfo
-    }
+        context = {
+            'user' : user,
+            'profile': profile,
+            'donations': donations,
+            'totalamount': totalamount,
+            'bankinfo': bankinfo
+        }
 
-    return render (request, 'generaluser/dashboard.html', context)
+        return render (request, 'generaluser/dashboard.html', context)
+    else:
+        return render(request, 'notauthorised.html')
 
 
 def updatepersonalinfo(request, slug):
 
     usr = get_object_or_404(User, slug=slug)
-    profile = get_object_or_404(Profile, user=usr)
+    if request.user == user:
+        profile = get_object_or_404(Profile, user=usr)
 
-    if request.method == 'POST':
-        form = UserInfo(request.POST or None, request.FILES or None, instance=profile)
-        if form.is_valid():
-            f = form.save(commit=False)
-            f.save()
-            division = request.POST.get('division')
-            zilla = request.POST['zilla']
-            thana = request.POST.get('thana')
-            profile.division = division
-            profile.zilla = zilla
-            profile.thana = thana
-            profile.save()
-            return redirect('App_Account:profile', slug)
+        if request.method == 'POST':
+            form = UserInfo(request.POST or None, request.FILES or None, instance=profile)
+            if form.is_valid():
+                f = form.save(commit=False)
+                f.save()
+                division = request.POST.get('division')
+                zilla = request.POST['zilla']
+                thana = request.POST.get('thana')
+                profile.division = division
+                profile.zilla = zilla
+                profile.thana = thana
+                profile.save()
+                return redirect('App_Account:profile', slug)
+        else:
+            form = UserInfo(instance=profile)
+
+        context = {
+            'form': form,
+        }
+
+        return render (request, 'generaluser/updateinfo.html', context)
     else:
-        form = UserInfo(instance=profile)
-
-    context = {
-        'form': form,
-    }
-
-    return render (request, 'generaluser/updateinfo.html', context)
+        return render(request, 'notauthorised.html')
 
 def updatepersonalbankinfo(request, slug):
 
     usr = get_object_or_404(User, slug=slug)
-    bankinfo = get_object_or_404(VerifyPersonBankDetails, user=usr)
+    if request.user == user:
+        bankinfo = get_object_or_404(VerifyPersonBankDetails, user=usr)
 
-    if request.method == 'POST':
-        form = UserBankProfile(request.POST or None, request.FILES or None, instance=bankinfo)
-        if form.is_valid():
-            f = form.save(commit=False)
-            f.save()
-            if f.nid_card_front and f.nid_card_back:
-                bankinfo.filled = True
-                bankinfo.save()
-            return redirect('App_Account:profile', slug)
+        if request.method == 'POST':
+            form = UserBankProfile(request.POST or None, request.FILES or None, instance=bankinfo)
+            if form.is_valid():
+                f = form.save(commit=False)
+                f.save()
+                if f.nid_card_front and f.nid_card_back:
+                    bankinfo.filled = True
+                    if bankinfo.message:
+                        bankinfo.message = ""
+                    bankinfo.save()
+                return redirect('App_Account:profile', slug)
+        else:
+            form = UserBankProfile(instance=bankinfo)
+
+        context = {
+            'form': form,
+        }
+
+        return render (request, 'generaluser/updatebankinfo.html', context)
     else:
-        form = UserBankProfile(instance=bankinfo)
-
-    context = {
-        'form': form,
-    }
-
-    return render (request, 'generaluser/updatebankinfo.html', context)
+        return render(request, 'notauthorised.html')
 
 
 def PersonApplyevent(request, slug):
 
     user = get_object_or_404(User, slug=slug)
-    if request.method == 'POST':
-        form = CreateEventSubmit(request.POST or None, request.FILES or None)
-        if form.is_valid():
-            event = form.save(commit=False)
-            event.user = user
-            event.save()
-            return redirect('App_Account:profile', slug)
+    if request.user == user:
+        if request.method == 'POST':
+            form = CreateEventSubmit(request.POST or None, request.FILES or None)
+            if form.is_valid():
+                event = form.save(commit=False)
+                event.user = user
+                event.save()
+                return redirect('App_Account:profile', slug)
+        else:
+            form = CreateEventSubmit()
+        context = {
+            'form': form,
+        }
+        return render(request, 'generaluser/createevent.html', context)
     else:
-        form = CreateEventSubmit()
-    context = {
-        'form': form,
-    }
-
-
-    return render(request, 'generaluser/createevent.html', context)
+        return render(request, 'notauthorised.html')
 
 
 
@@ -232,57 +244,66 @@ def PersonApplyevent(request, slug):
 def personorgdashboard(request, slug):
 
     user = get_object_or_404(User, slug=slug)
-    events = Event.objects.filter(user=user)
-    profile = get_object_or_404(Profile, user=user)
-    bankinfo = get_object_or_404(VerifyPersonBankDetails, user=user)
+    if request.user == user:
+        events = Event.objects.filter(user=user)
+        profile = get_object_or_404(Profile, user=user)
+        bankinfo = get_object_or_404(VerifyPersonBankDetails, user=user)
 
-    context = {
-        'user' : user,
-        'profile': profile,
-        'events': events,
-        'bankinfo': bankinfo
-    }
+        context = {
+            'user' : user,
+            'profile': profile,
+            'events': events,
+            'bankinfo': bankinfo
+        }
 
-    return render (request, 'personorg/dashboardpersonorg.html', context)
+        return render (request, 'personorg/dashboardpersonorg.html', context)
+    else:
+        return render(request, 'notauthorised.html')
 
 def eventsummery(request, slug):
     event = get_object_or_404(Event, slug=slug)
     user = get_object_or_404(User, slug=event.user.slug)
-    donations = Donation.objects.filter(event=event, ordered=True)
+    if request.user == user:
+        donations = Donation.objects.filter(event=event, ordered=True)
 
-    context = {
-        'event': event,
-        'donations': donations,
-        'user': user
-    }
+        context = {
+            'event': event,
+            'donations': donations,
+            'user': user
+        }
 
-    return render(request, 'personorg/eventsummery.html', context)
+        return render(request, 'personorg/eventsummery.html', context)
+    else:
+        return render(request, 'notauthorised.html')
 
 def withdrawbalance(request, slug):
 
     user = get_object_or_404(User, slug=slug)
-    personbank = get_object_or_404(VerifyPersonBankDetails, user=user)
-    if request.method == 'POST':
-        form = Withdraw(request.POST or None)
-        if form.is_valid():
+    if request.user == user:
+        personbank = get_object_or_404(VerifyPersonBankDetails, user=user)
+        if request.method == 'POST':
+            form = Withdraw(request.POST or None)
+            if form.is_valid():
 
-            amount = form.cleaned_data['amount']
-            amount = Decimal(amount)
-            current = Decimal(personbank.current_balance)
-            if current < amount or amount <= 0.0:
-                messages.error(request, "You don't have enough balance to withdraw.")
-                return redirect('App_Account:withdrawbalance', slug)
+                amount = form.cleaned_data['amount']
+                amount = Decimal(amount)
+                current = Decimal(personbank.current_balance)
+                if current < amount or amount <= 0.0:
+                    messages.error(request, "You don't have enough balance to withdraw.")
+                    return redirect('App_Account:withdrawbalance', slug)
 
-            form.save(commit=False)
-            form.user = user
-            form.save()
-            return redirect('App_Account:verifiesperson', slug=user.slug )
+                form.save(commit=False)
+                form.user = user
+                form.save()
+                return redirect('App_Account:verifiesperson', slug=user.slug )
+        else:
+            form = Withdraw()
+
+        context = {
+            'form': form,
+            'personbank': personbank,
+        }
+
+        return render(request, 'personorg/withdraw.html', context)
     else:
-        form = Withdraw()
-
-    context = {
-        'form': form,
-        'personbank': personbank,
-    }
-
-    return render(request, 'personorg/withdraw.html', context)
+        return render(request, 'notauthorised.html')

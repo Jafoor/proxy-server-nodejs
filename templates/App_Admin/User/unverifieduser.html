@@ -42,7 +42,9 @@ Admin Dashboard | Organization Lists
                          <table id="datatable-keytable" class="table table-striped table-bordered" style="width:100%">
                            <thead>
                              <tr>
+                               <th>Num</th>
                                <th>Email</th>
+                               <th>Updated</th>
                                <th>First Name</th>
                                <th>Date</th>
                                <th>Bank</th>
@@ -54,7 +56,9 @@ Admin Dashboard | Organization Lists
 
                              {% for usr in user %}
                              <tr>
+                               <td>{{forloop.counter}}</td>
                                <td><a href="{% url 'App_Admin:userdetails' pk=usr.user.pk %}">{{usr.user.email}}</a></td>
+                               <td>{{usr.updated_at}}</td>
                                <td>{{usr.user.first_name}}</td>
                                <td>{{usr.user.start_date}}</td>
                                <td><a href="{% url 'App_Admin:unverifiedusersbankdetails' pk=usr.pk %}">{{usr.bank_name}}</a></td>
