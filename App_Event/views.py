@@ -22,9 +22,10 @@ from django.views.decorators.csrf import csrf_exempt
 def Home(request):
 
     landingpage = LandingPage.objects.filter().order_by('-id')[0]
-
+    events = Event.objects.filter(active=True).order_by('clicked')
     context = {
-        'landingpage': landingpage
+        'landingpage': landingpage,
+        'popularenvents': events
     }
 
     return render(request, 'App_Event/home.html', context)
